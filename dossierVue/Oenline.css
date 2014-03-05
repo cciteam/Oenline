@@ -1,0 +1,159 @@
+
+body{
+	margin:0; 
+	padding:0; 
+	width : 100%;
+}
+
+header{
+	margin : 0; 
+	padding:0; 
+	text-align: center; 
+	font-family: "Over the Rainbow";
+	width:100%;}
+
+header img{width :100%;}
+
+nav{
+	margin: 0;
+	padding:0; 
+	width : 100%;
+	background-color: #F7EBBB;}
+
+nav ul{
+	margin :0; 
+	padding:0; 
+	width : 100%;}
+
+nav ul li{
+	margin :0;
+	padding : 0;
+	background-color: #B21313;
+	list-style-type: none; 
+	display: inline-block;
+	vertical-align: center;
+	text-align : center;
+	height: 2em;
+	width : 100%;
+	color : #F7EBBB;
+	border: 0px solid #B21313;}
+
+nav ul li a { 
+	color: #F7EBBB;
+	font: 1.3em "Trebuchet MS", Verdana, "Lucida Grande", Tahoma, Helvetica, Sans-Serif;
+	text-decoration: none;
+	float: left;
+	width : 100%;
+	text-align: center;}
+
+div#contenu{
+	margin : 0;
+	padding : 0; 
+	display: block; 
+	background-color: #F7EBBB; 
+	width:100%;
+	border: 1px solid  #F7EBBB; 
+	text-align: justify;} 
+
+section h3{text-align: center;}
+
+footer{
+	margin : 0;
+	padding : 0; 
+	display: block; 
+	background-color: #B21313; 
+	width:100%; color :#F7EBBB; 
+	text-align: center;
+	border: 1px solid #B21313;}
+
+footer a {
+	text-decoration : none;
+	color :#F7EBBB;}
+
+span.error{color : #E80000;}
+
+
+nav ul li#active{background-color: #F7EBBB ;}
+nav ul li#active a{color : #B21313;}
+
+nav ul li:hover{background-color: #F7EBBB ;}
+
+nav ul li a:hover{color : #B21313;}
+
+nav ul li:active{background-color: #F7EBBB ;}
+
+nav ul li a:active{color : #B21313;}
+
+@media all and (min-width: 480px), {
+
+	header img{width :40%;}
+	
+	header div.connexion { 
+		display : inline-block;
+		float : right;
+		width : 120px;
+		}
+		
+	header div.titre  {
+		display : inline-block;
+		margin-right : 121px;}
+		
+	header div.clear{
+		clear : both;}
+	
+
+	nav {
+		width : 100%;
+		background-color:#B21313; 
+		border : 0px solid #B21313; 
+		display : block; 
+		height : 2em;
+		font-size: 0.65em;
+		clear:both;}
+
+	nav ul li{
+		float : left;
+		width : 24.4%;
+		color : #F7EBBB;
+		height: 2em;
+		border: 0px solid #B21313;
+		font-size: 1em;}
+
+	section{clear : both;}
+	
+	article#enregistrer_un_vin{
+		width : 100%
+		}
+	form {
+		width : 100%;}
+	fieldset {
+		width : 100%;}
+	
+	fieldset div.liste_deroulante{
+		display : inline-block;
+		float : left;
+		width : 30%;
+	}
+	fieldset div.ou{
+		display : inline-block;
+		float : left; 
+		width : 10%;
+		}
+
+	fieldset div.ajout{
+		display : inline-block;
+		float : left; 
+		width : 30%;
+	}
+	}
+
+@media all and (min-width: 1024px), {
+
+	header img{width :300px;}
+
+	nav {font-size: 1em;}
+	
+	nav ul li{
+		font-size : 1em;
+		width : 24.75%;}
+}
