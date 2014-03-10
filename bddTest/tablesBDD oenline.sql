@@ -3,7 +3,7 @@
 drop table if exists membre cascade;
 drop table if exists groupe cascade;
 drop table if exists partie cascade;
-drop table if exists vue cascade;
+drop table if exists robe cascade;
 drop table if exists bouche cascade;
 drop table if exists vin cascade;
 drop table if exists domaine cascade;
@@ -19,16 +19,24 @@ drop table if exists goute cascade;
 drop table if exists aGout cascade;
 drop table if exists aAspect cascade;
 drop table if exists constitue cascade;
+drop table if exists boucheTypeVin cascade;
+drop table if exists robeTypeVin cascade;
+drop table if exists nezTypeVin cascade;
+
+drop view if exists scoreRT;
+drop view if exists scoreR;
+drop view if exists scoreB;
+drop view if exists scoreN;
+drop view if exists scoreBT;
+drop view if exists scoreNT;
 
 
 create table if not exists membre (
     idMembre integer not null AUTO_INCREMENT,
-    aliasMembre varchar(32),
+    pseudoMembre varchar(32),
     nomMembre varchar(32),
 	motDePasse varchar(32),
     mailMembre varchar(50),
-    questionSecrete varchar(100),
-    reponseQuestion varchar(32),
 	idGroupe integer not null,
     primary key (idMembre)
 );
@@ -49,12 +57,12 @@ create table if not exists partie (
     primary key (idPartie)
 );
 
-create table if not exists vue (
+create table if not exists robe (
 	idRobe integer not null AUTO_INCREMENT,
     nomRobe varchar(50),
     typeRobe varchar(32),
     typeDescRobe varchar(50),
-	idTypeVin integer not null,
+	scoreRobe integer,
     primary key (idRobe)
 );
 
@@ -63,7 +71,7 @@ create table if not exists bouche (
     nomBouche varchar(50),
     typeBouche varchar(32),
     typeDescBouche varchar(50),
-	idTypeVin integer not null,
+	scoreBouche integer,
     primary key (idBouche)
 );
 
@@ -95,7 +103,6 @@ create table if not exists appellation (
 create table if not exists cepage (
 	idCepage integer not null AUTO_INCREMENT,
 	nomCepage varchar (32),
-	caracteristiqueCepage varchar (100),
 	primary key (idCepage)
 );
 
@@ -103,7 +110,7 @@ create table if not exists nez (
 	idNez integer not null AUTO_INCREMENT,
 	nomNez varchar (32),
 	typeNez varchar (32),
-	idTypeVin integer not null,
+	scoreNez integer,
 	primary key (idNez)
 );
 
@@ -131,7 +138,6 @@ create table if not exists sent (
 create table if not exists aOdeur (
 	idVin integer not null,
 	idNez integer not null,
-	scoreNez integer,
 	primary key (idVin,idNez)
 );
 
@@ -151,14 +157,12 @@ create table if not exists goute (
 create table if not exists aGout (
 	idVin integer not null,
 	idBouche integer not null,
-	scoreGout integer,
 	primary key (idVin,idBouche)
 );
 
 create table if not exists aAspect (
 	idVin integer not null,
 	idRobe integer not null,
-	scoreVue integer,
 	primary key (idVin,idRobe)
 );
 
@@ -166,6 +170,24 @@ create table if not exists constitue (
 	idVin  integer not null,
 	idCepage integer not null,
 	primary key (idVin,idCepage)
+);
+
+create table if not exists boucheTypeVin (
+    idTypeVin integer not null,
+    idBouche integer not null,
+    primary key (idTypeVin, idBouche)
+);
+
+create table if not exists robeTypeVin (
+    idTypeVin integer not null,
+    idRobe integer not null,
+    primary key (idTypeVin, idRobe)
+);
+
+create table if not exists nezTypeVin (
+    idTypeVin integer not null,
+    idNez integer not null,
+    primary key (idTypeVin, idNez)
 );
 
 alter table Vin
@@ -183,17 +205,8 @@ add foreign key (IdVin) references Vin(IdVin);
 alter table Partie
 add foreign key (IdMembre) references Membre(IdMembre);
 
-alter table Vue
-add foreign key (IdTypeVin) references TypeVin(IdTypeVin);
-
-alter table Bouche
-add foreign key (IdTypeVin) references TypeVin(IdTypeVin);
-
-alter table Nez
-add foreign key (IdTypeVin) references TypeVin(IdTypeVin);
-
 alter table Membre
-add foreign key (IdGroupe) references Groupe(IdGroupe);
+add foreign key (IdGroupe) references groupe(IdGroupe);
 
 alter table aGout
 add foreign key (idVin) references vin(idVin);
@@ -205,7 +218,7 @@ alter table aAspect
 add foreign key (idVin) references vin(idVin);
 
 alter table aAspect
-add foreign key (idRobe) references vue(idRobe);
+add foreign key (idRobe) references robe(idRobe);
 	
 alter table aOdeur
 add foreign key (idVin) references vin(idVin);
@@ -223,10 +236,58 @@ alter table voit
 add foreign key (idPartie) references partie(idPartie);
 
 alter table voit
-add foreign key (idRobe) references vue(idRobe);
+add foreign key (idRobe) references robe(idRobe);
 	
 alter table sent
 add foreign key (idPartie) references vin(idPartie);
 
 alter table sent
 add foreign key (idNez) references nez(idNez);
+
+alter table boucheTypeVin
+add foreign key (idTypeVin) references typeVin(idTypeVin);
+
+alter table boucheTypeVin
+add foreign key (idBouche) references bouche(idBouche);
+
+alter table nezTypeVin
+add foreign key (idTypeVin) references typeVin(idTypeVin);
+
+alter table nezTypeVin
+add foreign key (idNez) references nez(idNez);
+
+alter table robeTypeVin
+add foreign key (idTypeVin) references typeVin(idTypeVin);
+
+alter table robeTypeVin
+add foreign key (idRobe) references robe(idRobe);
+
+create view scoreNT as (select idPartie, sum(scoreNez) scoreNzT
+                       from partie natural join vin natural join aodeur natural join nez
+					   group by idPartie);
+					   
+
+create view scoreBT as (select idPartie, sum(scoreBouche) scoreBcT
+                       from partie natural join vin natural join aGout natural join bouche
+					   group by idPartie);
+					   
+
+create view scoreRT as (select idPartie, sum(scoreRobe) scoreRbT
+                       from partie natural join vin natural join aaspect natural join robe
+					   group by idPartie);
+					   
+
+create view scoreN as (select idPartie, sum(scoreNez) scoreNz
+                       from partie natural join vin natural join aodeur natural join nez natural join sent
+					   group by idPartie);
+					   
+					   
+
+create view scoreB as (select idPartie, sum(scoreBouche) scoreBc
+                       from partie natural join vin natural join agout natural join bouche natural join goute
+					   group by idPartie);
+					   
+
+create view scoreR as (select idPartie, sum(scoreRobe) scoreRb
+                       from partie natural join vin natural join aaspect natural join robe natural join voit
+					   group by idPartie);
