@@ -15,7 +15,7 @@ class MySQLAOdeurDAO implements AOdeurDAO
 
 	public function ajouter($aOdeur)
 	{
-		$requete="INSERT INTO $this->nomTable (idVin, idNez, scoreNez) VALUES ('$aOdeur->idVin', '$aOdeur->idNez', '$aOdeur->scoreNez')";
+		$requete="INSERT INTO $this->nomTable (idVin, idNez) VALUES ('$aOdeur->idVin', '$aOdeur->idNez')";
 		$this->connexion->executer($requete);
 		return $aOdeur;
 	}
@@ -28,7 +28,7 @@ class MySQLAOdeurDAO implements AOdeurDAO
 
 	public function modifier($aOdeur)
 	{
-		$requete="UPDATE $this->nomTable SET idVin='$aOdeur->idVin' , idNez='$aOdeur->idNez', scoreNez='$aOdeur->scoreNez' WHERE idVin='$aOdeur->idVin' AND idNez='$aOdeur->idNez'";
+		$requete="UPDATE $this->nomTable SET idVin='$aOdeur->idVin' , idNez='$aOdeur->idNez' WHERE idVin='$aOdeur->idVin' AND idNez='$aOdeur->idNez'";
 		$this->connexion->executer($requete);
 	}
 
@@ -71,7 +71,7 @@ class MySQLAOdeurDAO implements AOdeurDAO
 	{
 		$ontOdeur=array();
 		while($ligne=mysql_fetch_array($resultatRequete))
-			$ontOdeur[]=new AOdeur($ligne['idVin'], $ligne['idNez'], $ligne['scoreNez']);
+			$ontOdeur[]=new AOdeur($ligne['idVin'], $ligne['idNez']);
 		return $ontOdeur;
 	}
 	

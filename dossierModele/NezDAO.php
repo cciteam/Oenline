@@ -9,7 +9,6 @@ interface NezDAO
 	public function trouverParIdNez($idNez);
 	public function trouverParNom($nomNez);
 	public function trouverParTypeNez($typeNez);
-	public function trouverParIdTypeVin($idTypeVin);
 }
 
 ?>

@@ -17,10 +17,12 @@ class ControleurOenline
 		return $this->modele->ajouterVin($vin, $domaine, $appellation, $typeVin, $cepages, $vues, $nezz, $bouches, $scoresVues);
 	}
 
-	//ajoute une partie avec ses voit, sent, goute
-	public function ajouterPartie($partie, $vin, $membre, $vues, $nezz, $bouches)
+	//ajoute une partie avec ses dépendances 
+	//la fonction retourne un objet 'partie' avec le score qui lui correspond
+	//en effet, ajouterPartie comporte une fonction qui calcule directement le score
+	public function ajouterPartie($partie, $vin, $membre, $robess, $nezz, $bouches)
 	{
-		return $this->modele->ajouterPartie($partie, $vin, $membre, $vues, $nezz, $bouches);
+		return $this->modele->ajouterPartie($partie, $vin, $membre, $robess, $nezz, $bouches);
 	}
 
 	//ajoute un domaine
@@ -83,10 +85,10 @@ class ControleurOenline
 		return $this->modele->trouverDomaines();
 	}
 
-	//retourne toutes les vues
-	public function trouverVues()
+	//retourne toutes les robes
+	public function trouverRobes()
 	{
-		return $this->modele->trouverVues();
+		return $this->modele->trouverRobes();
 	}
 
 	//retourne tous les nez
@@ -180,10 +182,10 @@ class ControleurOenline
 		return $this->modele->trouverGoutsVin($vin);
 	}
 
-	//retourne les vues du vin passé en paramètre
-	public function trouverVuesVin($vin)
+	//retourne les robes du vin passé en paramètre
+	public function trouverRobesVin($vin)
 	{
-		return $this->modele->trouverVuesVin($vin);
+		return $this->modele->trouverRobesVin($vin);
 	}
 
 	//retourne les nez du vin passé en paramètre
@@ -204,10 +206,28 @@ class ControleurOenline
 		return $this->modele->trouverNezPartie($partie);
 	}
 
-	//retourne les vues sélectionnées dans la partie
-	public function trouverVuesPartie($partie)
+	//retourne les robes sélectionnées dans la partie
+	public function trouverRobesPartie($partie)
 	{
-		return $this->modele->trouverVuesPartie($partie);
+		return $this->modele->trouverRobesPartie($partie);
+	}
+
+	//retourne les bouches correspondant au type de vin passé en paramètre
+	public function trouverBouchesParTypeVin($typeVin)
+	{
+		return $this->modele->trouverBouchesParTypeVin($typeVin);
+	}
+
+	//retourne les nez correspondant au type de vin passé en paramètre
+	public function trouverNezParTypeVin($typeVin)
+	{
+		return $this->modele->trouverNezParTypeVin($typeVin);
+	}
+
+	//retourne les robes correspondant au type de vin passé en paramètre
+	public function trouverRobesParTypeVin($typeVin)
+	{
+		return $this->modele->trouverRobesParTypeVin($typeVin);
 	}
 
 }

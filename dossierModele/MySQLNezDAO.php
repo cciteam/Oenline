@@ -15,7 +15,7 @@ class MySQLNezDAO implements NezDAO
 
 	public function ajouter($nez)
 	{
-		$requete="INSERT INTO $this->nomTable (nomNez, typeNez, idTypeVin) VALUES ('$nez->nomNez', '$nez->typeNez', '$nez->idTypeVin')";
+		$requete="INSERT INTO $this->nomTable (nomNez, typeNez, scoreNez) VALUES ('$nez->nomNez', '$nez->typeNez', '$nez->scoreNez')";
 		$this->connexion->executer($requete);
 		$nez->idNez = $this->connexion->dernierID();
 		return $nez;
@@ -29,7 +29,7 @@ class MySQLNezDAO implements NezDAO
 
 	public function modifier($nez)
 	{
-		$requete="UPDATE $this->nomTable SET nomNez='$nez->nomNez' , typeNez='$nez->typeNez' , idTypeVin='$nez->idTypeVin'  WHERE idRobe='$nez->idNez'";
+		$requete="UPDATE $this->nomTable SET nomNez='$nez->nomNez' , typeNez='$nez->typeNez' , scoreNez='$nez->scoreNez'  WHERE idRobe='$nez->idNez'";
 		$this->connexion->executer($requete);
 	}
 
@@ -68,25 +68,12 @@ class MySQLNezDAO implements NezDAO
 		return $this->creerNez($resultat);
 	}
 
-	public function trouverParIdTypeVin($idTypeVin)
-	{
-		//vérifie qu'il y a au moins un id en paramètre, sinon le programme s'interrompt
-		assert(count($idTypeVin)>=1);
-		$requete="SELECT * FROM $this->nomTable WHERE idTypeVin IN ($idTypeVin[0]";
-		for($i=1; $i<count($idTypeVin); $i++)
-		{
-			$requete.=", $idTypeVin[$i]";
-		}
-		$requete.=")";
-		$resultat=$this->connexion->executer($requete);
-		return $this->creerNez($resultat);
-	}
 
 	public function creerNez($resultatRequete)
 	{
 		$nez=array();
 		while($ligne=mysql_fetch_array($resultatRequete))
-			$nez[]=new Nez($ligne['idNez'], $ligne['nomNez'], $ligne['typeNez'], $ligne['idTypeVin']);
+			$nez[]=new Nez($ligne['idNez'], $ligne['nomNez'], $ligne['typeNez'], $ligne['scoreNez']);
 		return $nez;
 	}
 	

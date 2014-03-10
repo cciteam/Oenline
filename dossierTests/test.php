@@ -19,12 +19,19 @@
 			$vins=$controleur->trouverVins();
 			$typesVins=$controleur->trouverTypesVins();
 			$appellations=$controleur->trouverAppellations();
+			$bouches=$controleur->trouverBouchesParTypeVin($typesVins[0]);
+
+			echo "les bouches <br>";
+			foreach($bouches as $bouche)
+			{
+				echo $bouche->description();
+			}
 
 			//comme $cepage est un tableau, il faut une boucle pour le parcourir
 			echo "Les cépages: ";
 			foreach ($cepages as $cepage) {
 				//on peut accéder aux valeurs des variables des objets directement, elles ont été déclaré public dans la classe
-				echo "</br><br/>En y accédant par les variables: <br/> $cepage->idCepage $cepage->nomCepage $cepage->caracteristiqueCepage";
+				echo "</br><br/>En y accédant par les variables: <br/> $cepage->idCepage $cepage->nomCepage";
 				//description() est une fonction qui retourne une chaîne de caractères qui décrit l'objet
 				echo '<br/>Avec la fonction description:<br/>'.$cepage->description();
 			}

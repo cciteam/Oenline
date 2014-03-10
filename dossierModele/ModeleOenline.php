@@ -15,6 +15,7 @@ class ModeleOenline
 	private $aOdeurDAO=NULL;
 	private $appellationDAO=NULL;
 	private $boucheDAO=NULL;
+	private $boucheTypeVinDAO=NULL;
 	private $cepageDAO=NULL;
 	private $constitueDAO=NULL;
 	private $coursDAO=NULL;
@@ -23,12 +24,14 @@ class ModeleOenline
 	private $groupeDAO=NULL;
 	private $membreDAO=NULL;
 	private $nezDAO=NULL;
+	private $nezTypeVinDAO=NULL;
 	private $partieDAO=NULL;
+	private $robeDAO=NULL;
+	private $robeTypeVinDAO=NULL;
 	private $sentDAO=NULL;
 	private $typeVinDAO=NULL;
 	private $vinDAO=NULL;
 	private $voitDAO=NULL;
-	private $vueDAO=NULL;
 
 	private $orm=NULL;
 
@@ -42,6 +45,7 @@ class ModeleOenline
 		$this->aOdeurDAO=new MySQLAOdeurDAO($this->bdd);
 		$this->appellationDAO=new MySQLAppellationDAO($this->bdd);
 		$this->boucheDAO=new MySQLBoucheDAO($this->bdd);
+		$this->boucheTypeVinDAO=new MySQLboucheTypeVinDAO($this->bdd);
 		$this->cepageDAO=new MySQLCepageDAO($this->bdd);
 		$this->constitueDAO=new MySQLConstitueDAO($this->bdd);
 		$this->coursDAO=new MySQLCoursDAO($this->bdd);
@@ -50,14 +54,17 @@ class ModeleOenline
 		$this->groupeDAO=new MySQLGroupeDAO($this->bdd);
 		$this->membreDAO=new MySQLMembreDAO($this->bdd);
 		$this->nezDAO=new MySQLNezDAO($this->bdd);
+		$this->nezTypeVinDAO=new MySQLnezTypeVinDAO($this->bdd);
 		$this->partieDAO=new MySQLPartieDAO($this->bdd);
+		$this->robeDAO=new MySQLrobeDAO($this->bdd);
+		$this->robeTypeVinDAO=new MySQLrobeTypeVinDAO($this->bdd);
 		$this->sentDAO=new MySQLSentDAO($this->bdd);
 		$this->typeVinDAO=new MySQLTypeVinDAO($this->bdd);
 		$this->vinDAO=new MySQLVinDAO($this->bdd);
 		$this->voitDAO=new MySQLVoitDAO($this->bdd);
-		$this->vueDAO=new MySQLVueDAO($this->bdd);
+		
 
-		$this->orm=new MySQLORM($this->bdd, $this->vinDAO, $this->constitueDAO, $this->domaineDAO, $this->cepageDAO, $this->boucheDAO, $this->aGoutDAO, $this->vueDAO, $this->aAspectDAO, $this->nezDAO, $this->aOdeurDAO, $this->gouteDAO, $this->sentDAO, $this->voitDAO, $this->membreDAO, $this->partieDAO);
+		$this->orm=new MySQLORM($this->bdd, $this->vinDAO, $this->constitueDAO, $this->domaineDAO, $this->cepageDAO, $this->boucheDAO, $this->aGoutDAO, $this->robeDAO, $this->aAspectDAO, $this->nezDAO, $this->aOdeurDAO, $this->gouteDAO, $this->sentDAO, $this->voitDAO, $this->membreDAO, $this->partieDAO, $this->boucheTypeVinDAO, $this->nezTypeVinDAO, $this->robeTypeVinDAO);
 	}
 
 	public function __destruct()
@@ -65,16 +72,16 @@ class ModeleOenline
 		$this->bdd->deconnecter();
 	}
 
-	//ajouter un vin, avec son domaine, son appellation... ses cépages, ses vues, ses nez, ses bouches
-	public function ajouterVin($vin, $domaine, $appellation, $typeVin, $cepages, $vues, $nezz, $bouches)
+	//ajouter un vin, avec son domaine, son appellation... ses cépages, ses robes, ses nez, ses bouches
+	public function ajouterVin($vin, $domaine, $appellation, $typeVin, $cepages, $robes, $nezz, $bouches)
 	{
-		return $this->orm->ajouterVin($vin, $domaine, $appellation, $typeVin, $cepages, $vues, $nezz, $bouches);
+		return $this->orm->ajouterVin($vin, $domaine, $appellation, $typeVin, $cepages, $robes, $nezz, $bouches);
 	}
 
 	//ajoute une partie avec ses voit, sent, goute
-	public function ajouterPartie($partie, $vin, $membre, $vues, $nezz, $bouches)
+	public function ajouterPartie($partie, $vin, $membre, $robes, $nezz, $bouches)
 	{
-		return $this->orm->ajouterPartie($partie, $vin, $membre, $vues, $nezz, $bouches);
+		return $this->orm->ajouterPartie($partie, $vin, $membre, $robes, $nezz, $bouches);
 	}
 
 	//ajoute un domaine
@@ -137,10 +144,10 @@ class ModeleOenline
 		return $this->domaineDAO->trouverTout();
 	}
 
-	//retourne toutes les vues
-	public function trouverVues()
+	//retourne toutes les robes
+	public function trouverRobes()
 	{
-		return $this->vueDAO->trouverTout();
+		return $this->robeDAO->trouverTout();
 	}
 
 	//retourne tous les nez
@@ -224,14 +231,29 @@ class ModeleOenline
 		return $this->typeVinDAO->trouverParId($vin->idTypeVin);
 	}
 
+	public function trouverBouchesParTypeVin($typeVin)
+	{
+		return $this->orm->trouverBouchesParTypeVin($typeVin);
+	}
+
+	public function trouverNezParTypeVin($typeVin)
+	{
+		return $this->orm->trouverNezParTypeVin($typeVin);
+	}
+
+	public function trouverRobesParTypeVin($typeVin)
+	{
+		return $this->orm->trouverRobesParTypeVin($typeVin);
+	}
+
 	public function trouverGoutsVin($vin)
 	{
 		return $this->orm->trouverGoutsVin($vin);
 	}
 
-	public function trouverVuesVin($vin)
+	public function trouverRobesVin($vin)
 	{
-		return $this->orm->trouverVuesVin($vin);
+		return $this->orm->trouverrobesVin($vin);
 	}
 
 	public function trouverNezVin($vin)
@@ -249,9 +271,9 @@ class ModeleOenline
 		return $this->orm->trouverNezPartie($partie);
 	}
 
-	public function trouverVuesPartie($partie)
+	public function trouverRobesPartie($partie)
 	{
-		return $this->orm->trouverVuesPartie($partie);
+		return $this->orm->trouverRobesPartie($partie);
 	}
 
 

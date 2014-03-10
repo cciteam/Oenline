@@ -10,7 +10,6 @@ interface BoucheDAO
 	public function trouverParNom($nomBouche);
 	public function trouverParTypeDescBouche($typeDescBouche);
 	public function trouverParTypeBouche($descBouche);
-	public function trouverParIdTypeVin($idTypeVin);
 }
 
 ?>

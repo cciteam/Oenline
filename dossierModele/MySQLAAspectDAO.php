@@ -15,7 +15,7 @@ class MySQLAAspectDAO implements AAspectDAO
 
 	public function ajouter($aAspect)
 	{
-		$requete="INSERT INTO $this->nomTable (idVin, idRobe, scoreVue) VALUES ('$aAspect->idVin', '$aAspect->idRobe', '$aAspect->scoreVue')";
+		$requete="INSERT INTO $this->nomTable (idVin, idRobe) VALUES ('$aAspect->idVin', '$aAspect->idRobe')";
 		$this->connexion->executer($requete);
 		return $aAspect;
 	}
@@ -28,7 +28,7 @@ class MySQLAAspectDAO implements AAspectDAO
 
 	public function modifier($aAspect)
 	{
-		$requete="UPDATE $this->nomTable SET idVin='$aAspect->idVin' , idRobe='$aAspect->idRobe', scoreVue='$aAspect->scoreVue' WHERE idVin='$aAspect->idVin' AND idRobe='$aAspect->idRobe'";
+		$requete="UPDATE $this->nomTable SET idVin='$aAspect->idVin' , idRobe='$aAspect->idRobe' WHERE idVin='$aAspect->idVin' AND idRobe='$aAspect->idRobe'";
 		$this->connexion->executer($requete);
 	}
 
@@ -71,7 +71,7 @@ class MySQLAAspectDAO implements AAspectDAO
 	{
 		$ontAspect=array();
 		while($ligne=mysql_fetch_array($resultatRequete))
-			$ontAspect[]=new AAspect($ligne['idVin'], $ligne['idRobe'], $ligne['scoreVue']);
+			$ontAspect[]=new AAspect($ligne['idVin'], $ligne['idRobe']);
 		return $ontAspect;
 	}
 	

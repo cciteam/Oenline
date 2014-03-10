@@ -15,7 +15,7 @@ class MySQLCepageDAO implements CepageDAO
 
 	public function ajouter($cepage)
 	{
-		$requete="INSERT INTO $this->nomTable (nomCepage, caracteristiqueCepage) VALUES ('$cepage->nomCepage', '$cepage->caracteristiqueCepage')";
+		$requete="INSERT INTO $this->nomTable (nomCepage) VALUES ('$cepage->nomCepage')";
 		$this->connexion->executer($requete);
 		$cepage->idCepage = $this->connexion->dernierID();
 		return $cepage;
@@ -29,7 +29,7 @@ class MySQLCepageDAO implements CepageDAO
 
 	public function modifier($cepage)
 	{
-		$requete="UPDATE $this->nomTable SET nomCepage='$cepage->nomCepage' , caracteristiqueCepage='$cepage->caracteristiqueCepage' WHERE idCepage='$cepage->idCepage'";
+		$requete="UPDATE $this->nomTable SET nomCepage='$cepage->nomCepage' WHERE idCepage='$cepage->idCepage'";
 		$this->connexion->executer($requete);
 	}
 
@@ -65,7 +65,7 @@ class MySQLCepageDAO implements CepageDAO
 	{
 		$cepages=array();
 		while($ligne=mysql_fetch_array($resultatRequete))
-			$cepages[]=new Cepage($ligne['idCepage'], $ligne['nomCepage'], $ligne['caracteristiqueCepage']);
+			$cepages[]=new Cepage($ligne['idCepage'], $ligne['nomCepage']);
 		return $cepages;
 	}
 	

@@ -12,7 +12,7 @@ class MySQLORM implements ORM
 	private $cepageDAO=NULL;
 	private $boucheDAO=NULL;
 	private $aGoutDAO=NULL;
-	private $vueDAO=NULL;
+	private $robeDAO=NULL;
 	private $aAspectDAO=NULL;
 	private $nezDAO=NULL;
 	private $aOdeurDAO=NULL;
@@ -21,8 +21,11 @@ class MySQLORM implements ORM
 	private $voitDAO=NULL;
 	private $membreDAO=NULL;
 	private $partieDAO=NULL;
+	private $boucheTypeVinDAO=NULL;
+	private $nezTypeVinDAO=NULL;
+	private $robeTypeVinDAO=NULL;
 
-	public function __construct($connexion, $vinDAO, $constitueDAO, $domaineDAO, $cepageDAO, $boucheDAO, $aGoutDAO, $vueDAO, $aAspectDAO, $nezDAO, $aOdeurDAO, $gouteDAO, $sentDAO, $voitDAO, $membreDAO, $partieDAO)
+	public function __construct($connexion, $vinDAO, $constitueDAO, $domaineDAO, $cepageDAO, $boucheDAO, $aGoutDAO, $robeDAO, $aAspectDAO, $nezDAO, $aOdeurDAO, $gouteDAO, $sentDAO, $voitDAO, $membreDAO, $partieDAO, $boucheTypeVinDAO, $nezTypeVinDAO, $robeTypeVinDAO)
 	{
 		$this->connexion=$connexion;
 		$this->vinDAO=$vinDAO;
@@ -31,7 +34,7 @@ class MySQLORM implements ORM
 		$this->cepageDAO=$cepageDAO;
 		$this->boucheDAO=$boucheDAO;
 		$this->aGoutDAO=$aGoutDAO;
-		$this->vueDAO=$vueDAO;
+		$this->robeDAO=$robeDAO;
 		$this->aAspectDAO=$aAspectDAO;
 		$this->nezDAO=$nezDAO;
 		$this->aOdeurDAO=$aOdeurDAO;
@@ -40,9 +43,12 @@ class MySQLORM implements ORM
 		$this->voitDAO=$voitDAO;
 		$this->membreDAO=$membreDAO;
 		$this->partieDAO=$partieDAO;
+		$this->boucheTypeVinDAO=$boucheTypeVinDAO;
+		$this->nezTypeVinDAO=$nezTypeVinDAO;
+		$this->robeTypeVinDAO=$robeTypeVinDAO;
 	}
 
-	public function ajouterVin($vin, $domaine, $appellation, $typeVin, $cepages, $vues, $nezz, $bouches)
+	public function ajouterVin($vin, $domaine, $appellation, $typeVin, $cepages, $robes, $nezz, $bouches)
 	{
 		try
 		{
@@ -59,9 +65,9 @@ class MySQLORM implements ORM
 				$this->constitueDAO->ajouter($constitue);
 			}
 
-			foreach($vues as $vue)
+			foreach($robes as $robe)
 			{
-				$aAspect=new AAspect($vin->idVin, $vue->idRobe, '2');
+				$aAspect=new AAspect($vin->idVin, $robe->idRobe, '2');
 				$this->aAspectDAO->ajouter($aAspect);
 			}
 
@@ -87,7 +93,7 @@ class MySQLORM implements ORM
 		return $vin;
 	}
 
-	public function ajouterPartie($partie, $vin, $membre, $vues, $nezz, $bouches)
+	public function ajouterPartie($partie, $vin, $membre, $robes, $nezz, $bouches)
 	{
 		try
 		{
@@ -97,9 +103,9 @@ class MySQLORM implements ORM
 			$this->connexion->commencerTransaction();
 			$partie=$this->partieDAO->ajouter($partie);
 
-			foreach($vues as $vue)
+			foreach($robes as $robe)
 			{
-				$voit=new Voit($partie->idPartie, $vue->idRobe);
+				$voit=new Voit($partie->idPartie, $robe->idRobe);
 				$this->voitDAO->ajouter($voit);
 			}
 
@@ -122,6 +128,7 @@ class MySQLORM implements ORM
 			$this->connexion->annulerTransaction();
 			throw new Exception($e);
 		}
+		$partie->scorePartie = $this->calculerScore($partie->idPartie);
 		return $partie;
 	}
 
@@ -247,6 +254,47 @@ class MySQLORM implements ORM
 			return $this->cepageDAO->trouverParId($cepageIds);		
 	}
 
+	public function trouverBouchesParTypeVin($typeVin)
+	{
+		$bouchesTypesVins=$this->boucheTypeVinDAO->trouverParIdTypeVin($typeVin->idTypeVin);
+		$boucheIds=array();
+		foreach($bouchesTypesVins as $boucheTypeVin)
+			array_push($boucheIds, $boucheTypeVin->idBouche);
+		if(count($boucheIds)==0)
+			return array();
+		else
+		{ 
+			return $this->boucheDAO->trouverParIdBouche($boucheIds);
+		}		
+	}
+
+	public function trouverNezParTypeVin($typeVin)
+	{
+		$nezzTypesVins=$this->nezTypeVinDAO->trouverParIdTypeVin($typeVin->idTypeVin);
+		$nezIds=array();
+		foreach($nezzTypesVins as $nezTypeVin)
+			array_push($nezIds, $nezTypeVin->idNez);
+		if(count($nezIds)==0)
+			return array();
+		else
+		{ 
+			return $this->nezDAO->trouverParIdNez($nezIds);
+		}		
+	}
+
+	public function trouverRobesParTypeVin($typeVin)
+	{
+		$robesTypesVins=$this->robeTypeVinDAO->trouverParIdTypeVin($typeVin->idTypeVin);
+		$robeIds=array();
+		foreach($robesTypesVins as $robeTypeVin)
+			array_push($robeIds, $robeTypeVin->idRobe);
+		if(count($robeIds)==0)
+			return array();
+		else
+		{ 
+			return $this->robeDAO->trouverParIdRobe($robeIds);
+		}		
+	}
 
 	public function ajouterCepagesVin($vin, $cepages)
 	{
@@ -281,16 +329,16 @@ class MySQLORM implements ORM
 			return $this->boucheDAO->trouverParIdBouche($boucheIds);
 	}
 
-	public function trouverVuesVin($vin)
+	public function trouverRobesVin($vin)
 	{
-		$ontVues=$this->aAspectDAO->trouverParIdVin($vin->idVin);
+		$ontRobes=$this->aAspectDAO->trouverParIdVin($vin->idVin);
 		$robeIds=array();
-		foreach($ontVues as $aVue)
-			array_push($robeIds, $aVue->idRobe);
+		foreach($ontRobes as $aRobe)
+			array_push($robeIds, $aRobe->idRobe);
 		if(count($robeIds)==0)
 			return array();
 		else 
-			return $this->vueDAO->trouverParIdRobe($robeIds);
+			return $this->robeDAO->trouverParIdRobe($robeIds);
 	}
 
 	public function trouverNezVin($vin)
@@ -329,17 +377,27 @@ class MySQLORM implements ORM
 			return $this->nezDAO->trouverParIdNez($nezIds);
 	}
 
-	public function trouverVuesPartie($partie)
+	public function trouverRobesPartie($partie)
 	{
-		$ontVues=$this->voitDAO->trouverParIdPartie($partie->idPartie);
-		$vueIds=array();
-		foreach($ontVues as $aVue)
-			array_push($vueIds, $aVue->idRobe);
-		if(count($vueIds)==0)
+		$ontRobes=$this->voitDAO->trouverParIdPartie($partie->idPartie);
+		$robeIds=array();
+		foreach($ontRobes as $aRobe)
+			array_push($robeIds, $aRobe->idRobe);
+		if(count($robeIds)==0)
 			return array();
 		else 
-			return $this->vueDAO->trouverParIdRobe($vueIds);
+			return $this->robeDAO->trouverParIdRobe($robeIds);
 	}
+
+	public function calculerScore($idPartie)
+	{
+		$resultat = $this->connexion->executer("select (100/(scoreNzt+scoreRbt+scoreBct))*(scoreNz+scoreBc+scoreRb) score
+												from scoreN natural join scoreNT natural join scoreB natural join scoreBt natural join scoreR natural join scoreRt
+												where idPartie=$idPartie");
+		return mysql_fetch_array($resultat)['score'];
+	}
+
+
 }
 
 ?>

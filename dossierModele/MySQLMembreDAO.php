@@ -15,7 +15,7 @@ class MySQLMembreDAO implements MembreDAO
 
 	public function ajouter($membre)
 	{
-		$requete="INSERT INTO $this->nomTable (aliasMembre, nomMembre, motDePasse, mailMembre, questionSecrete, reponseQuestion, idGroupe) VALUES ('$membre->aliasMembre', '$membre->nomMembre', '$membre->motDePasse','$membre->mailMembre', '$membre->questionSecrete', '$membre->reponseQuestion', '$membre->idGroupe')";
+		$requete="INSERT INTO $this->nomTable (pseudoMembre, nomMembre, motDePasse, mailMembre, idGroupe) VALUES ('$membre->pseudoMembre', '$membre->nomMembre', '$membre->motDePasse','$membre->mailMembre', $membre->idGroupe')";
 		$this->connexion->executer($requete);
 		$membre->idMembre = $this->connexion->dernierID();
 		return $membre;
@@ -29,7 +29,7 @@ class MySQLMembreDAO implements MembreDAO
 
 	public function modifier($membre)
 	{
-		$requete="UPDATE $this->nomTable SET aliasMembre='$membre->aliasMembre' , nomMembre='$membre->nomMembre' , motDePasse='$membre->motDePasse', mailMembre='$membre->mailMembre' , questionSecrete='$membre->questionSecrete' , reponseQuestion='$membre->reponseQuestion'  WHERE idMembre='$membre->idMembre'";
+		$requete="UPDATE $this->nomTable SET pseudoMembre='$membre->pseudoMembre' , nomMembre='$membre->nomMembre' , motDePasse='$membre->motDePasse', mailMembre='$membre->mailMembre', '$membre->idGroupe'   WHERE idMembre='$membre->idMembre'";
 		$this->connexion->executer($requete);
 	}
 
@@ -54,9 +54,9 @@ class MySQLMembreDAO implements MembreDAO
 		return $this->creerMembres($resultat);
 	}
 
-	public function trouverParAlias($aliasMembre)
+	public function trouverParPseudo($pseudoMembre)
 	{
-		$requete="SELECT * FROM $this->nomTable WHERE aliasMembre='$aliasMembre'";
+		$requete="SELECT * FROM $this->nomTable WHERE pseudoMembre='$pseudoMembre'";
 		$resultat=$this->connexion->executer($requete);
 		return $this->creerMembres($resultat);
 	}
@@ -93,7 +93,7 @@ class MySQLMembreDAO implements MembreDAO
 	{
 		$membres=array();
 		while($ligne=mysql_fetch_array($resultatRequete))
-			$membres[]=new Membre($ligne['idMembre'], $ligne['aliasMembre'], $ligne['nomMembre'], $ligne['motDePasse'], $ligne['mailMembre'], $ligne['questionSecrete'], $ligne['reponseQuestion'], $ligne['idGroupe']);
+			$membres[]=new Membre($ligne['idMembre'], $ligne['pseudoMembre'], $ligne['nomMembre'], $ligne['motDePasse'], $ligne['mailMembre'], $ligne['idGroupe']);
 		return $membres;
 	}
 	

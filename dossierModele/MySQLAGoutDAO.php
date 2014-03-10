@@ -15,7 +15,7 @@ class MySQLAGoutDAO implements AGoutDAO
 
 	public function ajouter($aGout)
 	{
-		$requete="INSERT INTO $this->nomTable (idVin, idBouche, scoreGout) VALUES ('$aGout->idVin', '$aGout->idBouche', '$aGout->scoreGout')";
+		$requete="INSERT INTO $this->nomTable (idVin, idBouche) VALUES ('$aGout->idVin', '$aGout->idBouche')";
 		$this->connexion->executer($requete);
 		return $aGout;
 	}
@@ -28,7 +28,7 @@ class MySQLAGoutDAO implements AGoutDAO
 
 	public function modifier($aGout)
 	{
-		$requete="UPDATE $this->nomTable SET idVin='$aGout->idVin' , idBouche='$aGout->idBouche', scoreGout='$aGout->scoreGout' WHERE idVin='$aGout->idVin' AND idBouche='$aGout->idBouche'";
+		$requete="UPDATE $this->nomTable SET idVin='$aGout->idVin' , idBouche='$aGout->idBouche' WHERE idVin='$aGout->idVin' AND idBouche='$aGout->idBouche'";
 		$this->connexion->executer($requete);
 	}
 
@@ -71,7 +71,7 @@ class MySQLAGoutDAO implements AGoutDAO
 	{
 		$ontGout=array();
 		while($ligne=mysql_fetch_array($resultatRequete))
-			$ontGout[]=new AGout($ligne['idVin'], $ligne['idBouche'], $ligne['scoreGout']);
+			$ontGout[]=new AGout($ligne['idVin'], $ligne['idBouche']);
 		return $ontGout;
 	}
 	

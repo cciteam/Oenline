@@ -21,7 +21,7 @@ class Partie
 
 	public function description()
 	{
-		return '<br>Réf:'.$this->idPartie.'<br/>Date: '.$this->datePartie.'<br/>Score: '.$this->scorePartie.'<br/>Commentaire: '.$this->commentairePartie;
+		return '<br>Réf:'.$this->idPartie.'<br/>Date: '.$this->datePartie.'<br/>Score: '.$this->scorePartie.'<br/>Commentaire: '.$this->commentairePartie.'<br>Score de la partie: '.$this->scorePartie;
 	}
 }
 
