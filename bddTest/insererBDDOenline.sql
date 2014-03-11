@@ -1,3 +1,4 @@
+// fichier d'insertion de données
 INSERT INTO `cepage`(`idCepage`, `nomCepage`) VALUES (1,'Merlot');
 INSERT INTO `cepage`(`idCepage`, `nomCepage`) VALUES (2,'Grenache Noir');
 INSERT INTO `cepage`(`idCepage`, `nomCepage`) VALUES (3,'Syrah');
