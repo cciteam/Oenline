@@ -70,7 +70,7 @@ class MySQLAAspectDAO implements AAspectDAO
 	private function creerOntAspect($resultatRequete)
 	{
 		$ontAspect=array();
-		while($ligne=mysql_fetch_array($resultatRequete))
+		foreach($resultatRequete as $ligne)
 			$ontAspect[]=new AAspect($ligne['idVin'], $ligne['idRobe']);
 		return $ontAspect;
 	}

@@ -70,7 +70,7 @@ class MySQLAGoutDAO implements AGoutDAO
 	private function creerOntGout($resultatRequete)
 	{
 		$ontGout=array();
-		while($ligne=mysql_fetch_array($resultatRequete))
+		foreach($resultatRequete as $ligne)
 			$ontGout[]=new AGout($ligne['idVin'], $ligne['idBouche']);
 		return $ontGout;
 	}

@@ -121,6 +121,7 @@ class MySQLORM implements ORM
 				$this->gouteDAO->ajouter($goute);
 			}
 
+			$partie->scorePartie = $this->calculerScore($partie->idPartie);
 			$this->connexion->validerTransaction();
 		}
 		catch(Exception $e)
@@ -128,8 +129,27 @@ class MySQLORM implements ORM
 			$this->connexion->annulerTransaction();
 			throw new Exception($e);
 		}
-		$partie->scorePartie = $this->calculerScore($partie->idPartie);
+
 		return $partie;
+	}
+
+	public function ajouterMembre($membre, $groupe)
+	{
+		try
+		{
+			$membre->idGroupe=$groupe->idGroupe;
+
+			$this->connexion->commencerTransaction();
+			$membre=$this->membreDAO->ajouter($membre);
+
+			$this->connexion->validerTransaction();
+		}
+		catch(Exception $e)
+		{
+			$this->connexion->annulerTransaction();
+			throw new Exception($e);
+		}
+		return $membre;
 	}
 
 	public function supprimerVin($vin)
@@ -394,7 +414,7 @@ class MySQLORM implements ORM
 		$resultat = $this->connexion->executer("select (100/(scoreNzt+scoreRbt+scoreBct))*(scoreNz+scoreBc+scoreRb) score
 												from scoreN natural join scoreNT natural join scoreB natural join scoreBt natural join scoreR natural join scoreRt
 												where idPartie=$idPartie");
-		return mysql_fetch_array($resultat)['score'];
+		return $resultat->fetch()['score'];
 	}
 
 

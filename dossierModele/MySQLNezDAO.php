@@ -72,7 +72,7 @@ class MySQLNezDAO implements NezDAO
 	public function creerNez($resultatRequete)
 	{
 		$nez=array();
-		while($ligne=mysql_fetch_array($resultatRequete))
+		foreach($resultatRequete as $ligne)
 			$nez[]=new Nez($ligne['idNez'], $ligne['nomNez'], $ligne['typeNez'], $ligne['scoreNez']);
 		return $nez;
 	}

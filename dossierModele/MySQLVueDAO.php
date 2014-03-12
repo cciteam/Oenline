@@ -92,7 +92,7 @@ class MySQLVueDAO implements VueDAO
 	public function creerVues($resultatRequete)
 	{
 		$vues=array();
-		while($ligne=mysql_fetch_array($resultatRequete))
+		foreach($resultatRequete as $ligne)
 			$vues[]=new Vue($ligne['idRobe'], $ligne['nomRobe'], $ligne['typeDescRobe'], $ligne['typeRobe'], $ligne['idTypeVin']);
 		return $vues;
 	}

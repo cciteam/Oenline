@@ -79,7 +79,7 @@ class MySQLRobeDAO implements RobeDAO
 	public function creerRobes($resultatRequete)
 	{
 		$robes=array();
-		while($ligne=mysql_fetch_array($resultatRequete))
+		foreach($resultatRequete as $ligne)
 			$robes[]=new Robe($ligne['idRobe'], $ligne['nomRobe'], $ligne['typeDescRobe'], $ligne['typeRobe'], $ligne['scoreRobe']);
 		return $robes;
 	}

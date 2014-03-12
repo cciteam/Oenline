@@ -72,7 +72,7 @@ class MySQLCoursDAO implements CoursDAO
 	public function creerCours($resultatRequete)
 	{
 		$cours=array();
-		while($ligne=mysql_fetch_array($resultatRequete))
+		foreach($resultatRequete as $ligne)
 			$cours[]=new cours($ligne['idCours'], $ligne['titreCours'], $ligne['motCleCours'], $ligne['urlCours']);
 		return $cours;
 	}

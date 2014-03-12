@@ -70,7 +70,7 @@ class MySQLVoitDAO implements VoitDAO
 	private function creerVoient($resultatRequete)
 	{
 		$voient=array();
-		while($ligne=mysql_fetch_array($resultatRequete))
+		foreach($resultatRequete as $ligne)
 			$voient[]=new Voit($ligne['idPartie'], $ligne['idRobe']);
 		return $voient;
 	}

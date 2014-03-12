@@ -70,7 +70,7 @@ class MySQLAOdeurDAO implements AOdeurDAO
 	private function creerOntOdeur($resultatRequete)
 	{
 		$ontOdeur=array();
-		while($ligne=mysql_fetch_array($resultatRequete))
+		foreach($resultatRequete as $ligne)
 			$ontOdeur[]=new AOdeur($ligne['idVin'], $ligne['idNez']);
 		return $ontOdeur;
 	}

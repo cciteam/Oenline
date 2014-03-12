@@ -70,7 +70,7 @@ class MySQLConstitueDAO implements ConstitueDAO
 	private function creerConstituent($resultatRequete)
 	{
 		$constituent=array();
-		while($ligne=mysql_fetch_array($resultatRequete))
+		foreach($resultatRequete as $ligne)
 			$constituent[]=new Constitue($ligne['idVin'], $ligne['idCepage']);
 		return $constituent;
 	}

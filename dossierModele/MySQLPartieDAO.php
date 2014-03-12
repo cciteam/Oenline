@@ -101,7 +101,7 @@ class MySQLPartieDAO implements PartieDAO
 	public function creerParties($resultatRequete)
 	{
 		$parties=array();
-		while($ligne=mysql_fetch_array($resultatRequete))
+		foreach($resultatRequete as $ligne)
 			$parties[]=new Partie($ligne['idPartie'], $ligne['datePartie'], $ligne['scorePartie'], $ligne['commentairePartie'], $ligne['idVin'], $ligne['idMembre']);
 		return $parties;
 	}

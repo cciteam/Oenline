@@ -1,7 +1,7 @@
 <?php
 
 require_once("MySQLDAOs.php");
-require_once("MySQLConnexion.php");
+require_once("PDOConnexion.php");
 require_once("MySQLORM.php");
 require_once("ORM.php");
 require_once("ConnexionBDD.php");
@@ -37,7 +37,7 @@ class ModeleOenline
 
 	public function __construct($hote, $id, $mdp, $bdd)
 	{
-		$this->bdd=new MySQLConnexion($hote, $id, $mdp, $bdd);
+		$this->bdd=new PDOConnexion($hote, $id, $mdp, $bdd);
 		$this->bdd->connecter();
 
 		$this->aAspectDAO=new MySQLAAspectDAO($this->bdd);
@@ -82,6 +82,12 @@ class ModeleOenline
 	public function ajouterPartie($partie, $vin, $membre, $robes, $nezz, $bouches)
 	{
 		return $this->orm->ajouterPartie($partie, $vin, $membre, $robes, $nezz, $bouches);
+	}
+
+	//ajoute un membre 
+	public function ajouterMembre($membre, $groupe)
+	{
+		return $this->orm->ajouterMembre($membre, $groupe);
 	}
 
 	//ajoute un domaine
@@ -178,6 +184,12 @@ class ModeleOenline
 	public function trouverCours()
 	{
 		return $this->coursDAO->trouverTout();
+	}
+
+	//retourne un tableau de tous les cours
+	public function trouverGroupes()
+	{
+		return $this->groupeDAO->trouverTout();
 	}
 
 

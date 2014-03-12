@@ -70,7 +70,7 @@ class MySQLNezTypeVinDAO implements NezTypeVinDAO
 	private function creerNezTypesVins($resultatRequete)
 	{
 		$nezTypesVins=array();
-		while($ligne=mysql_fetch_array($resultatRequete))
+		foreach($resultatRequete as $ligne)
 			$nezTypesVins[]=new NezTypeVin($ligne['idTypeVin'], $ligne['idNez']);
 		return $nezTypesVins;
 	}

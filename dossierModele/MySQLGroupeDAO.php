@@ -66,8 +66,8 @@ class MySQLGroupeDAO implements GroupeDAO
 	public function creerGroupes($resultatRequete)
 	{
 		$groupes=array();
-		while($ligne=mysql_fetch_array($resultatRequete))
-			$groupes[]=new Groupe($ligne['idgroupe'], $ligne['nomgroupe']);
+		foreach($resultatRequete as $ligne)
+			$groupes[]=new Groupe($ligne['idGroupe'], $ligne['nomGroupe']);
 		return $groupes;
 	}
 	

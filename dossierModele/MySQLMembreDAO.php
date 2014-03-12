@@ -15,7 +15,7 @@ class MySQLMembreDAO implements MembreDAO
 
 	public function ajouter($membre)
 	{
-		$requete="INSERT INTO $this->nomTable (pseudoMembre, nomMembre, motDePasse, mailMembre, idGroupe) VALUES ('$membre->pseudoMembre', '$membre->nomMembre', '$membre->motDePasse','$membre->mailMembre', $membre->idGroupe')";
+		$requete="INSERT INTO $this->nomTable (pseudoMembre, nomMembre, motDePasse, mailMembre, idGroupe) VALUES ('$membre->pseudoMembre', '$membre->nomMembre', '$membre->motDePasse','$membre->mailMembre', '$membre->idGroupe')";
 		$this->connexion->executer($requete);
 		$membre->idMembre = $this->connexion->dernierID();
 		return $membre;
@@ -92,7 +92,7 @@ class MySQLMembreDAO implements MembreDAO
 	public function creerMembres($resultatRequete)
 	{
 		$membres=array();
-		while($ligne=mysql_fetch_array($resultatRequete))
+		foreach($resultatRequete as $ligne)
 			$membres[]=new Membre($ligne['idMembre'], $ligne['pseudoMembre'], $ligne['nomMembre'], $ligne['motDePasse'], $ligne['mailMembre'], $ligne['idGroupe']);
 		return $membres;
 	}
