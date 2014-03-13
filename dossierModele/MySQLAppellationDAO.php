@@ -64,7 +64,7 @@ class MySQLAppellationDAO implements AppellationDAO
 	private function creerAppellations($resultatRequete)
 	{
 		$appellations=array();
-		while($ligne=mysql_fetch_array($resultatRequete))
+		foreach($resultatRequete as $ligne)
 			$appellations[]=new Appellation($ligne['idAppellation'], $ligne['nomAppellation']);
 		return $appellations;
 	}

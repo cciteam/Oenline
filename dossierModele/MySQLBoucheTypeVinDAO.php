@@ -70,7 +70,7 @@ class MySQLBoucheTypeVinDAO implements BoucheTypeVinDAO
 	private function creerBouchesTypesVins($resultatRequete)
 	{
 		$bouchesTypesVins=array();
-		while($ligne=mysql_fetch_array($resultatRequete))
+		foreach($resultatRequete as $ligne)
 			$bouchesTypesVins[]=new BoucheTypeVin($ligne['idTypeVin'], $ligne['idBouche']);
 		return $bouchesTypesVins;
 	}

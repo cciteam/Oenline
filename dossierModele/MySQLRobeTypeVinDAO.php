@@ -70,7 +70,7 @@ class MySQLRobeTypeVinDAO implements RobeTypeVinDAO
 	private function creerRobesTypesVins($resultatRequete)
 	{
 		$robesTypesVins=array();
-		while($ligne=mysql_fetch_array($resultatRequete))
+		foreach($resultatRequete as $ligne)
 			$robesTypesVins[]=new RobeTypeVin($ligne['idTypeVin'], $ligne['idRobe']);
 		return $robesTypesVins;
 	}

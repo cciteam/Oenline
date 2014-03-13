@@ -12,9 +12,9 @@ class ControleurOenline
 	}
 
 	//ajouter un vin, avec son domaine, son appellation... ses cépages, ses vues, ses nez, ses bouches
-	public function ajouterVin($vin, $domaine, $appellation, $typeVin, $cepages, $vues, $nezz, $bouches, $scoresVues)
+	public function ajouterVin($vin, $domaine, $appellation, $typeVin, $cepages, $vues, $nezz, $bouches)
 	{
-		return $this->modele->ajouterVin($vin, $domaine, $appellation, $typeVin, $cepages, $vues, $nezz, $bouches, $scoresVues);
+		return $this->modele->ajouterVin($vin, $domaine, $appellation, $typeVin, $cepages, $vues, $nezz, $bouches);
 	}
 
 	//ajoute une partie avec ses dépendances 
@@ -23,6 +23,12 @@ class ControleurOenline
 	public function ajouterPartie($partie, $vin, $membre, $robess, $nezz, $bouches)
 	{
 		return $this->modele->ajouterPartie($partie, $vin, $membre, $robess, $nezz, $bouches);
+	}
+
+	//ajoute un membre 
+	public function ajouterMembre($membre, $groupe)
+	{
+		return $this->modele->ajouterMembre($membre, $groupe);
 	}
 
 	//ajoute un domaine
@@ -119,6 +125,12 @@ class ControleurOenline
 	public function trouverCours()
 	{
 		return $this->modele->trouverCours();
+	}
+
+	//retourne un tableau de tous les cours
+	public function trouverGroupes()
+	{
+		return $this->modele->trouverGroupes();
 	}
 
 

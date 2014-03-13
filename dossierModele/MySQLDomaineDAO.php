@@ -71,7 +71,7 @@ class MySQLDomaineDAO implements DomaineDAO
 	private function creerDomaines($resultatRequete)
 	{
 		$domaines=array();
-		while($ligne=mysql_fetch_array($resultatRequete))
+		foreach($resultatRequete as $ligne)
 			$domaines[]=new Domaine($ligne['idDomaine'], $ligne['nomDomaine'], $ligne['urlDomaine']);
 		return $domaines;
 	}

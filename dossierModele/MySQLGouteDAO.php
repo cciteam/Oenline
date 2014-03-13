@@ -70,7 +70,7 @@ class MySQLGouteDAO implements GouteDAO
 	private function creerGoutent($resultatRequete)
 	{
 		$goutent=array();
-		while($ligne=mysql_fetch_array($resultatRequete))
+		foreach($resultatRequete as $ligne)
 			$goutent[]=new Goute($ligne['idPartie'], $ligne['idBouche']);
 		return $goutent;
 	}

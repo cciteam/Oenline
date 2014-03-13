@@ -64,7 +64,7 @@ class MySQLTypeVinDAO implements TypeVinDAO
 	private function creerTypesVins($resultatRequete)
 	{
 		$typesVins=array();
-		while($ligne=mysql_fetch_array($resultatRequete))
+		foreach($resultatRequete as $ligne)
 			$typesVins[]=new TypeVin($ligne['idTypeVin'], $ligne['nomTypeVin']);
 		return $typesVins;
 	}

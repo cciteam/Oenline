@@ -21,23 +21,19 @@ $controleur=new ControleurOenline("localhost", "root", "", "oenline");
 			$robess=$controleur->trouverRobes();
 			$nezz=$controleur->trouverNez();
 			$bouchess=$controleur->trouverBouches();
+			$membre = new Membre('', "Pierre", "Pierre", "Pierre", "Pierre", '');
+			$groupe = $controleur->trouverGroupes();
 
 			$vin=new Vin('', 'Le vin', '2066', 'Jeune', 'Peut-être même un peu trop jeune', '', '', '');
 			$domaines=$controleur->trouverDomaines();
 			$appellations=$controleur->trouverAppellations();
 			$typesVins=$controleur->trouverTypesVins();
 			$cepagess=$controleur->trouverCepages();
-			$scoresRobes=array();
-
-			for($i=0; $i<count($robess); $i++)
-			{
-				$scoresRobes[$i]=3;
-			}
 
 			$courss=$controleur->trouverCours();
 
-			foreach($membres as $membre)
-				echo $membre->description();
+			/*foreach($membres as $membre)
+				echo $membre->description();*/
 
 			foreach($courss as $cours)
 				echo $cours->description();
@@ -48,10 +44,12 @@ $controleur=new ControleurOenline("localhost", "root", "", "oenline");
 			$cepages=array($cepagess[0], $cepagess[1]);
 
 			$nvPartie=$controleur->ajouterPartie($partie, $vins[0], $membres[0], $robes, $nez, $bouches);
-			$nvVin=$controleur->ajouterVin($vin, $domaines[0], $appellations[0], $typesVins[0], $cepages, $robes, $nez, $bouches, $scoresRobes);
-			
+			$nvVin=$controleur->ajouterVin($vin, $domaines[0], $appellations[0], $typesVins[0], $cepages, $robes, $nez, $bouches);
+			$nvMembre = $controleur->ajouterMembre($membre, $groupe[0]);
+
 			echo '<br>LA partie: '.$nvPartie->description();
 			echo $nvVin->description();
+			echo "<br><br>".$nvMembre->motDePasse;
 
 
 			$controleur->supprimerPartie($nvPartie);

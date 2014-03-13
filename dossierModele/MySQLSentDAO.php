@@ -70,7 +70,7 @@ class MySQLSentDAO implements SentDAO
 	private function creerSentent($resultatRequete)
 	{
 		$sentent=array();
-		while($ligne=mysql_fetch_array($resultatRequete))
+		foreach($resultatRequete as $ligne)
 			$sentent[]=new Sent($ligne['idPartie'], $ligne['idNez']);
 		return $sentent;
 	}

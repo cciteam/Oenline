@@ -113,7 +113,7 @@ class MySQLVinDAO implements VinDAO
 	public function creerVins($resultatRequete)
 	{
 		$vins=array();
-		while($ligne=mysql_fetch_array($resultatRequete))
+		foreach($resultatRequete as $ligne)
 			$vins[]=new Vin($ligne['idVin'], $ligne['nomVin'], $ligne['millesime'], $ligne['descCourte'], $ligne['descLongue'], $ligne['idDomaine'], $ligne['idAppellation'], $ligne['idTypeVin']);
 		return $vins;
 	}

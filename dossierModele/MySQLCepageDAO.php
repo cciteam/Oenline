@@ -64,7 +64,7 @@ class MySQLCepageDAO implements CepageDAO
 	private function creerCepages($resultatRequete)
 	{
 		$cepages=array();
-		while($ligne=mysql_fetch_array($resultatRequete))
+		foreach($resultatRequete as $ligne)
 			$cepages[]=new Cepage($ligne['idCepage'], $ligne['nomCepage']);
 		return $cepages;
 	}

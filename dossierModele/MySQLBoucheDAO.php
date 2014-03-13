@@ -79,7 +79,7 @@ class MySQLBoucheDAO implements BoucheDAO
 	public function creerBouches($resultatRequete)
 	{
 		$bouches=array();
-		while($ligne=mysql_fetch_array($resultatRequete))
+		foreach($resultatRequete as $ligne)
 			$bouches[]=new Bouche($ligne['idBouche'], $ligne['nomBouche'], $ligne['typeDescBouche'], $ligne['typeBouche'], $ligne['scoreBouche']);
 		return $bouches;
 	}
