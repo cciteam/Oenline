@@ -242,6 +242,55 @@ class ControleurOenline
 		return $this->modele->trouverRobesParTypeVin($typeVin);
 	}
 
+	public function afficherVinsParCepage($cepage)
+	{
+
+		$vins = $this->modele->trouverVinsParCepage($cepage);
+		$str = $this->descriptionVins($vins);
+		return $str;
+	}
+
+	//retourne un tableau de String et prends un tableau de vin en paramètre
+	public function descriptionVins($vins)
+	{
+		$str = array();
+		for ($i = 0; $i < count($vins); $i++) 
+		{
+			$domaines = $this->modele->trouverDomainesParVin($vins[$i]);
+			$cepages = $this->modele->trouverCepagesParVin($vins[$i]);
+			$appellations = $this->modele->trouverAppellationsParVin($vins[$i]);
+			$typesVins = $this->modele->trouverTypesVinsParVin($vins[$i]);
+
+			$strDom = "<br>Domaine: ";
+			$strCep = "<br>Cépages: ";
+			$strApp = "<br>Appellation: ";
+			$strTyp = "<br>Type: ";
+
+			$strVin = "<br>Référence: ".$vins[$i]->idVin."<br>Nom: ".$vins[$i]->nomVin."<br>Brève description: ".$vins[$i]->descCourte;
+
+			foreach ($domaines as $domaine) {
+				$strDom .= $domaine->nomDomaine;
+			}
+
+			foreach ($cepages as $cepage) {
+				$strCep .= " ".$cepage->nomCepage;
+			}
+
+			foreach ($appellations as $appellation) {
+				$strApp .= " ".$appellation->nomAppellation;
+			}
+
+			foreach ($typesVins as $typeVin) {
+				$strTyp .= " ".$typeVin->nomTypeVin;
+			}
+
+			$str[$i] = $strVin.$strTyp.$strApp.$strDom.$strCep;
+
+		}
+
+		return $str;
+	}
+
 }
 
 ?>

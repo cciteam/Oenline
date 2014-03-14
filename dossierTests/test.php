@@ -21,6 +21,11 @@
 			$appellations=$controleur->trouverAppellations();
 			$bouches=$controleur->trouverBouchesParTypeVin($typesVins[0]);
 
+			$vinsCepage = $controleur->afficherVinsParCepage($cepages[0]);
+			foreach ($vinsCepage as $vinCepage) {
+				echo "<br>".$vinCepage;
+			}
+
 			echo "les bouches <br>";
 			foreach($bouches as $bouche)
 			{
