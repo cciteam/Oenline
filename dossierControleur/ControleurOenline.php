@@ -28,6 +28,27 @@ class ControleurOenline
 	//ajoute un membre 
 	public function ajouterMembre($membre, $groupe)
 	{
+		$nbMail = count($this->modele->trouverMembreParMail($membre->mailMembre));
+		$nbPseudo = count($this->modele->trouverMembreParPseudo($membre->pseudoMembre));
+
+		$nomMembre = trim($membre->nomMembre);
+		$pseudoMembre = trim($membre->pseudoMembre);
+		$mdp = $membre->motDePasse;
+		$mailMembre = trim($membre->mailMembre);
+
+		if($nomMembre=="" OR $pseudoMembre=="" OR $mailMembre=="" OR $mdp=="")
+		{
+			throw new Exception("Il faut remplir le nomMembre, pseudoMembre, mailMembre et le motDePasse");
+		}
+		if($nbMail > 0)
+		{
+			throw new Exception("Un membre avec le mail ".$membre->mailMembre." a déjà été inscrit");
+		}
+		if($nbPseudo > 0)
+		{
+			throw new Exception("Un membre avec le pseudo ".$membre->pseudoMembre." a déjà été inscrit");
+		}
+
 		return $this->modele->ajouterMembre($membre, $groupe);
 	}
 
@@ -188,6 +209,18 @@ class ControleurOenline
 		return $this->modele->trouverTypesVinsParVin($vin);
 	}
 
+	//retourne un tableau avec un membre s'il y en a avec le mail, sinon le tableau est vide
+	public function trouverMembreParMail($mail)
+	{
+		return $this->modele->trouverMembreParMail($mail);
+	}
+
+	public function trouverMembreParPseudo($pseudo)
+	{
+		return $this->modele->trouverMembreParPseudo($pseudo);
+	}
+
+
 	//retourne les gouts du vin passé en paramètre
 	public function trouverGoutsVin($vin)
 	{
@@ -242,10 +275,47 @@ class ControleurOenline
 		return $this->modele->trouverRobesParTypeVin($typeVin);
 	}
 
+
+	//retourne un tableau de String décrivant les vins correspondant au cépage entré en paramètre
 	public function afficherVinsParCepage($cepage)
 	{
 
 		$vins = $this->modele->trouverVinsParCepage($cepage);
+		$str = $this->descriptionVins($vins);
+		return $str;
+	}
+
+	//retourne un tableau de String décrivant les vins correspondant au nom de domaine
+	public function afficherVinsParNomDeDomaine($nomDomaine)
+	{
+
+		$vins = $this->modele->trouverVinsParNomDeDomaine($nomDomaine);
+		$str = $this->descriptionVins($vins);
+		return $str;
+	}
+
+	//retourne un tableau de String décrivant les vins correspondant a l'appellation entrée en paramètre
+	public function afficherVinsParAppellation($appellation)
+	{
+
+		$vins = $this->modele->trouverVinsParAppellation($appellation);
+		$str = $this->descriptionVins($vins);
+		return $str;
+	}
+
+	//retourne un tableau de String décrivant les vins correspondant au cépage entré en paramètre
+	public function afficherVinsParTypeVin($typeVin)
+	{
+
+		$vins = $this->modele->trouverVinsParTypeVin($typeVin);
+		$str = $this->descriptionVins($vins);
+		return $str;
+	}
+
+	//retourne un tableau de String décrivant les vins contenant $nomVin dans le nom
+	public function afficherVinsParNom($nomVin)
+	{
+		$vins = $this->modele->trouverVinsParNom($nomVin);
 		$str = $this->descriptionVins($vins);
 		return $str;
 	}
@@ -284,7 +354,66 @@ class ControleurOenline
 				$strTyp .= " ".$typeVin->nomTypeVin;
 			}
 
-			$str[$i] = $strVin.$strTyp.$strApp.$strDom.$strCep;
+			$str[$i] = $strVin.$strTyp.$strApp.$strDom.$strCep."<br>";
+
+		}
+
+		return $str;
+	}
+
+	//retourne un tableau de String avec la description complète des vins donné en paramètre(avec leurs bouches, leurs nez, leurs robes...)
+	public function descriptionVinsComplete($vins)
+	{
+		$str = array();
+		for ($i = 0; $i < count($vins); $i++) 
+		{
+			$domaines = $this->modele->trouverDomainesParVin($vins[$i]);
+			$cepages = $this->modele->trouverCepagesParVin($vins[$i]);
+			$appellations = $this->modele->trouverAppellationsParVin($vins[$i]);
+			$typesVins = $this->modele->trouverTypesVinsParVin($vins[$i]);
+			$bouches = $this->modele->trouverBouchesParVin($vins[$i]);
+			$robes = $this->modele->trouverRobesParVin($vins[$i]);
+			$nezz = $this->modele->trouverNezParVin($vins[$i]);
+
+			$strDom = "<br>Domaine: ";
+			$strCep = "<br>Cépages: ";
+			$strApp = "<br>Appellation: ";
+			$strTyp = "<br>Type: ";
+			$strRob = "<br><br>Notre oenologue a observé les robes suivantes: ";
+			$strNez = "<br><br>Notre oenologue a senti les nez suivants: ";
+			$strBou = "<br><br>Notre oenologue a relevé les bouches suivantes: ";
+
+			$strVin = "<br>Référence: ".$vins[$i]->idVin."<br>Nom: ".$vins[$i]->nomVin."<br>Brève description: ".$vins[$i]->descCourte."<br>Description approfondie: ".$vins[$i]->descLongue;
+
+			foreach ($domaines as $domaine) {
+				$strDom .= $domaine->nomDomaine;
+			}
+
+			foreach ($cepages as $cepage) {
+				$strCep .= " ".$cepage->nomCepage;
+			}
+
+			foreach ($appellations as $appellation) {
+				$strApp .= " ".$appellation->nomAppellation;
+			}
+
+			foreach ($typesVins as $typeVin) {
+				$strTyp .= " ".$typeVin->nomTypeVin;
+			}
+
+			foreach ($robes as $robe) {
+				$strRob .= "<br> -".$robe->nomRobe." |  Score: ".$robe->scoreRobe;
+			}
+
+			foreach ($nezz as $nez) {
+				$strNez .= "<br> -".$nez->nomNez." | Score: ".$nez->scoreNez;
+			}
+
+			foreach ($bouches as $bouche) {
+				$strBou .= "<br> -".$bouche->nomBouche." | Score: ".$bouche->scoreBouche;
+			}
+
+			$str[$i] = $strVin.$strTyp.$strApp.$strDom.$strCep.$strRob.$strNez.$strBou."<br>";
 
 		}
 

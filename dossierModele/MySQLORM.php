@@ -288,6 +288,20 @@ class MySQLORM implements ORM
 		}		
 	}
 
+	public function trouverBouchesParVin($vin)
+	{
+		$aGouts=$this->aGoutDAO->trouverParIdVin($vin->idVin);
+		$boucheIds=array();
+		foreach($aGouts as $aGout)
+			array_push($boucheIds, $aGout->idBouche);
+		if(count($boucheIds)==0)
+			return array();
+		else
+		{ 
+			return $this->boucheDAO->trouverParIdBouche($boucheIds);
+		}		
+	}
+
 	public function trouverNezParTypeVin($typeVin)
 	{
 		$nezzTypesVins=$this->nezTypeVinDAO->trouverParIdTypeVin($typeVin->idTypeVin);
@@ -302,12 +316,40 @@ class MySQLORM implements ORM
 		}		
 	}
 
-	public function trouverRobesParTypeVin($typeVin)
+	public function trouverNezParVin($vin)
+	{
+		$aOdeurs=$this->aOdeurDAO->trouverParIdVin($vin->idVin);
+		$nezIds=array();
+		foreach($aOdeurs as $aOdeur)
+			array_push($nezIds, $aOdeur->idNez);
+		if(count($nezIds)==0)
+			return array();
+		else
+		{ 
+			return $this->nezDAO->trouverParIdNez($nezIds);
+		}		
+	}
+
+	public function trouverRobesParTypeVin($vin)
 	{
 		$robesTypesVins=$this->robeTypeVinDAO->trouverParIdTypeVin($typeVin->idTypeVin);
 		$robeIds=array();
 		foreach($robesTypesVins as $robeTypeVin)
 			array_push($robeIds, $robeTypeVin->idRobe);
+		if(count($robeIds)==0)
+			return array();
+		else
+		{ 
+			return $this->robeDAO->trouverParIdRobe($robeIds);
+		}		
+	}
+
+	public function trouverRobesParVin($vin)
+	{
+		$aAspects=$this->aAspectDAO->trouverParIdVin($vin->idVin);
+		$robeIds=array();
+		foreach($aAspects as $aAspect)
+			array_push($robeIds, $aAspect->idRobe);
 		if(count($robeIds)==0)
 			return array();
 		else
