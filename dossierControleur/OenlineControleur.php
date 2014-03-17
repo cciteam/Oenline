@@ -25,7 +25,7 @@ function AfficherSection($Section){
 				$recherche = "nom";
 			$parametre = test_param($parametre,$recherche);}
 		}
-		require('dossierVue/nav_Accueil.php');
+		require('dossierVue/nav_VinsReferences.php');
 		require('dossierVue/homeVinsReferences.php');
 		require('dossierVue/gabarit.php');
 		}

@@ -50,11 +50,20 @@ div#contenu{
 	margin : 0;
 	padding : 0; 
 	display: block; 
-	background-color: #F7EBBB; 
+/*	background-color: #F7EBBB; */
 	width:100%;
 	border: 1px solid  #F7EBBB; 
 	text-align: justify;} 
 
+	div#contenu div.bg1{width : 100%; background-color : #F7EBBB;}
+	div#contenu div.bg2{width : 100%; background-image : url('../Images/aside-recherche-vins.jpeg');background-repeat: repeat;}
+	
+	div #contenu div.aside{
+		background-image : url('../Images/aside-recherche-vins.jpeg');
+		background-repeat: repeat;
+	}
+	div#contenu section{
+		background-color : #F7EBBB;}
 section h3{text-align: center;}
 
 footer{
@@ -62,7 +71,8 @@ footer{
 	padding : 0; 
 	display: block; 
 	background-color: #B21313; 
-	width:100%; color :#F7EBBB; 
+	width:100%; 
+	color :#F7EBBB; 
 	text-align: center;
 	border: 1px solid #B21313;}
 
@@ -73,8 +83,8 @@ footer a {
 span.error{color : #E80000;}
 
 
-nav ul li#active{background-color: #F7EBBB ;}
-nav ul li#active a{color : #B21313;}
+nav ul li.actif{background-color: #F7EBBB ;}
+nav ul li.actif a{color : #B21313;}
 
 nav ul li:hover{background-color: #F7EBBB ;}
 
@@ -84,7 +94,7 @@ nav ul li:active{background-color: #F7EBBB ;}
 
 nav ul li a:active{color : #B21313;}
 
-div#contenu aside fieldset form label {display : block; float : right;}
+
 
 @media all and (min-width: 480px), {
 
@@ -122,16 +132,26 @@ div#contenu aside fieldset form label {display : block; float : right;}
 		font-size: 1em;}
 
 	/*section{clear : both;}*/
+	div#contenu div.bg1{float : left; width : 100%;background-image : url('../Images/aside-recherche-vins.jpeg'); background-repeat: repeat;position : relative; overflow : hidden;}
+	div#contenu div.bg2{float : left; width : 100%; position : relative; left : 210px; background-image : none; background-color : #F7EBBB;}
 	
 	div#contenu aside{
 		display : block;
 		float : left;
-		width : 25%;
+		width : 200px;
+		position : relative;
+		left : -210px;
+	}
+	div#contenu aside fieldset{
+		width : 87%;
 	}
 	div#contenu section{
+		width : 58%;
 		display : block;
 		float : left;
-		margin-left : 26%;
+		position : relative;
+		left :-200px;
+		overflow : hidden;
 	}
 	div#contenu div.clear{
 		clear : both;
@@ -161,7 +181,7 @@ div#contenu aside fieldset form label {display : block; float : right;}
 		float : left; 
 		width : 30%;
 	}
-	}
+}
 
 @media all and (min-width: 1024px), {
 
@@ -173,9 +193,21 @@ div#contenu aside fieldset form label {display : block; float : right;}
 		font-size : 1em;
 		width : 24.75%;}
 		
+	div#contenu div.bg1{float : left; width : 100%; background-image : url('../Images/aside-recherche-vins.jpeg'); background-repeat: repeat; overflow : hidden;}
+	div#contenu div.bg2{float : left; width : 100%; position : relative; left : 310px;background-color : #F7EBBB;}
+		
 	div#contenu aside{
 		display : block;
 		float : left;
 		width : 300px;
-	}	
+		position : relative;
+		left : -310px;
+		overflow : hidden;
+	}
+	div#contenu section {
+		width : 70%;
+		position : relative; 
+		left : -310px;
+		overflow : hidden;
+	}
 }
