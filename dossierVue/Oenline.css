@@ -84,6 +84,8 @@ nav ul li:active{background-color: #F7EBBB ;}
 
 nav ul li a:active{color : #B21313;}
 
+div#contenu aside fieldset form label {display : block; float : right;}
+
 @media all and (min-width: 480px), {
 
 	header img{width :40%;}
@@ -119,7 +121,21 @@ nav ul li a:active{color : #B21313;}
 		border: 0px solid #B21313;
 		font-size: 1em;}
 
-	section{clear : both;}
+	/*section{clear : both;}*/
+	
+	div#contenu aside{
+		display : block;
+		float : left;
+		width : 25%;
+	}
+	div#contenu section{
+		display : block;
+		float : left;
+		margin-left : 26%;
+	}
+	div#contenu div.clear{
+		clear : both;
+	}
 	
 	article#enregistrer_un_vin{
 		width : 100%
@@ -156,4 +172,10 @@ nav ul li a:active{color : #B21313;}
 	nav ul li{
 		font-size : 1em;
 		width : 24.75%;}
+		
+	div#contenu aside{
+		display : block;
+		float : left;
+		width : 300px;
+	}	
 }
