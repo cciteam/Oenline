@@ -63,8 +63,16 @@ div#contenu{
 		background-repeat: repeat;
 	}
 	div#contenu section{
+		padding : 7px;
 		background-color : #F7EBBB;}
-section h3{text-align: center;}
+		
+	div#contenu section h3 a{
+		color: #B21313;
+		font: 1.3em "Fredericka the Great", Verdana, "Lucida Grande", Tahoma, Helvetica, Sans-Serif;
+		text-decoration: none;
+	}
+
+	section h3{text-align: center;}
 
 footer{
 	margin : 0;
@@ -207,7 +215,7 @@ nav ul li a:active{color : #B21313;}
 	div#contenu section {
 		width : 70%;
 		position : relative; 
-		left : -310px;
+		left : -300px;
 		overflow : hidden;
 	}
 }

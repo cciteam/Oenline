@@ -4,6 +4,8 @@
       <meta charset="utf-8">
       <title>Oenline</title>
       <link rel="stylesheet" type="text/css" href="dossierVue/Oenline.css">
+	  <link href='http://fonts.googleapis.com/css?family=Fredericka+the+Great' rel='stylesheet' type='text/css'>
+	  <link href='http://fonts.googleapis.com/css?family=Oregano' rel='stylesheet' type='text/css'>
       <link href='http://fonts.googleapis.com/css?family=Over+the+Rainbow' rel='stylesheet' type='text/css'>
     </head>
     <body>

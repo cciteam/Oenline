@@ -22,9 +22,8 @@ function AfficherSection($Section){
 			else if (ISSET($_GET['Rechercher_par_nomDomaine'])){
 				$recherche = "domaine";}
 			else if (ISSET($_GET['Rechercher_par_nomVin'])){
-				$recherche = "nom";
+				$recherche = "nom";}
 			$parametre = test_param($parametre,$recherche);}
-		}
 		require('dossierVue/nav_VinsReferences.php');
 		require('dossierVue/homeVinsReferences.php');
 		require('dossierVue/gabarit.php');
@@ -82,14 +81,14 @@ function test_param($parametre, $recherche)
 /* Vérifie que les paramètres issus des listes déroulantes n'ont pas été modifiés dans l'url 
 Si le paramètre est bien dans la base de données on renvoie le parametre, sinon on renvoie la chaine vide
 */
+	$controleur = new ControleurOenline('127.0.0.1','root','','oenline');
+	$trouve = true;
 	if ($recherche == "appellation"){
 		$appellations = $controleur->trouverAppellations();
 		$trouve = false; 
 		foreach ($appellations as $app){
 			if ($app->nomAppellation==$parametre){$trouve = true; break;}
 		}
-		if ($trouve) {$param = $parametre;}
-		else $param = "";
 	}
 	if ($recherche == "cepage"){
 		$appellations = $controleur->trouverCepages();
@@ -97,16 +96,15 @@ Si le paramètre est bien dans la base de données on renvoie le parametre, sino
 		foreach ($cepages as $cep){
 			if ($cep->nomCepage==$parametre){$trouve = true; break;}
 		}
-		if ($trouve) {$param = $parametre;}
-		else $param = "";
 	}
 	if ($recherche == "couleur"){
-		$couleur = $controleur->trouverTypeVin();
+		$couleurs = $controleur->trouverTypesVins();
 		$trouve = false; 
 		foreach ($couleurs as $col){
 			if ($col->nomTypeVin==$parametre){$trouve = true; break;}
 		}
-		if ($trouve) {$param = $parametre;}
-		else $param = "";
 	}
+	if ($trouve) {$param = $parametre;}
+	else $param = "";
+	return $param;
 }
