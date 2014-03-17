@@ -288,7 +288,30 @@ class ModeleOenline
 		return $this->orm->trouverRobesPartie($partie);
 	}
 
+	public function trouverBouchesParVin($vin)
+	{
+		return $this->orm->trouverBouchesParVin($vin);
+	}
 
+	public function trouverNezParVin($vin)
+	{
+		return $this->orm->trouverNezParVin($vin);
+	}
+
+	public function trouverRobesParVin($vin)
+	{
+		return $this->orm->trouverRobesParVin($vin);
+	}
+
+	public function trouverMembreParMail($mail)
+	{
+		return $this->membreDAO->trouverParMail($mail);
+	}
+
+	public function trouverMembreParPseudo($pseudo)
+	{
+		return $this->membreDAO->trouverParPseudo($pseudo);
+	}
 }
 
 ?>
