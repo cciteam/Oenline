@@ -323,41 +323,40 @@ class ControleurOenline
 	//retourne un tableau de String et prends un tableau de vin en paramètre
 	public function descriptionVins($vins)
 	{
-		$str = array();
-		for ($i = 0; $i < count($vins); $i++) 
-		{
-			$domaines = $this->modele->trouverDomainesParVin($vins[$i]);
-			$cepages = $this->modele->trouverCepagesParVin($vins[$i]);
-			$appellations = $this->modele->trouverAppellationsParVin($vins[$i]);
-			$typesVins = $this->modele->trouverTypesVinsParVin($vins[$i]);
-
-			$strDom = "<br>Domaine: ";
-			$strCep = "<br>Cépages: ";
-			$strApp = "<br>Appellation: ";
-			$strTyp = "<br>Type: ";
-
-			$strVin = "<br>Référence: ".$vins[$i]->idVin."<br>Nom: ".$vins[$i]->nomVin."<br>Brève description: ".$vins[$i]->descCourte;
-
-			foreach ($domaines as $domaine) {
-				$strDom .= $domaine->nomDomaine;
+		if (!empty($vins)){			
+			ob_start();
+			$nomDomainePrecedant="";
+			echo "<div>";
+			foreach ($vins as $vin){
+				$domaine = $this->trouverDomainesParVin($vin);
+				$domaine = $domaine[0];
+				if ($nomDomainePrecedant!=$domaine->nomDomaine){
+					echo "</div>";
+					echo "<div classe = 'Domaine'>";
+					echo "<h3><a href = 'home.php?Section=VinsReferences&Rechercher_par_nomDomaine=Rechercher&parametre=".utf8_encode($domaine->nomDomaine)."'>";
+					echo $domaine->nomDomaine."</a></h3>";
+					$nomDomainePrecedant = $domaine->nomDomaine;}
+				$cepages = $this->trouverCepagesParVin($vin);
+				$typeVin = $this->trouverTypesVinsParVin($vin);
+				$appellation = $this->trouverAppellationsParVin($vin);
+				echo '<article>';
+				echo '<header><a href = "">'.$vin->nomVin.'</a>, millésime '.$vin->millesime.'</header>';
+				echo '<hr/>';
+				echo '<p>'.$domaine->nomDomaine. '<br>';
+				echo 'Numero du vin : '.$vin->idVin. '<br>';
+				echo 'Appellation : '.$appellation[0]->nomAppellation.'<br>';
+				echo 'Type de vin : '.$typeVin[0]->nomTypeVin.'<br>';
+				echo 'Cépages : ';
+				echo $cepages[0]->nomCepage;
+				for ($i = 1; $i<count($cepages); $i++){
+					echo ', '.utf8_encode($cepages[$i]->nomCepage);
+					}
+				echo '<br>'.$vin->descCourte;
+				echo '</p></article>';
 			}
-
-			foreach ($cepages as $cepage) {
-				$strCep .= " ".$cepage->nomCepage;
-			}
-
-			foreach ($appellations as $appellation) {
-				$strApp .= " ".$appellation->nomAppellation;
-			}
-
-			foreach ($typesVins as $typeVin) {
-				$strTyp .= " ".$typeVin->nomTypeVin;
-			}
-
-			$str[$i] = $strVin.$strTyp.$strApp.$strDom.$strCep."<br>";
-
+			$str = ob_get_clean();
 		}
-
+		else {$str = '<div><p>Aucun vin ne correspond à votre recherche</p></div>';}
 		return $str;
 	}
 

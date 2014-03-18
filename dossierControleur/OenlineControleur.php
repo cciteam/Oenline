@@ -29,7 +29,7 @@ function AfficherSection($Section){
 		require('dossierVue/gabarit.php');
 		}
 	if ($Section=="Jeu" ){
-		require('dossierVue/nav_Accueil.php');
+		require('dossierVue/nav_Jeu.php');
 		require('dossierVue/homeJeu.php');
 		require('dossierVue/gabarit.php');
 		}

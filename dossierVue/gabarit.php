@@ -15,7 +15,7 @@
 			<?/*= $contenu_connexion */?>
 		</div>
 	    <div class = "titre">
-			<a href = "Oenline.php" ><img src = "Images/LogoOenline.png" alt = "logo Oenline"></a>
+			<a href = "home.php" ><img src = "Images/LogoOenline.png" alt = "logo Oenline"></a>
 			<h2> Aurez- vous 20 sur vin? </h2>
 		</div>
 		<div class="clear"></div>
