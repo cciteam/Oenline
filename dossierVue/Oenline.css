@@ -55,13 +55,20 @@ div#contenu{
 	border: 1px solid  #F7EBBB; 
 	text-align: justify;} 
 
-	div#contenu div.bg1{width : 100%; background-color : #F7EBBB;}
-	div#contenu div.bg2RechVin{width : 100%; background-image : url('../Images/aside-recherche-vins.jpeg');background-repeat: repeat;}
+	div#contenu div.bg1RechVin{width : 100%; background-color : #F7EBBB;}
+	div#contenu div.bg1Jeu{width : 100%; background-color : #F7EBBB;}
+	div#contenu div.bg2{width : 100%;background-color : #F7EBBB;}
 	
-	div #contenu div.asideRechVin{
+	div#contenu div#asideRechVin{
 		background-image : url('../Images/aside-recherche-vins.jpeg');
 		background-repeat: repeat;
 	}
+	div#contenu div#asideJeu{
+		background-image : url('../Images/aside-Jeu.jpg');
+		background-repeat: repeat;
+	}
+	
+	
 	div#contenu section{
 		padding : 7px;
 		background-color : #F7EBBB;}
@@ -140,8 +147,12 @@ nav ul li a:active{color : #B21313;}
 		font-size: 1em;}
 
 	/*section{clear : both;}*/
-	div#contenu div.bg1{float : left; width : 100%;background-image : url('../Images/aside-recherche-vins.jpeg'); background-repeat: repeat;position : relative; overflow : hidden;}
-	div#contenu div.bg2RechVin{float : left; width : 100%; position : relative; left : 210px; background-image : none; background-color : #F7EBBB;}
+	div#contenu div.bg1RechVin{float : left; width : 100%;background-image : url('../Images/aside-recherche-vins.jpeg'); background-repeat: repeat;position : relative; overflow : hidden;}
+	div#contenu div.bg1Jeu{float : left; width : 100%;background-image : url('../Images/aside-Jeu.jpg'); background-repeat: repeat;position : relative; overflow : hidden;}
+	div#contenu div.bg2{float : left; width : 100%; position : relative; left : 210px; background-image : none; background-color : #F7EBBB;}
+	
+	div#contenu div#asideRechVin{background-image: none;}
+	div#contenu div#asideJeu{background-image: none;}
 	
 	div#contenu aside{
 		display : block;
@@ -201,8 +212,9 @@ nav ul li a:active{color : #B21313;}
 		font-size : 1em;
 		width : 24.75%;}
 		
-	div#contenu div.bg1{float : left; width : 100%; background-image : url('../Images/aside-recherche-vins.jpeg'); background-repeat: repeat; overflow : hidden;}
-	div#contenu div.bg2RechVin{float : left; width : 100%; position : relative; left : 310px;background-color : #F7EBBB;}
+	div#contenu div.bg1RechVin{float : left; width : 100%; background-image : url('../Images/aside-recherche-vins.jpeg'); background-repeat: repeat; overflow : hidden;}
+	div#contenu div.bg1Jeu{float : left; width : 100%; background-image : url('../Images/aside-Jeu.jpg'); background-repeat: repeat; overflow : hidden;}
+	div#contenu div.bg2{float : left; width : 100%; position : relative; left : 310px;background-color : #F7EBBB;}
 		
 	div#contenu aside{
 		display : block;

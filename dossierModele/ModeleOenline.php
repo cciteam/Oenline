@@ -222,6 +222,11 @@ class ModeleOenline
 	{
 		return $this->vinDAO->rechercherParNom($nomVin);
 	}
+	//retourne les vins contenant $IDVin dans le nom
+	public function trouverVinParIdVin($IDVin)
+	{
+		return $this->vinDAO->trouverParIdVin($IDVin);
+	}
 
 	public function trouverCepagesParVin($vin)
 	{

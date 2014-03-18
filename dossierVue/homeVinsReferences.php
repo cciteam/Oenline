@@ -5,10 +5,10 @@ $cepages = $controleur->trouverCepages();
 $couleurs = $controleur->trouverTypesVins();
 ?>
 <?php ob_start(); ?>
-	<div class="bg1">
-		<div class="bg2RechVin">
+	<div class="bg1RechVin">
+		<div class="bg2">
 			<aside> 
-			<div class = "asideRechVin">
+			<div id = "asideRechVin">
 				<fieldset>
 					<legend>Rechercher par appellation : </legend>
 					<form action = <?php echo htmlspecialchars("home.php");?> method = "GET">

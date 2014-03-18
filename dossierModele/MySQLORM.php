@@ -330,7 +330,7 @@ class MySQLORM implements ORM
 		}		
 	}
 
-	public function trouverRobesParTypeVin($vin)
+	public function trouverRobesParTypeVin($typeVin)
 	{
 		$robesTypesVins=$this->robeTypeVinDAO->trouverParIdTypeVin($typeVin->idTypeVin);
 		$robeIds=array();

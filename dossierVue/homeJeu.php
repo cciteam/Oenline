@@ -1,22 +1,27 @@
 <?php
 $controleur = new ControleurOenline('127.0.0.1','root','','oenline');
 if (ISSET ($_SECTION['PseudoMembre'])){ $access = true;}
-else $access = $false;
+else $access = false;
 if (ISSET ($_GET['idVinJeu'])) {$idVinJeu = $_GET['idVinJeu'];}
+$access = true;
+if (!$access && (ISSET($_GET['idVinJeu']))) {header('Location:home.php?Section=Jeu');} 
+
 ?>
 
 <?php ob_start(); ?>
-	<div class="bg1">
-		<div class="bg2Jeu">
-			<aside> 
-				<div class = "asideJeu">
-				</div>
-			</aside>
-			<section>
-				<div id = "ContenuVinsRef">
-					<?php
-						if (!ISSET($idVinJeu)){
-					?>
+	<div class="bg1Jeu">
+		<div class="bg2">
+		<?php
+			if (!ISSET($idVinJeu)){
+		?>
+				<aside> 
+					<div id = "asideJeu">
+						<p>
+						</p>
+					</div>
+				</aside>
+				<section>
+					<div id = "ContenuVinsRef">
 						<h3>Règles du jeu</h3>
 						<p>
 						Ce jeu permet  à un membre de commenter en ligne un ou plusieurs vins. 
@@ -43,20 +48,54 @@ if (ISSET ($_GET['idVinJeu'])) {$idVinJeu = $_GET['idVinJeu'];}
 						La fiche complète de dégustation établie par nos œnologues est fournie à l’issue du jeu 
 						c’est-à-dire une fois  que toutes les étapes du jeu ont été validées).<br>
 					<?php
-							if (!$access){
-								echo "<p> Pour commencer une partie, connectez vous!</p>";
-								}
-							else {
+						if (!$access){
+							echo "<p> Pour commencer une partie, connectez vous!</p>";
+							}
+						else {
 					?>
 							<p>Veuillez saisir le numéro d'un vin pour commencer une partie : 
-							<form>
+							<form action = <?php echo htmlspecialchars("home.php");?> method =  "GET">
 								<input type = "number" name="idVinJeu" min="1" max="5000">
+								<input type = "hidden" name ="Section" value = "Jeu">
+								<input type = "submit" name ="Submit" value = "Commencer">
+							</form>
+							<br>
+							Ou choisissez le vin dans notre sélection grace à 
+							<a href = "home.php?Section=VinsReferences">notre outils de recherche</a>
 
 						
-							
+					<?php
+							}
 					?>
+
 				</div>
 			</section>
+		<?php
+			}
+			else {
+		?>	
+				<aside> 
+					<div id = "asideJeu">
+					<?php
+						$idVinJeu = $_GET['idVinJeu'];
+						$str = $controleur->descriptionVinJeu($idVinJeu);
+						echo $str;
+					?>	
+					</div>
+				</aside>
+				<section>
+					<div id = "ContenuJeu">
+					<?php
+						$str = $controleur->formulaireVin($idVinJeu);
+						print " allez allez allez allez allez : ";
+						print $str;
+						echo $str;
+					?>
+					</div>
+				</section>
+		<?php
+		}
+		?>
 		</div>
 	</div>
 <?php $contenu = ob_get_clean(); ?>
