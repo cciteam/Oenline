@@ -1,6 +1,6 @@
-<?php 
+﻿<?php 
 
-class Vin
+class Vin 
 {
 	public $idVin=NULL;
 	public $nomVin=NULL;
