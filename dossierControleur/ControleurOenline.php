@@ -387,53 +387,7 @@ class ControleurOenline
 
 	}
 	
-	// retourne une string d'affichage du formulaire à remplire suivant le numéro du vin joué
-	public function formulaireVin($idVinJeu)
-	{
-		$vin = ($this->trouverVinParIdVin($idVinJeu));
-		$vin = $vin[0];
-		$domaine = $this->trouverDomainesParVin($vin);
-		$typeVin = $this->trouverTypesVinsParVin($vin);
-		$bouches = $this->trouverBouchesParTypeVin($typeVin[0]);
-		$nez = $this->trouverNezParTypeVin($typeVin[0]);
-		$robes = $this->trouverRobesParTypeVin($typeVin[0]);
-		$str = "<h3> Votre dégustation de ".$vin->nomVin." proposé par ".$domaine[0]->nomDomaine."</h3>";
-		$str .= "<form action = 'home.php?Section=Jeu&idVinJeu=".$idVinJeu."' method = '$_POST'>";
-		$str .= "<fieldset><legend> La robe : </legend>";
-		$typeRobe = "";
-		foreach ($robes as $r){
-			if ($r->typeRobe != $typeRobe){
-				$str .= "<br>";
-				$typeRobe = $r->typeRobe;}
-			$str .= "<input type='checkbox' name='Robe[]' value ='".serialize($r)."'>".$r->nomRobe."<br>";
-			}
-		$str .= "</fieldset>";
-		$str .= "<fieldset><legend> Le nez : </legend>";
-		$typeNez = "";
-		foreach ($nez as $n){
-			if ($n->typeNez != $typeNez){
-				$str .= "<br>";
-				$typeNez = $n->typeNez;}
-			$str .= "<input type='checkbox' name='Nez[]' value ='".serialize($n)."'>".$n->nomNez."<br>";
-			}
-		$str .= "</fieldset>";
-		$str .= "<fieldset><legend> La bouche : </legend>";
-		$typeBouche = "";
-		foreach ($bouches as $b){
-			if ($b->typeBouche != $typeBouche){
-				$str .= "<br>";
-				$typeBouche = $b->typeBouche;}
-			$str .= "<input type='checkbox' name='Bouche[]' value ='".serialize($b)."'>".$b->nomBouche."<br>";
-			}
-		$str .= "</fieldset>";
-		$str .= "<fieldset><legend> Votre avis : </legend>";
-		$str .= "<textarea name='AvisMembre' rows='10' cols='55'></textarea>";
-		$str .= "</fieldset>";
-		$str .= "<input type='submit' name='Submit' value='Valider la dégustation'>";
-		$str .= "</form>";
-		return $str;
-		
-	}
+
 	//retourne un tableau de String avec la description complète des vins donné en paramètre(avec leurs bouches, leurs nez, leurs robes...)
 	public function descriptionVinsComplete($vins)
 	{

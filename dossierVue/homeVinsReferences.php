@@ -5,131 +5,127 @@ $cepages = $controleur->trouverCepages();
 $couleurs = $controleur->trouverTypesVins();
 ?>
 <?php ob_start(); ?>
-	<div class="bg1RechVin">
-		<div class="bg2">
-			<aside> 
-			<div id = "asideRechVin">
-				<fieldset>
-					<legend>Rechercher par appellation : </legend>
-					<form action = <?php echo htmlspecialchars("home.php");?> method = "GET">
-						<p>
-							<select name= "parametre">
-								<?php
-									foreach ($appellations as $app){
-										echo '<option>'.$app->nomAppellation.'</option>';
-									}
-								?>
-							</select><br/>
-							<input type = "hidden" name = "Section" value = "VinsReferences">
-							<label><input type= "submit" name = "Rechercher_par_appellation" value = "Rechercher"></label>
-						</p>
-					</form>
-				</fieldset>
-				<fieldset>
-					<legend>Rechercher par cépage : </legend>
-					<form action = <?php echo htmlspecialchars("home.php");?> method = "GET">
-						<p>
-							<select name= "parametre">
-								<?php
-									foreach ($cepages as $cep){
-										echo '<option>'.$cep->nomCepage.'</option>';
-									}
-								?>
-							</select><br/>
-							<input type = "hidden" name = "Section" value = "VinsReferences">
-							<label><input type= "submit" name = "Rechercher_par_cepage" value = "Rechercher"></label>
-						</p>
-					</form>
-				</fieldset>
-				<fieldset>
-					<legend>Rechercher par couleur de vin : </legend>
-					<form action = <?php echo htmlspecialchars("home.php");?> method = "GET">
-						<p>
-							<select name= "parametre">
-								<?php
-									foreach ($couleurs as $col){
-										echo '<option>'.$col->nomTypeVin.'</option>';
-									}
-								?>
-							</select><br/>
-							<input type = "hidden" name = "Section" value = "VinsReferences">
-							<label><input type= "submit" name = "Rechercher_par_couleur" value = "Rechercher"></label>
-						</p>
-					</form>
-				</fieldset>
-				<fieldset>
-					<legend>Rechercher par nom de domaine : </legend>
-					<form action = <?php echo htmlspecialchars("home.php");?> method = "GET">
-						<p>
-							<input type= "text" name = "parametre"><br/>
-							<input type = "hidden" name = "Section" value = "VinsReferences">
-							<label><input type= "submit" name = "Rechercher_par_nomDomaine" value = "Rechercher"></label>
-						</p>
-					</form>
-				</fieldset>
-				<fieldset>
-					<legend>Rechercher par nom de vin : </legend>
-					<form action = <?php echo htmlspecialchars("home.php");?> method = "GET">
-						<p>
-							<input type= "text" name = "parametre"><br/>
-							<input type = "hidden" name = "Section" value = "VinsReferences">
-							<label><input type= "submit" name = "Rechercher_par_nomVin" value = "Rechercher"></label>
-						</p>
-					</form>
-				</fieldset>
-			</div>
-			</aside>
-
-			<section>
-				<div id = "ContenuVinsRef">
-					<?php
-						if ($parametre != ""){
-							if ($recherche == "appellation"){
+	<aside id= "RechVin"> 
+		<div id = "RechVin">
+			<fieldset>
+				<legend>Rechercher par appellation : </legend>
+				<form action = <?php echo htmlspecialchars("home.php");?> method = "GET">
+					<p>
+						<select name= "parametre">
+							<?php
 								foreach ($appellations as $app){
-									if ($app->nomAppellation == $parametre){
-										$appellation = $app;
-										break;
-									}
+									echo '<option>'.$app->nomAppellation.'</option>';
 								}
-								echo "<h2> Nos résultats pour votre recherche de vins ".(($recherche=="appellation")?"d'":"de ").$recherche." ".$parametre."</h2>";								
-								echo ($controleur->afficherVinsParAppellation($appellation));
-							}
-							else if ($recherche == "cépage"){
+							?>
+						</select><br/>
+						<input type = "hidden" name = "Section" value = "VinsReferences">
+						<label><input type= "submit" name = "Rechercher_par_appellation" value = "Rechercher"></label>
+					</p>
+				</form>
+			</fieldset>
+			<fieldset>
+				<legend>Rechercher par cépage : </legend>
+				<form action = <?php echo htmlspecialchars("home.php");?> method = "GET">
+					<p>
+						<select name= "parametre">
+							<?php
 								foreach ($cepages as $cep){
-									if ($cep->nomCepage== $parametre){
-										$cepage = $cep;
-										break;
-									}
-								}		
-								echo "<h2> Nos résultats pour votre recherche de vins ".(($recherche=="appellation")?"d'":"de ").$recherche." ".$parametre."</h2>";	
-								echo ($controleur->afficherVinsParCepage($cepage));
-							}
-							
-							else if ($recherche == "couleur") {
-								foreach ($couleurs as $col){
-									if ($col->nomTypeVin == $parametre){
-										$couleur = $col;
-										break;
-									}
+									echo '<option>'.$cep->nomCepage.'</option>';
 								}
-								echo "<h2> Nos résultats pour votre recherche de vins ".(($recherche=="appellation")?"d'":"de ").$recherche." ".$parametre."</h2>";	
-								echo ($controleur->afficherVinsParTypeVin($couleur));
-							}
-							else if ($recherche == "domaine"){
-								echo "<h2> Nos résultats pour votre recherche de vins ".(($recherche=="appellation")?"d'":"de ").$recherche." ".$parametre."</h2>";	
-								echo ($controleur->afficherVinsParNomDeDomaine($parametre));}
-							else if ($recherche == "nom"){
-								echo "<h2> Nos résultats pour votre recherche de vins ".(($recherche=="appellation")?"d'":"de ").$recherche." ".$parametre."</h2>";	
-								echo ($controleur->afficherVinsParNom($parametre));}
-							else echo  "<p>Une erreur c'est produite, recommencez votre recherche.</p>";
-							
-								
-						}
-						else echo "<p>Veuillez renseigner le paramètre de votre recherche</p>"
-					?>
-				</div>
-			</section>	
-			<div class = "clear"></div>
+							?>
+						</select><br/>
+						<input type = "hidden" name = "Section" value = "VinsReferences">
+						<label><input type= "submit" name = "Rechercher_par_cepage" value = "Rechercher"></label>
+					</p>
+				</form>
+			</fieldset>
+			<fieldset>
+				<legend>Rechercher par couleur de vin : </legend>
+				<form action = <?php echo htmlspecialchars("home.php");?> method = "GET">
+					<p>
+						<select name= "parametre">
+							<?php
+								foreach ($couleurs as $col){
+									echo '<option>'.$col->nomTypeVin.'</option>';
+								}
+							?>
+						</select><br/>
+						<input type = "hidden" name = "Section" value = "VinsReferences">
+						<label><input type= "submit" name = "Rechercher_par_couleur" value = "Rechercher"></label>
+					</p>
+				</form>
+			</fieldset>
+			<fieldset>
+				<legend>Rechercher par nom de domaine : </legend>
+				<form action = <?php echo htmlspecialchars("home.php");?> method = "GET">
+					<p>
+						<input type= "text" name = "parametre"><br/>
+						<input type = "hidden" name = "Section" value = "VinsReferences">
+						<label><input type= "submit" name = "Rechercher_par_nomDomaine" value = "Rechercher"></label>
+					</p>
+				</form>
+			</fieldset>
+			<fieldset>
+				<legend>Rechercher par nom de vin : </legend>
+				<form action = <?php echo htmlspecialchars("home.php");?> method = "GET">
+					<p>
+						<input type= "text" name = "parametre"><br/>
+						<input type = "hidden" name = "Section" value = "VinsReferences">
+						<label><input type= "submit" name = "Rechercher_par_nomVin" value = "Rechercher"></label>
+					</p>
+				</form>
+			</fieldset>
 		</div>
-	</div>
+	</aside>
+
+	<section>
+		<div id = "ContenuVinsRef">
+			<?php
+				if ($parametre != ""){
+					if ($recherche == "appellation"){
+						foreach ($appellations as $app){
+							if ($app->nomAppellation == $parametre){
+								$appellation = $app;
+								break;
+							}
+						}
+						echo "<h2> Nos résultats pour votre recherche de vins ".(($recherche=="appellation")?"d'":"de ").$recherche." ".$parametre."</h2>";								
+						echo ($controleur->afficherVinsParAppellation($appellation));
+					}
+					else if ($recherche == "cépage"){
+						foreach ($cepages as $cep){
+							if ($cep->nomCepage== $parametre){
+								$cepage = $cep;
+								break;
+							}
+						}		
+						echo "<h2> Nos résultats pour votre recherche de vins ".(($recherche=="appellation")?"d'":"de ").$recherche." ".$parametre."</h2>";	
+						echo ($controleur->afficherVinsParCepage($cepage));
+					}
+					
+					else if ($recherche == "couleur") {
+						foreach ($couleurs as $col){
+							if ($col->nomTypeVin == $parametre){
+								$couleur = $col;
+								break;
+							}
+						}
+						echo "<h2> Nos résultats pour votre recherche de vins ".(($recherche=="appellation")?"d'":"de ").$recherche." ".$parametre."</h2>";	
+						echo ($controleur->afficherVinsParTypeVin($couleur));
+					}
+					else if ($recherche == "domaine"){
+						echo "<h2> Nos résultats pour votre recherche de vins ".(($recherche=="appellation")?"d'":"de ").$recherche." ".$parametre."</h2>";	
+						echo ($controleur->afficherVinsParNomDeDomaine($parametre));}
+					else if ($recherche == "nom"){
+						echo "<h2> Nos résultats pour votre recherche de vins ".(($recherche=="appellation")?"d'":"de ").$recherche." ".$parametre."</h2>";	
+						echo ($controleur->afficherVinsParNom($parametre));}
+					else echo  "<p>Une erreur c'est produite, recommencez votre recherche.</p>";
+					
+						
+				}
+				else echo "<p>Veuillez renseigner le paramètre de votre recherche</p>"
+			?>
+		</div>
+	</section>	
+		
 <?php $contenu = ob_get_clean(); ?>
