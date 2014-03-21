@@ -121,39 +121,89 @@ le numéro du vin, renseigné par le joueur.
 					$str = "<h3> Votre dégustation de ".$vin->nomVin." proposé par ".$domaine[0]->nomDomaine."</h3>";
 					$str .= "<form action = 'home.php?Section=Jeu&idVinJeu=".$idVinJeu."' method = 'POST'>";
 					$str .= "<fieldset><legend> La robe : </legend>";
-					$typeRobe = "";
+					$typeRobe = $robes[1]->typeRobe;
+					$str .="<div class = 'affichage_formulaire'>";
+					$str .= "<br>";
+					$str .= "<h4>".$typeRobe."</h4>";
 					foreach ($robes as $r){
 						if ($r->typeRobe != $typeRobe){
+							$typeRobe = $r->typeRobe;
+							$str .= "</div>";
+							$str .="<div class = 'Affichage_formulaire'>";
 							$str .= "<br>";
-							$typeRobe = $r->typeRobe;}
-						$str .= "<input type='checkbox' name='Robe[]' value ='".serialize($r)."'>".$r->nomRobe."<br>";
+							$str .= "<h4>".$typeRobe."</h4>";
 						}
+						$str .= "<input type='checkbox' name='Robe[]' value ='".serialize($r)."'>".$r->nomRobe."<br>";
+					}
+					$str .= "</div>";
 					$str .= "</fieldset>";
 					$str .= "<fieldset><legend> Le nez : </legend>";
-					$typeNez = "";
-					foreach ($nez as $n){
-						if ($n->typeNez != $typeNez){
+					$typeNez = $nez[1]->typeNez;
+					$str .="<div class = 'affichage_formulaire'>";
+					$str .= "<br>";
+					$str .= "<h4><input type='checkbox' name='Nez[]' value ='".serialize($nez[0])."'>".$nez[0]->nomNez."</h4>";
+					for ($i = 1; $i< count($nez); $i++){
+						if ($nez[$i]->typeNez != $typeNez){
+							$typeNez = $nez[$i]->typeNez;
+							$str .= "</div>";
+							$str .="<div class = 'Affichage_formulaire'>";
 							$str .= "<br>";
-							$typeNez = $n->typeNez;}
-						$str .= "<input type='checkbox' name='Nez[]' value ='".serialize($n)."'>".$n->nomNez."<br>";
+							$str .= "<h4><input type='checkbox' name='Nez[]' value ='".serialize($nez[$i])."'>".$nez[$i]->nomNez."</h4>";
 						}
-					$str .= "</fieldset>";
-					$str .= "<fieldset><legend> La bouche : </legend>";
-					$typeDescBouche = "";
-					foreach ($bouches as $b){
-						if ($b->typeDescBouche != $typeDescBouche){
-							$str .= "<br>";
-							$typeDescBouche = $b->typeDescBouche;
-							}
-						if ($b->nomBouche != $b->typeDescBouche){
-							$str .= "<input type='checkbox' name='Bouche[]' value ='".serialize($b)."'>".$b->nomBouche."<br>";
-						}
-						else {$str .= "<b><input type='checkbox' name='Bouche[]' value ='".serialize($b)."'>".$b->nomBouche."</b><br>";
+						else {
+							$str .= "<input type='checkbox' name='Nez[]' value ='".serialize($nez[$i])."'>".$nez[$i]->nomNez."<br>";
 						}
 					}
+					$str .= "</div>";
+					$str .= "</fieldset>";
+					$str .= "<fieldset><legend> La bouche : </legend>";
+					$typeDescBouche = $bouches[0]->typeDescBouche;
+					$typeBouche = $bouches[0]->typeBouche;
+					$str .= "<div class = 'typeBouche'>";
+					$str .= "<h3>".$typeBouche."</h3>";
+					$str .= "<div class = 'affichage_formulaire'>";
+					if ($typeBouche == "Arômes"){
+						$str .= "<br>";
+						$str .= "<h4><input type='checkbox' name='Bouche[]' value ='".serialize($bouches[0])."'>".$bouches[0]->nomBouche."</h4><br>";
+					}
+					for ($i = 1; $i< count($bouches); $i++){
+						if ($bouches[$i]->typeBouche != $typeBouche){
+							$typeBouche = $bouches[$i]->typeBouche;
+							$str .= "</div>";
+							$str .= "<div class = 'clear'></div>";
+							$str .= "</div>";
+							$str .= "<div class = 'typeBouche'>";
+							$str .= "<h3>".$typeBouche."</h3>";
+							$str .= "<div>";
+							}
+						if ($typeBouche == "Arômes"){
+							if ($bouches[$i]->typeDescBouche!= $typeDescBouche){
+								$typeDescBouche = $bouches[$i]->typeDescBouche;
+								$str .= "</div>";
+								$str .="<div class = 'Affichage_formulaire'>";
+								$str .= "<br>";
+								$str .= "<h4><input type='checkbox' name='Bouche[]' value ='".serialize($bouches[$i])."'>".$bouches[$i]->nomBouche."</h4><br>";
+							}
+							else {
+								$str .= "<input type='checkbox' name='Bouche[]' value ='".serialize($bouches[$i])."'>".$bouches[$i]->nomBouche."<br>";
+							}
+						}
+						else if ($bouches[$i]->typeDescBouche!= $typeDescBouche){
+							$typeDescBouche = $bouches[$i]->typeDescBouche;
+							$str .= "</div>";
+							$str .="<div class = 'Affichage_formulaire'>";
+							$str .= "<br>";
+							$str .= "<h4>".$typeDescBouche."</h4>";
+							$str .= "<input type='checkbox' name='Bouche[]' value ='".serialize($bouches[$i])."'>".$bouches[$i]->nomBouche."<br>";
+						}
+						else {
+							$str .= "<input type='checkbox' name='Bouche[]' value ='".serialize($bouches[$i])."'>".$bouches[$i]->nomBouche."<br>";
+						}
+					}
+					$str .= "</div></div>";
 					$str .= "</fieldset>";
 					$str .= "<fieldset><legend> Votre avis : </legend>";
-					$str .= "<textarea name='AvisMembre' rows='10' cols='55'></textarea>";
+					$str .= "<textarea name='AvisMembre' rows = '20' cols = '28'></textarea>";
 					$str .= "</fieldset>";
 					$str .= "<input type='submit' name='Submit' value='Valider la dégustation'>";
 					$str .= "</form>";
