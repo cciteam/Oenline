@@ -117,6 +117,7 @@ class MySQLORM implements ORM
 
 			foreach($bouches as $bouche)
 			{
+				print " bouche : ".$bouche->idBouche;
 				$goute=new Goute($partie->idPartie, $bouche->idBouche);
 				$this->gouteDAO->ajouter($goute);
 			}

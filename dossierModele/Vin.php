@@ -27,6 +27,13 @@ class Vin
 	{
 		return '<br>Réf:'.$this->idVin.'<br/>Nom: '.$this->nomVin.'<br/>Millésime: '.$this->millesime.'<br/>Description courte: '.$this->descCourte.'<br/>Description longue: '.$this->descLongue;
 	}
+	
+	public function __sleep()
+	{
+		return array('idVin', 'nomVin', 'idDomaine', 'idAppellation', 'idTypeVin', 'descCourte', 'descLongue', 'millesime');
+	}
+	
+	
 }
 
 ?>

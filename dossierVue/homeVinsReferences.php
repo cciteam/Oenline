@@ -90,7 +90,7 @@ $couleurs = $controleur->trouverTypesVins();
 							}
 						}
 						echo "<h2> Nos résultats pour votre recherche de vins ".(($recherche=="appellation")?"d'":"de ").$recherche." ".$parametre."</h2>";								
-						echo ($controleur->afficherVinsParAppellation($appellation));
+						$vins=$controleur->trouverVinsParAppellation($appellation);
 					}
 					else if ($recherche == "cépage"){
 						foreach ($cepages as $cep){
@@ -100,7 +100,7 @@ $couleurs = $controleur->trouverTypesVins();
 							}
 						}		
 						echo "<h2> Nos résultats pour votre recherche de vins ".(($recherche=="appellation")?"d'":"de ").$recherche." ".$parametre."</h2>";	
-						echo ($controleur->afficherVinsParCepage($cepage));
+						$vins=$controleur->trouverVinsParCepage($cepage);
 					}
 					
 					else if ($recherche == "couleur") {
@@ -111,16 +111,49 @@ $couleurs = $controleur->trouverTypesVins();
 							}
 						}
 						echo "<h2> Nos résultats pour votre recherche de vins ".(($recherche=="appellation")?"d'":"de ").$recherche." ".$parametre."</h2>";	
-						echo ($controleur->afficherVinsParTypeVin($couleur));
+						$vins=$controleur->trouverVinsParTypeVin($couleur);
 					}
 					else if ($recherche == "domaine"){
 						echo "<h2> Nos résultats pour votre recherche de vins ".(($recherche=="appellation")?"d'":"de ").$recherche." ".$parametre."</h2>";	
-						echo ($controleur->afficherVinsParNomDeDomaine($parametre));}
+						$vins=$controleur->trouverVinsParNomDeDomaine($parametre);
+					}
 					else if ($recherche == "nom"){
 						echo "<h2> Nos résultats pour votre recherche de vins ".(($recherche=="appellation")?"d'":"de ").$recherche." ".$parametre."</h2>";	
-						echo ($controleur->afficherVinsParNom($parametre));}
+						$vins=$controleur->trouverVinsParNom($parametre);
+					}
 					else echo  "<p>Une erreur c'est produite, recommencez votre recherche.</p>";
-					
+					if (!empty($vins)){			
+						$nomDomainePrecedant="";
+						echo "<div>";
+						foreach ($vins as $vin){
+							$domaine = $controleur->trouverDomainesParVin($vin);
+							$domaine = $domaine[0];
+							if ($nomDomainePrecedant!=$domaine->nomDomaine){
+								echo "</div>";
+								echo "<div classe = 'Domaine'>";
+								echo "<h3><a href = 'home.php?Section=VinsReferences&Rechercher_par_nomDomaine=Rechercher&parametre=".utf8_encode($domaine->nomDomaine)."'>";
+								echo $domaine->nomDomaine."</a></h3>";
+								$nomDomainePrecedant = $domaine->nomDomaine;}
+							$cepages = $controleur->trouverCepagesParVin($vin);
+							$typeVin = $controleur->trouverTypesVinsParVin($vin);
+							$appellation = $controleur->trouverAppellationsParVin($vin);
+							echo '<article>';
+							echo '<header><a href = "home.php?Section=Jeu&idVinJeu='.$vin->idVin.'">'.$vin->nomVin.'</a>, millésime '.$vin->millesime.'</header>';
+							echo '<hr/>';
+							echo '<p>'.$domaine->nomDomaine. '<br>';
+							echo 'Numero du vin : '.$vin->idVin. '<br>';
+							echo 'Appellation : '.$appellation[0]->nomAppellation.'<br>';
+							echo 'Type de vin : '.$typeVin[0]->nomTypeVin.'<br>';
+							echo 'Cépages : ';
+							echo $cepages[0]->nomCepage;
+							for ($i = 1; $i<count($cepages); $i++){
+								echo ', '.utf8_encode($cepages[$i]->nomCepage);
+								}
+							echo '<br>'.$vin->descCourte;
+							echo '</p></article>';
+						}
+					}
+					else {$str = '<div><p>Aucun vin ne correspond à votre recherche</p></div>';echo $str;}
 						
 				}
 				else echo "<p>Veuillez renseigner le paramètre de votre recherche</p>"

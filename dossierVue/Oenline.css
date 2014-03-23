@@ -84,18 +84,16 @@ div#contenu{
 		float : left;
 	}
 	div#contenu div {
-		border : 3px solid #000000;
+
 	}
 	div#contenu div.typeBouche{
 	width : 100%;
-		border : 3px solid #DDDDDD;
 	}
 	div#contenu div.typeBouche h3{ 
 		width : 100%;
-		border : 3px solid #DDDDDD;
 	}
 	div#contenu div.affichage_formulaire{
-		border : 3px solid #BBBBBB;
+
 	}
 	div.clear {
 		clear : both;}
@@ -109,6 +107,9 @@ div#contenu{
 		font: 1.3em "Fredericka the Great", Verdana, "Lucida Grande", Tahoma, Helvetica, Sans-Serif;
 		text-decoration: none;
 	}
+	div#contenu div#contenuJeu{text-align : center;}
+	div#contenu div#contenuJeu fieldset{text-align : left;}
+	div#contenu div#contenuJeu div#ResJeu{text-align : left;}
 
 	section h3{text-align: center;}
 
@@ -209,10 +210,35 @@ nav ul li a:active{color : #B21313;}
 		overflow : hidden;
 	}
 	
+	div#contenu div#results{display : table;width : 100%;}
+	
+	div#contenu section div#ResJeu{
+		display : table-cell;
+		margin : 4px;
+		width : 48%;
+		
+	}
+		
+	
 	
 }
 
 @media all and (min-width: 1024px), {
+	
+	div#bg{
+		background-image : url('../Images/Sancerre2.jpg');
+		background-position: center center;
+		background-repeat: no-repeat; 
+		background-attachment: fixed; 
+		background-size: cover; 
+		-moz-background-size: 100% 100%;     /* Gecko 1.9.2 (Firefox 3.6) */
+		-webkit-background-size: 100% 100%;   /* Safari 3.0 */
+		background-size: 100% 100%;           /* Gecko 2.0 (Firefox 4.0) > CSS3 */ 
+	}
+	div#content{
+		width : 1024px;
+		margin : 0 auto;
+	}
 
 	header img{width :300px;}
 

@@ -1,9 +1,9 @@
 <?php
 require_once("dossierControleur/ControleurOenline.php");
 $controleur = new ControleurOenline('127.0.0.1','root','','oenline');
-
 function AfficherSection($Section){
 	if ($Section == "Cours"){
+		require('dossierVue/connexion.php');
 		require('dossierVue/nav_Accueil.php');
 		require('dossierVue/homeCours.php');
 		require('dossierVue/gabarit.php');
@@ -24,16 +24,19 @@ function AfficherSection($Section){
 			else if (ISSET($_GET['Rechercher_par_nomVin'])){
 				$recherche = "nom";}
 			$parametre = test_param($parametre,$recherche);}
+		require('dossierVue/connexion.php');
 		require('dossierVue/nav_VinsReferences.php');
 		require('dossierVue/homeVinsReferences.php');
 		require('dossierVue/gabarit.php');
 		}
 	if ($Section=="Jeu" ){
+		require('dossierVue/connexion.php');
 		require('dossierVue/nav_Jeu.php');
 		require('dossierVue/homeJeu.php');
 		require('dossierVue/gabarit.php');
 		}
 	if ($Section=="EspaceMembre"){
+		require('dossierVue/connexion.php');
 		require('dossierVue/nav_Accueil.php');
 		require('dossierVue/homeEspaceMembre.php');
 		require('dossierVue/gabarit.php');
@@ -41,6 +44,7 @@ function AfficherSection($Section){
 	}
 
 function AfficherAccueil(){
+	require('dossierVue/connexion.php');
 	require('dossierVue/nav_Accueil.php');
 	require('texteAccueil.php');
 	require('dossierVue/gabarit.php');}
@@ -53,6 +57,24 @@ function AfficherCours($typeCours){
 	}
 	return null;
 
+}
+
+function SeConnecter(){
+	$controleur = new ControleurOenline('127.0.0.1','root','','oenline');
+	$m = $controleur->trouverMembreParMail($_POST['email']);
+	$m = $m[0];
+	if (!empty($m)){
+		if ($m->motDePasse == $_POST['password']){
+			$_SESSION['Membre']=serialize($m);
+			return true;
+		}
+	}
+	return false;
+}
+
+function SeDeconnecter(){
+	session_unset();
+	session_destroy();
 }
 
 function test_input($data)

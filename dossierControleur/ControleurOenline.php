@@ -365,29 +365,6 @@ class ControleurOenline
 		return $str;
 	}
 
-	//retourne une String qui permet de décrire le vin dans la partie aside du site. 
-	public function descriptionVinJeu($idVinJeu)
-	{
-		$vin = $this->trouverVinParIdVin($idVinJeu);
-		$vin = $vin[0];
-		$domaine = $this->trouverDomainesParVin($vin);
-		$appellation = $this->trouverAppellationsParVin($vin);
-		$cepages = $this->trouverCepagesParVin($vin);
-		$couleur = $this->trouverTypesVinsParVin($vin);
-		$str = "<h3>".$vin->nomVin."</h3><br><hr>";
-		$str .= "<p>Millésime : ".$vin->millesime."<br><br>";
-		$str .= "Domaine : ".$domaine[0]->nomDomaine."<br><br>";
-		$str .= "Appellation : ".$appellation[0]->nomAppellation."<br><br>";
-		$str .= "Type de vin : ".$couleur[0]->nomTypeVin."<br><br>";
-		$str .= "Cépage : <ul>";
-		foreach ($cepages as $cep){
-			$str  .= "<li>".$cep->nomCepage."</li>";}
-		$str  .=  "</ul>";
-		return $str;
-
-	}
-	
-
 	//retourne un tableau de String avec la description complète des vins donné en paramètre(avec leurs bouches, leurs nez, leurs robes...)
 	public function descriptionVinsComplete($vins)
 	{
