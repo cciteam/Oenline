@@ -1,6 +1,6 @@
 <?php
 
-require_once('/dossierModele/ModeleOenline.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/dossierModele/ModeleOenline.php');
 
 class ControleurOenline
 {
