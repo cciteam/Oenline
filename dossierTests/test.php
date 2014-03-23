@@ -1,6 +1,5 @@
 <?php
-
-	require_once('../dossierControleur/ControleurOenline.php');
+	require_once($_SERVER['DOCUMENT_ROOT'].'/dossierControleur/ControleurOenline.php');
 	$controleur=new ControleurOenline("localhost", "root", "", "oenline");
 
 ?>

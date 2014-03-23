@@ -252,7 +252,7 @@ class MySQLORM implements ORM
 
 	public function trouverVinsParCepage($cepage)
 	{
-		$constituent=$this->constitueDAO->trouverParIdCepage($cepage->idCepage);
+		$constituent=$this->constitueDAO->trouverParIdCepage(array($cepage->idCepage));
 		$vinIds=array();
 		foreach($constituent as $constitue)
 			array_push($vinIds, $constitue->idVin);
@@ -264,7 +264,7 @@ class MySQLORM implements ORM
 
 	public function trouverCepagesParVin($vin)
 	{
-		$constituent=$this->constitueDAO->trouverParIdVin($vin->idVin);
+		$constituent=$this->constitueDAO->trouverParIdVin(array($vin->idVin));
 		$cepageIds=array();
 		foreach($constituent as $constitue)
 			array_push($cepageIds, $constitue->idCepage);
@@ -276,7 +276,7 @@ class MySQLORM implements ORM
 
 	public function trouverBouchesParTypeVin($typeVin)
 	{
-		$bouchesTypesVins=$this->boucheTypeVinDAO->trouverParIdTypeVin($typeVin->idTypeVin);
+		$bouchesTypesVins=$this->boucheTypeVinDAO->trouverParIdTypeVin(array($typeVin->idTypeVin));
 		$boucheIds=array();
 		foreach($bouchesTypesVins as $boucheTypeVin)
 			array_push($boucheIds, $boucheTypeVin->idBouche);
@@ -290,7 +290,7 @@ class MySQLORM implements ORM
 
 	public function trouverBouchesParVin($vin)
 	{
-		$aGouts=$this->aGoutDAO->trouverParIdVin($vin->idVin);
+		$aGouts=$this->aGoutDAO->trouverParIdVin(array($vin->idVin));
 		$boucheIds=array();
 		foreach($aGouts as $aGout)
 			array_push($boucheIds, $aGout->idBouche);
@@ -304,7 +304,7 @@ class MySQLORM implements ORM
 
 	public function trouverNezParTypeVin($typeVin)
 	{
-		$nezzTypesVins=$this->nezTypeVinDAO->trouverParIdTypeVin($typeVin->idTypeVin);
+		$nezzTypesVins=$this->nezTypeVinDAO->trouverParIdTypeVin(array($typeVin->idTypeVin));
 		$nezIds=array();
 		foreach($nezzTypesVins as $nezTypeVin)
 			array_push($nezIds, $nezTypeVin->idNez);
@@ -318,7 +318,7 @@ class MySQLORM implements ORM
 
 	public function trouverNezParVin($vin)
 	{
-		$aOdeurs=$this->aOdeurDAO->trouverParIdVin($vin->idVin);
+		$aOdeurs=$this->aOdeurDAO->trouverParIdVin(array($vin->idVin));
 		$nezIds=array();
 		foreach($aOdeurs as $aOdeur)
 			array_push($nezIds, $aOdeur->idNez);
@@ -332,7 +332,7 @@ class MySQLORM implements ORM
 
 	public function trouverRobesParTypeVin($typeVin)
 	{
-		$robesTypesVins=$this->robeTypeVinDAO->trouverParIdTypeVin($typeVin->idTypeVin);
+		$robesTypesVins=$this->robeTypeVinDAO->trouverParIdTypeVin(array($typeVin->idTypeVin));
 		$robeIds=array();
 		foreach($robesTypesVins as $robeTypeVin)
 			array_push($robeIds, $robeTypeVin->idRobe);
@@ -346,7 +346,7 @@ class MySQLORM implements ORM
 
 	public function trouverRobesParVin($vin)
 	{
-		$aAspects=$this->aAspectDAO->trouverParIdVin($vin->idVin);
+		$aAspects=$this->aAspectDAO->trouverParIdVin(array($vin->idVin));
 		$robeIds=array();
 		foreach($aAspects as $aAspect)
 			array_push($robeIds, $aAspect->idRobe);
@@ -381,7 +381,7 @@ class MySQLORM implements ORM
 	
 	public function trouverGoutsVin($vin)
 	{
-		$ontGout=$this->aGoutDAO->trouverParIdVin($vin->idVin);
+		$ontGout=$this->aGoutDAO->trouverParIdVin(array($vin->idVin));
 		$boucheIds=array();
 		foreach($ontGout as $aGout)
 			array_push($boucheIds, $aGout->idBouche);
@@ -393,7 +393,7 @@ class MySQLORM implements ORM
 
 	public function trouverRobesVin($vin)
 	{
-		$ontRobes=$this->aAspectDAO->trouverParIdVin($vin->idVin);
+		$ontRobes=$this->aAspectDAO->trouverParIdVin(array($vin->idVin));
 		$robeIds=array();
 		foreach($ontRobes as $aRobe)
 			array_push($robeIds, $aRobe->idRobe);
@@ -405,7 +405,7 @@ class MySQLORM implements ORM
 
 	public function trouverNezVin($vin)
 	{
-		$ontNez=$this->aOdeurDAO->trouverParIdVin($vin->idVin);
+		$ontNez=$this->aOdeurDAO->trouverParIdVin(array($vin->idVin));
 		$nezIds=array();
 		foreach($ontNez as $aNez)
 			array_push($nezIds, $aNez->idNez);
@@ -417,19 +417,19 @@ class MySQLORM implements ORM
 
 	public function trouverGoutsPartie($partie)
 	{
-		$ontGouts=$this->gouteDAO->trouverParIdPartie($partie->idPartie);
+		$ontGouts=$this->gouteDAO->trouverParIdPartie(array($partie->idPartie));
 		$boucheIds=array();
 		foreach($ontGouts as $aGout)
 			array_push($boucheIds, $aGout->idBouche);
 		if(count($boucheIds)==0)
 			return array();
 		else 
-			return $this->boucheDAO->trouverParIdBouche($boucheIds);
+			return $this->boucheDAO->trouverParIdBouche(array($boucheIds));
 	}
 
 	public function trouverNezPartie($partie)
 	{
-		$ontNez=$this->sentDAO->trouverParIdPartie($partie->idPartie);
+		$ontNez=$this->sentDAO->trouverParIdPartie(array($partie->idPartie));
 		$nezIds=array();
 		foreach($ontNez as $aNez)
 			array_push($nezIds, $aNez->idNez);
@@ -441,7 +441,7 @@ class MySQLORM implements ORM
 
 	public function trouverRobesPartie($partie)
 	{
-		$ontRobes=$this->voitDAO->trouverParIdPartie($partie->idPartie);
+		$ontRobes=$this->voitDAO->trouverParIdPartie(array($partie->idPartie));
 		$robeIds=array();
 		foreach($ontRobes as $aRobe)
 			array_push($robeIds, $aRobe->idRobe);
