@@ -317,6 +317,12 @@ class ModeleOenline
 	{
 		return $this->membreDAO->trouverParPseudo($pseudo);
 	}
+
+	//retourne les parties du membre entré en paramètre
+	public function trouverPartiesParMembre($membre)
+	{
+		return $this->partieDAO->trouverParIdMembre($membre->idMembre);
+	}
 }
 
 ?>

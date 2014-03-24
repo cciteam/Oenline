@@ -1,5 +1,5 @@
 <?php
-	require_once($_SERVER['DOCUMENT_ROOT'].'/dossierControleur/ControleurOenline.php');
+	require_once('../dossierControleur/ControleurOenline.php');
 	$controleur=new ControleurOenline("localhost", "root", "", "oenline");
 
 ?>
@@ -19,11 +19,17 @@
 			$typesVins=$controleur->trouverTypesVins();
 			$appellations=$controleur->trouverAppellations();
 			$bouches=$controleur->trouverBouchesParTypeVin($typesVins[0]);
-			
-			$nomVins = $controleur->afficherVinsParNom("trucmuchetrucmuche");
-			foreach ($nomVins as $nomVin ){
-				echo "<br>".$nomVin;
+			$membre = $controleur->trouverMembres();
+
+
+
+			$parties = $controleur->trouverPartiesParMembre($membre[1]);
+			echo "LES PARTIES: <br>";
+			foreach($parties as $partie)
+			{
+				echo $partie->idPartie;
 			}
+			
 
 			echo "les bouches <br>";
 			foreach($bouches as $bouche)
