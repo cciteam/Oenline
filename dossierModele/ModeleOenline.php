@@ -208,13 +208,13 @@ class ModeleOenline
 	//retourne les vins contenant l'appellation $appellation
 	public function trouverVinsParAppellation($appellation)
 	{
-		return $this->vinDAO->trouverParIdAppellation($appellation->idAppellation);
+		return $this->vinDAO->trouverParIdAppellation(array($appellation->idAppellation));
 	}
 
 	//retourne les vins contenant le type de vin $typeVin
 	public function trouverVinsParTypeVin($typeVin)
 	{
-		return $this->vinDAO->trouverParIdTypeVin($typeVin->idTypeVin);
+		return $this->vinDAO->trouverParIdTypeVin(array($typeVin->idTypeVin));
 	}
 
 	//retourne les vins contenant $nomVin dans le nom
@@ -225,7 +225,7 @@ class ModeleOenline
 	//retourne les vins contenant $IDVin dans le nom
 	public function trouverVinParIdVin($IDVin)
 	{
-		return $this->vinDAO->trouverParIdVin($IDVin);
+		return $this->vinDAO->trouverParIdVin(array($IDVin));
 	}
 
 	public function trouverCepagesParVin($vin)
@@ -245,7 +245,7 @@ class ModeleOenline
 
 	public function trouverTypesVinsParVin($vin)
 	{
-		return $this->typeVinDAO->trouverParId($vin->idTypeVin);
+		return $this->typeVinDAO->trouverParId(array($vin->idTypeVin));
 	}
 
 	public function trouverBouchesParTypeVin($typeVin)
@@ -321,7 +321,7 @@ class ModeleOenline
 	//retourne les parties du membre entré en paramètre
 	public function trouverPartiesParMembre($membre)
 	{
-		return $this->partieDAO->trouverParIdMembre($membre->idMembre);
+		return $this->partieDAO->trouverParIdMembre(array($membre->idMembre));
 	}
 }
 
