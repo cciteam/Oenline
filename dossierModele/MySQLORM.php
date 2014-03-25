@@ -106,7 +106,6 @@ class MySQLORM implements ORM
 			foreach($robes as $robe)
 			{
 				$voit=new Voit($partie->idPartie, $robe->idRobe);
-				echo $voit->description();
 				$this->voitDAO->ajouter($voit);
 			}
 
@@ -118,7 +117,6 @@ class MySQLORM implements ORM
 
 			foreach($bouches as $bouche)
 			{
-				print " bouche : ".$bouche->idBouche;
 				$goute=new Goute($partie->idPartie, $bouche->idBouche);
 				$this->gouteDAO->ajouter($goute);
 			}
@@ -456,10 +454,43 @@ class MySQLORM implements ORM
 
 	public function calculerScore($idPartie)
 	{
-		$resultat = $this->connexion->executer("select (100/(scoreNzt+scoreRbt+scoreBct))*(scoreNz+scoreBc+scoreRb) score
-												from scoreN natural join scoreNT natural join scoreB natural join scoreBt natural join scoreR natural join scoreRt
-												where idPartie=$idPartie");
-		return $resultat->fetchColumn();
+		$RScoreRb = $this->connexion->executer("select scoreRb from scoreR where idPartie=$idPartie");
+		$RScoreNz = $this->connexion->executer("select scoreNz from scoreN where idPartie=$idPartie");
+		$RScoreBc = $this->connexion->executer("select scoreBc from scoreB where idPartie=$idPartie");
+
+		$RScoreRbt = $this->connexion->executer("select scoreRbt from scoreRt where idPartie=$idPartie");
+		$RScoreNzt = $this->connexion->executer("select scoreNzt from scoreNt where idPartie=$idPartie");
+		$RScoreBct = $this->connexion->executer("select scoreBct from scoreBt where idPartie=$idPartie");
+		
+		//directement avec la requête MySQL, si un le joueur n'a rien trouvé de correct sur une des caractéristique du vin , la requête ne renvoie rien
+		//pour éviter ce problème, si la requête ne renvoie rien, le score est égal à 0
+		if(count($RScoreRb) == 0)
+			$scoreRb = 0;
+		else
+			$scoreRb = $RScoreRb->fetchColumn();
+
+		if(count($RScoreNz) == 0)
+			$scoreNz = 0;
+		else
+			$scoreNz = $RScoreNz->fetchColumn();
+
+		if(count($RScoreBc) == 0)
+			$scoreBc = 0;
+		else
+			$scoreBc = $RScoreBc->fetchColumn();
+
+		//si le vin n'a aucun nez, robe, bouche, il peut y avoir une erreur de type 100/0, pour éviter cette erreur, si le vin n'a aucune caractéristique, le joueur a un score de 100 par défaut
+		if(count($RScoreRbt) == 0 and count($RScoreNzt) == 0 and count($RScoreBct) == 0)
+			$resultat = 100;
+		else
+		{
+			$scoreRbt = $RScoreRbt->fetchColumn();
+			$scoreNzt = $RScoreNzt->fetchColumn();
+			$scoreBct = $RScoreBct->fetchColumn();
+			$resultat = 100/($scoreRbt+$scoreNzt+$scoreBct)*($scoreRb+$scoreNz+$scoreBc);
+		}
+
+		return $resultat;
 	}
 
 

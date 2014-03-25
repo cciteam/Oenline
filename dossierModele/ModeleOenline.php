@@ -329,6 +329,105 @@ class ModeleOenline
 	{
 		return $this->partieDAO->trouverParIdMembre(array($membre->idMembre));
 	}
+
+	//teste si le cépage existe, retourne FALSE s'il n'existe pas
+	public function existeCepage($cepage)
+	{
+		$test = count($this->cepageDAO->trouverParId(array($cepage->idCepage)));
+		if($test < 1)
+			return FALSE;
+		else
+			return TRUE;
+	}
+
+	//teste si le vin existe, retourne TRUE s'il existe
+	public function existeVin($vin)
+	{
+		$test = count($this->vinDAO->trouverParIdVin(array($vin->idVin)));
+		if($test < 1)
+			return FALSE;
+		else
+			return TRUE;
+	}
+
+	//teste si le typeVin existe, retourne TRUE s'il existe
+	public function existeTypeVin($typeVin)
+	{
+		$test = count($this->typeVinDAO->trouverParId(array($typeVin->idTypeVin)));
+		if($test < 1)
+			return FALSE;
+		else
+			return TRUE;
+	}
+
+	//teste si l'appellation existe, retourne TRUE si elle existe
+	public function existeAppellation($appellation)
+	{
+		$test = count($this->appellationDAO->trouverParId(array($appellation->idAppellation)));
+		if($test < 1)
+			return FALSE;
+		else
+			return TRUE;
+	}
+
+	//teste si le domaine existe, retourne TRUE s'il existe
+	public function existeDomaine($domaine)
+	{
+		$test = count($this->domaineDAO->trouverParId(array($domaine->idDomaine)));
+		if($test < 1)
+			return FALSE;
+		else
+			return TRUE;
+	}
+
+	//teste si la robe existe, retourne un booléen
+	public function existeRobe($robe)
+	{
+		$test = count($this->robeDAO->trouverParIdRobe(array($robe->idRobe)));
+		if($test < 1)
+			return FALSE;
+		else
+			return TRUE;
+	}
+
+	//teste si le nez existe, retourne un booléen
+	public function existeNez($nez)
+	{
+		$test = count($this->nezDAO->trouverParIdNez(array($nez->idNez)));
+		if($test < 1)
+			return FALSE;
+		else
+			return TRUE;	}
+
+	//retourne TRUE si la bouche existe
+	public function existeBouche($bouche)
+	{
+		$test = count($this->boucheDAO->trouverParIdBouche(array($bouche->idBouche)));
+		if($test < 1)
+			return FALSE;
+		else
+			return TRUE;
+	}
+
+	//retourne TRUE si le membre existe
+	public function existeMembre($membre)
+	{
+		$test = count($this->membreDAO->trouverParIdMembre(array($membre->idMembre)));
+		if($test < 1)
+			return FALSE;
+		else
+			return TRUE;
+	}
+
+	//retourne TRUE si le groupe existe
+	public function existeGroupe($groupe)
+	{
+		$test = count($this->groupeDAO->trouverParIdGroupe(array($groupe->idGroupe)));
+		if($test < 1)
+			return FALSE;
+		else
+			return TRUE;
+	}
 }
 
 ?>
