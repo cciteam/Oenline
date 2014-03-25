@@ -10,8 +10,14 @@ header{
 	margin : 0; 
 	padding:0; 
 	text-align: center; 
-	font-family: "Over the Rainbow";
 	width:100%;
+	}
+	
+header div.titre{
+	margin : 0; 
+	padding:0; 
+	text-align: center; 
+	font-family: "Over the Rainbow";
 	}
 
 header img{width :100%;}
@@ -56,7 +62,13 @@ div#contenu{
 	width:100%;
 	border: 1px solid  #F7EBBB; 
 	text-align: justify;} 
-
+	
+	div#contenu aside a{
+		text-decoration : none;
+		color : #000000;
+	}
+	div#contenu aside a:hover{
+		color : #B21313;}
 	
 	div#contenu aside#RechVin{
 		width :100%;
@@ -68,7 +80,11 @@ div#contenu{
 		background-image : url('../Images/aside-Jeu.jpg');
 		background-repeat: repeat;
 	}
-	
+	div#contenu aside#EspaceMembre{
+		width :100%;
+		background-image : url('../Images/aside-recherche-vins.jpeg');
+		background-repeat: repeat;
+	}
 	
 	div#contenu section{
 		padding : 7px;
@@ -83,8 +99,8 @@ div#contenu{
 		display : block;
 		float : left;
 	}
-	div#contenu div {
-
+	div#contenu{
+		background-color: #F7EBBB; 
 	}
 	div#contenu div.typeBouche{
 	width : 100%;
@@ -102,6 +118,17 @@ div#contenu{
 		color: #B21313;
 		font: 1.3em "Fredericka the Great", Verdana, "Lucida Grande", Tahoma, Helvetica, Sans-Serif;
 	}	
+	div#contenu section h3 {
+		color: #B21313;
+		font: 1.3em "Fredericka the Great", Verdana, "Lucida Grande", Tahoma, Helvetica, Sans-Serif;
+		text-decoration: none;
+	}
+	
+	div#contenu section h5{
+		color: #B21313;
+		font: 1.5em "Over the rainbow", Verdana, "Lucida Grande", Tahoma, Helvetica, Sans-Serif;
+		text-decoration: none;}
+	
 	div#contenu section h3 a{
 		color: #B21313;
 		font: 1.3em "Fredericka the Great", Verdana, "Lucida Grande", Tahoma, Helvetica, Sans-Serif;
@@ -140,22 +167,33 @@ nav ul li a:hover{color : #B21313;}
 nav ul li:active{background-color: #F7EBBB ;}
 
 nav ul li a:active{color : #B21313;}
+hr{height: 2px; color: #B21313; background-color: #B21313; width: 85%; border: none;}
 
 
 
 @media all and (min-width: 530px), {
 
 	header img{width :40%;}
-	
+	header { 
+		margin : 0;
+		padding : 0;
+		width : 100%;
+		}
 	header div.connexion { 
+		margin : 0;
+		padding : 0;
 		display : inline-block;
 		float : right;
-		width : 120px;
+		width : 30%;
 		}
 		
 	header div.titre  {
+		margin : 0;
+		padding: 0;
 		display : inline-block;
-		margin-right : 121px;}
+		text-align: center;	
+		width : 65%;	
+		}
 		
 	header div.clear{
 		clear : both;}
@@ -178,7 +216,7 @@ nav ul li a:active{color : #B21313;}
 		border: 0px solid #B21313;
 		font-size: 1em;}
 
-	/*section{clear : both;}*/
+
 
 	
 	div#contenu aside#Jeu{
@@ -194,15 +232,20 @@ nav ul li a:active{color : #B21313;}
 	background-image : url('../Images/aside-recherche-vins.jpeg'); 
 	background-repeat: repeat; 
 	overflow : hidden;}
+
+	div#contenu aside#EspaceMembre{
+	width : 200px; 
+	display : table-cell;
+	background-image : url('../Images/aside-recherche-vins.jpeg'); 
+	background-repeat: repeat; 
+	overflow : hidden;}
 	
 	
 	div#contenu aside fieldset{
 		width : 195px;
 	}
-	div#contenu section{
-		display : table-cell;
-		overflow : hidden;
-	}
+	
+	
 	div#contenu section fieldset{
 		margin : 0 auto;
 		padding : 0;
@@ -218,14 +261,61 @@ nav ul li a:active{color : #B21313;}
 		width : 48%;
 		
 	}
+	
+	div#contenu div#contenuEspaceMembre_home{
+		display : table; 
+		width : 100%;
+		}
+	div#contenu div#contenuEspaceMembre{
+		display : table; 
+		width : 100%;
+		}
+	div#contenu div#contenuEspaceMembre div#connexionEspMem{
+		display : table-cell; 
+		text-align : left;
+		}
+	div#contenu div#contenuEspaceMembre div#inscription{
+		display : table-cell;
+		text-align : right;
+		}
 		
+	div#contenu div#contenuEspaceMembre{
+		width : 100%;
+		}
+	div#contenu div#contenuEspaceMembre section.affichagePartie{
+		width : 100%;
+		display : table;}
+	div#contenu div#contenuEspaceMembre section.affichagePartie div.descVin{
+		width : 50%;
+		display : table-cell;
+		padding-left : 10px;
+		text-align : left;}
+	div#contenu div#contenuEspaceMembre section.affichagePartie div.descPartie{
+		display : table-cell;
+		width : 50%;
+		padding-right : 20px;
+		text-align : right;}
+	
 	
 	
 }
 
 @media all and (min-width: 1024px), {
+	header img{width :40%;}
 	
-	div#bg{
+	header div.connexion { 
+		display : inline-block;
+		float : right;
+		width : 170px;
+		}
+		
+	header div.titre  {
+		display : inline-block;
+		text-align: center;
+		padding-left : 170px;
+		
+}
+	div#bghome{
 		background-image : url('../Images/Sancerre2.jpg');
 		background-position: center center;
 		background-repeat: no-repeat; 
@@ -234,6 +324,39 @@ nav ul li a:active{color : #B21313;}
 		-moz-background-size: 100% 100%;     /* Gecko 1.9.2 (Firefox 3.6) */
 		-webkit-background-size: 100% 100%;   /* Safari 3.0 */
 		background-size: 100% 100%;           /* Gecko 2.0 (Firefox 4.0) > CSS3 */ 
+	}
+	div#bgCours{background-image : url('../Images/Collioure.jpg');
+		background-position: center center;
+		background-repeat: no-repeat; 
+		background-attachment: fixed; 
+		background-size: cover; 
+		-moz-background-size: 100% 100%;     /* Gecko 1.9.2 (Firefox 3.6) */
+		-webkit-background-size: 100% 100%;   /* Safari 3.0 */		background-size: 100% 100%;           /* Gecko 2.0 (Firefox 4.0) > CSS3 */ 
+	}
+	div#bgJeu{background-image : url('../Images/Alsace.jpg');
+		background-position: center center;
+		background-repeat: no-repeat; 
+		background-attachment: fixed; 
+		background-size: cover; 
+		-moz-background-size: 100% 100%;     /* Gecko 1.9.2 (Firefox 3.6) */
+		-webkit-background-size: 100% 100%;   /* Safari 3.0 */
+		background-size: 100% 100%;           /* Gecko 2.0 (Firefox 4.0) > CSS3 */ 	}
+	div#bgVinsReferences{background-image : url('../Images/Cote-Rotie.jpg');
+		background-position: center center;
+		background-repeat: no-repeat; 
+		background-attachment: fixed; 
+		background-size: cover; 
+		-moz-background-size: 100% 100%;     /* Gecko 1.9.2 (Firefox 3.6) */
+		-webkit-background-size: 100% 100%;   /* Safari 3.0 */
+		background-size: 100% 100%;           /* Gecko 2.0 (Firefox 4.0) > CSS3 */ 
+	}
+	div#bgEspaceMembre{background-image : url('../Images/Sancerre1.jpg');
+		background-position: center center;
+		background-repeat: no-repeat; 
+		background-attachment: fixed; 
+		background-size: cover; 
+		-moz-background-size: 100% 100%;     /* Gecko 1.9.2 (Firefox 3.6) */
+		-webkit-background-size: 100% 100%;   /* Safari 3.0 */		background-size: 100% 100%;           /* Gecko 2.0 (Firefox 4.0) > CSS3 */ 
 	}
 	div#content{
 		width : 1024px;
@@ -263,14 +386,52 @@ nav ul li a:active{color : #B21313;}
 	background-repeat: repeat; 
 	overflow : hidden;}
 	
+	div#contenu aside#EspaceMembre{
+	width : 200px; 
+	display : table-cell;
+	background-image : url('../Images/aside-recherche-vins.jpeg'); 
+	background-repeat: repeat; 
+	overflow : hidden;}
+	
 	div#contenu aside fieldset{
 		width : 195px;
 	}
 	
 	div#contenu section {
-		display : table-cell;
 		overflow : hidden;
 	}
+	div#contenu div#contenuEspaceMembre div#connexionEspMem{
+		display : table-cell;
+		width : 50%;
+		padding-left: 18px;
+		}
+	div#contenu div#contenuEspaceMembre div#inscription{
+		display : table-cell;
+		width : 50%;
+		padding-right: 18px;
+		}
+	div#contenu div#contenuEspaceMembre_home{
+		display : table;
+		width : 100%;
+		}
+	div#contenu div#contenuEspaceMembre{
+		width : 100%;
+		display : block;
+		}
+	div#contenu  section div#contenuEspaceMembre article section.affichagePartie{
+		display : table;
+		width : 100%;
+		}
+	div#contenu  section div#contenuEspaceMembre article section.affichagePartie div.descVin{
+		display : table-cell;
+		width : 50%;
+		padding-left : 10px;
+		text-align : left;}
+	div#contenu  section div#contenuEspaceMembre article section.affichagePartie div.descPartie{
+		display : table-cell;
+		width : 50%;
+		padding-right : 20px;
+		text-align : right;}
 	
-
+	
 }

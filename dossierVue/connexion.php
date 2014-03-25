@@ -5,9 +5,9 @@ if (!ISSET($_SESSION['Membre'])){
 		$contenu_connexion = "<form action = 'home.php?Section=".$_GET['Section']."' method = 'POST'>";
 	}
 	else {$contenu_connexion = "<form action = 'home.php?' method = 'POST'>";}
-	$contenu_connexion .= "<input type = 'email' name = 'email'><br>";
-	$contenu_connexion .= "<input type = 'password' name = 'password'><br>";
-	$contenu_connexion .= "<input type = 'submit' name = 'SeConnecter' value = 'Se connecter'>";
+	$contenu_connexion .= "<input type = 'email' name = 'email' value = 'email'><br>";
+	$contenu_connexion .= "<input type = 'password' name = 'password' value = 'password'><br>";
+	$contenu_connexion .= "<input type = 'submit' name = 'SeConnecter' value = 'Connexion'>";
 	$contenu_connexion .= "</form>";
 	}
 else {

@@ -179,6 +179,12 @@ class ModeleOenline
 	{
 		return $this->partieDAO->trouverTout();
 	}
+	
+	//retourne un tableau de toutes les parties pour un membre donné
+	public function trouverPartiesParIdMembre($idMembre)
+	{
+		return $this->partieDAO->trouverParIdMembre($idMembre);
+	}
 
 	//retourne un tableau de tous les cours
 	public function trouverCours()

@@ -33,7 +33,7 @@ print "LOLolOL";
 	print " vin : ".$vin;
 	$vin = unserialize(base64_decode($vin));
 	$membre = unserialize($_SESSION['Membre']);
-	$partie = new Partie(null,date('d'-'m'-'Y'),null, $_POST['AvisMembre'],$vin->idVin, $membre->idMembre);
+	$partie = new Partie(null, date('Y-m-d'),null, $_POST['AvisMembre'],$vin->idVin, $membre->idMembre);
 	$robess;
 	$nezz;
 	$bouchess;

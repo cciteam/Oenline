@@ -9,7 +9,7 @@
 		<link href='http://fonts.googleapis.com/css?family=Over+the+Rainbow' rel='stylesheet' type='text/css'>
 	</head>
 	<body>
-		<div id="bg">
+		<div id=<?php echo "'bg".((ISSET($_GET['Section']))?($_GET['Section']):("home"))."'";?>>
 			<div id = "content">
 			<header>
 				<div class = "connexion">

@@ -1,6 +1,6 @@
 <?php
 
-require_once($_SERVER['DOCUMENT_ROOT'].'/dossierModele/ModeleOenline.php');
+require_once('/dossierModele/ModeleOenline.php');
 
 class ControleurOenline
 {
@@ -141,6 +141,12 @@ class ControleurOenline
 	{
 		return $this->modele->trouverParties();
 	}
+	
+	//retourne un tableau de toutes les parties
+	public function trouverPartiesParIdMembre($idMembre)
+	{
+		return $this->modele->trouverPartiesParIdMembre($idMembre);
+	}
 
 	//retourne un tableau de tous les cours
 	public function trouverCours()
@@ -267,20 +273,38 @@ class ControleurOenline
 	{
 		return $this->modele->trouverBouchesParTypeVin($typeVin);
 	}
-
-	//retourne les nez correspondant au type de vin passé en paramètre
-	public function trouverNezParTypeVin($typeVin)
+	
+	//retourne les bouches correspondant au vin passé en paramètre
+	public function trouverBouchesParVin($vins)
 	{
-		return $this->modele->trouverNezParTypeVin($typeVin);
+		return $this->modele->trouverBouchesParVin($vins);
 	}
-
+	
 	//retourne les robes correspondant au type de vin passé en paramètre
 	public function trouverRobesParTypeVin($typeVin)
 	{
 		return $this->modele->trouverRobesParTypeVin($typeVin);
 	}
 
+	//retourne les robes correspondant au vin passé en paramètre
+	public function trouverRobesParVin($vins)
+	{
+		return $this->modele->trouverRobesParVin($vins);
+	}
+	
+	//retourne les nez correspondant au type de vin passé en paramètre
+	public function trouverNezParTypeVin($typeVin)
+	{
+		return $this->modele->trouverNezParTypeVin($typeVin);
+	}
 
+	//retourne les nez correspondant au vin passé en paramètre
+	public function trouverNezParVin($vins)
+	{
+		return $this->modele->trouverNezParVin($vins);
+	}
+	
+	
 	//retourne un tableau de String décrivant les vins correspondant au cépage entré en paramètre
 	public function afficherVinsParCepage($cepage)
 	{
