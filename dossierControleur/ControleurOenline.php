@@ -142,12 +142,12 @@ class ControleurOenline
 		return $this->modele->trouverParties();
 	}
 	
-	//retourne un tableau de toutes les parties
-	public function trouverPartiesParIdMembre($idMembre)
+	//retourne les parties du membre entré en paramètre
+	public function trouverPartiesParMembre($membre)
 	{
-		return $this->modele->trouverPartiesParIdMembre($idMembre);
+		return $this->modele->trouverPartiesParMembre($membre);
 	}
-
+	
 	//retourne un tableau de tous les cours
 	public function trouverCours()
 	{

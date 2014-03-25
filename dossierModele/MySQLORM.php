@@ -106,6 +106,7 @@ class MySQLORM implements ORM
 			foreach($robes as $robe)
 			{
 				$voit=new Voit($partie->idPartie, $robe->idRobe);
+				echo $voit->description();
 				$this->voitDAO->ajouter($voit);
 			}
 
@@ -123,6 +124,7 @@ class MySQLORM implements ORM
 			}
 
 			$partie->scorePartie = $this->calculerScore($partie->idPartie);
+			$this->partieDAO->modifier($partie);
 			$this->connexion->validerTransaction();
 		}
 		catch(Exception $e)
@@ -130,7 +132,7 @@ class MySQLORM implements ORM
 			$this->connexion->annulerTransaction();
 			throw new Exception($e);
 		}
-
+	
 		return $partie;
 	}
 
@@ -457,7 +459,7 @@ class MySQLORM implements ORM
 		$resultat = $this->connexion->executer("select (100/(scoreNzt+scoreRbt+scoreBct))*(scoreNz+scoreBc+scoreRb) score
 												from scoreN natural join scoreNT natural join scoreB natural join scoreBt natural join scoreR natural join scoreRt
 												where idPartie=$idPartie");
-		return $resultat->fetch()['score'];
+		return $resultat->fetchColumn();
 	}
 
 
