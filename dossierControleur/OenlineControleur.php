@@ -137,7 +137,7 @@ function AfficherSection($Section){
 				$affichage = test_input($_GET['Affichage']);}
 				
 			if ($affichage == 'MesParties'){
-				$parties = $controleur->trouverPartiesParIdMembre($membre->idMembre);
+				$parties = $controleur->trouverPartiesParMembre($membre);
 				/*Le tableau affichage partie comporte: 
 					- la partie
 					- le vin joué
