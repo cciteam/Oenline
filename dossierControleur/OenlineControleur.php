@@ -19,12 +19,10 @@ function AfficherSection($Section){
 		SeDeconnecter();
 	}
 	
-	
 	/*Droits d'accès*/
 	$access_Admin = false;
 	$access_User = false;
 	if (ISSET($_SESSION['Membre'])){
-		print $_SESSION['Membre'];
 		$membre = unserialize($_SESSION['Membre']);
 		if ($membre->idGroupe == 1) {$access_Admin = true; $access_User = true;}
 		else if ($membre->idGroupe == 2) {$access_User = true;}
@@ -46,36 +44,141 @@ function AfficherSection($Section){
 		
 		
 	if ($Section == 'VinsReferences' ){
-		$parametre = "";
-		$recherche = "";
-		if (!empty(ISSET($_GET['parametre']))){
-			$parametre = test_input_SQL($_GET['parametre']);
-			if (ISSET($_GET['Rechercher_par_appellation'])){
-				$recherche = "appellation";}
-			else if (ISSET($_GET['Rechercher_par_cepage'])){
-				$recherche = "cépage";}
-			else if (ISSET($_GET['Rechercher_par_couleur'])){
-				$recherche = "couleur";}
-			else if (ISSET($_GET['Rechercher_par_nomDomaine'])){
-				$recherche = "domaine";}
-			else if (ISSET($_GET['Rechercher_par_nomVin'])){
-				$recherche = "nom";}
-			$parametre = test_param($parametre,$recherche);}
+	
+		$controleur = new ControleurOenline('127.0.0.1','root','','oenline');
+		$appellations = $controleur->trouverAppellations();
+		$cepages_tout = $controleur->trouverCepages();
+		$couleurs = $controleur->trouverTypesVins();
+		
+		if (ISSET($_GET['parametre'])){
+			if (!empty($_GET['parametre'])){
+				$parametre = test_input_SQL($_GET['parametre']);
+				if (ISSET($_GET['Rechercher_par_appellation'])){
+					$recherche = "appellation";
+					$rech_param = "";
+					$parametre = unserialize(base64_decode($parametre));
+					$parametre = test_param($parametre,$recherche);
+					if ($parametre != ""){
+						$rech_param = $parametre->nomAppellation;
+						$vins = $controleur->trouverVinsParAppellation($parametre);
+					}
+				}
+				else if (ISSET($_GET['Rechercher_par_cepage'])){
+					$recherche = "cépage";
+					$rech_param = "";
+					$parametre = unserialize(base64_decode($parametre));
+					$parametre = test_param($parametre, $recherche);
+					if ($parametre !=""){
+						$rech_param = $parametre->nomCepage;
+						$vins = $controleur->trouverVinsParCepage($parametre);
+					}
+				}
+				else if (ISSET($_GET['Rechercher_par_couleur'])){
+					$recherche = "couleur";
+					$rech_param = "";
+					$parametre = unserialize(base64_decode($parametre));
+					$parametre = test_param($parametre, $recherche);
+					if ($parametre !=""){
+						$rech_param = $parametre->nomTypeVin;
+						$vins = $controleur->trouverVinsParTypeVin($parametre);
+					}
+				}
+				else if (ISSET($_GET['Rechercher_par_nomDomaine'])){
+					$recherche = "domaine";
+					$rech_param = $parametre;
+					$vins= $controleur->trouverVinsParNomDeDomaine($parametre);
+				}
+				else if (ISSET($_GET['Rechercher_par_nomVin'])){
+					$recherche = "nom";
+					$rech_param = $parametre;
+					$vins= $controleur->trouverVinsParNom($parametre);
+				}
+			}
+			if (!empty($vins)){
+				$domaines = $controleur->trouverDomainesParVin($vins[0]);
+				$affichage_vins[0]['domaine'] = $domaines[0];
+				$pos_domaine = 0;
+				for($i = 0; $i<count($vins); $i++){
+					$domaines = $controleur->trouverDomainesParVin($vins[$i]);
+					$cepages = $controleur->trouverCepagesParVin($vins[$i]);
+					$typeVin = $controleur->trouverTypesVinsParVin($vins[$i]);
+					$appellation = $controleur->trouverAppellationsParVin($vins[$i]);
+					if ($domaines[0]->nomDomaine != $affichage_vins[$pos_domaine]['domaine']->nomDomaine){
+						$pos_domaine++;
+						$affichage_vins[$pos_domaine]['domaine'] = $domaines[0];
+					}
+					$affichage_vins[$pos_domaine]['vins'][] = array( 
+								"vin"=>$vins[$i],
+								"cepage"=>$cepages,
+								"appellation"=>$appellation[0],
+								"typeVin"=>$typeVin[0]);
+				}
+			}
+		}
+		else {
+			$error_rech_vin = "Aucun paramètre renseigné pour la recherche, vueillez sélectionner un paramètre.";		
+		}
+		
 		require('dossierVue/connexion.php');
 		require('dossierVue/nav_VinsReferences.php');
 		require('dossierVue/homeVinsReferences.php');
 		require('dossierVue/gabarit.php');
-		}
+	}
 		
 		
 		
 		
 	if ($Section=="Jeu" ){
+		if (!ISSET($_GET['idVinJeu'])){
+			require ('dossierVue/homeJeu.php');
+			}
+		else {
+			if (!$access_User && (ISSET($_GET['idVinJeu']))) {
+				header('Location:home.php?Section=Jeu');
+			} 
+
+			else if (ISSET($_GET['idVinJeu'])){
+				$idVinJeu = $_GET['idVinJeu'];
+				$vin = ($controleur->trouverVinParIdVin($idVinJeu));
+				$vin = $vin[0];
+				$domaine = $controleur->trouverDomainesParVin($vin);
+				$appellation = $controleur->trouverAppellationsParVin($vin);
+				$cepages = $controleur->trouverCepagesParVin($vin);
+				$couleur = $controleur->trouverTypesVinsParVin($vin);
+				$bouches = $controleur->trouverBouchesParTypeVin($couleur[0]);
+				$nez = $controleur->trouverNezParTypeVin($couleur[0]);
+				$robes = $controleur->trouverRobesParTypeVin($couleur[0]);
+			}
+			
+			if (ISSET($_POST["ValiderDegust"])){
+				$vin = $_POST['vin'];
+				$vin = unserialize(base64_decode($vin));
+				$membre = unserialize($_SESSION['Membre']);
+				$partie = new Partie(null, date('Y-m-d'),null, $_POST['AvisMembre'],$vin->idVin, $membre->idMembre);
+				$robess;
+				$nezz;
+				$bouchess;
+				foreach($_POST['Robe'] as $robe){
+					if ($robe){$robess[]=unserialize($robe);}
+				}
+				foreach($_POST['Nez'] as $nez){
+					if ($nez){$nezz[] = unserialize($nez);}
+				}
+				foreach($_POST['Bouche'] as $bouche){
+					if ($bouche){$bouchess[] = unserialize($bouche);}
+				}
+				$partie = $controleur->ajouterPartie($partie, $vin, $membre,$robess, $nezz, $bouchess);
+				$gouts = $controleur->trouverGoutsVin($vin);
+				$odeurs = $controleur->trouverNezVin($vin);
+				$aspects = $controleur->trouverRobesVin($vin);
+				require ('dossierVue/JeuResultat.php');
+			}
+			else {require ('dossierVue/JeuFormulaire.php');}
+		}
 		require('dossierVue/connexion.php');
 		require('dossierVue/nav_Jeu.php');
-		require('dossierVue/homeJeu.php');
 		require('dossierVue/gabarit.php');
-		}
+	}
 		
 		
 		
@@ -158,13 +261,16 @@ function AfficherSection($Section){
 		require('dossierVue/nav_Accueil.php');
 		require('dossierVue/gabarit.php');
 	}
+	if ($Section=="Home"){
+		require('dossierVue/connexion.php');
+		require('dossierVue/nav_Accueil.php');
+		require('texteAccueil.php');
+		require('dossierVue/gabarit.php');
+	}
 }
 
-function AfficherAccueil(){
-	require('dossierVue/connexion.php');
-	require('dossierVue/nav_Accueil.php');
-	require('texteAccueil.php');
-	require('dossierVue/gabarit.php');}
+
+	
 
 function AfficherCours($typeCours){
 	$cours = trouverCours(); /* obtention d'un tableau d'objets */
@@ -226,21 +332,21 @@ Si le paramètre est bien dans la base de données on renvoie le parametre, sino
 		$appellations = $controleur->trouverAppellations();
 		$trouve = false; 
 		foreach ($appellations as $app){
-			if ($app->nomAppellation==$parametre){$trouve = true; break;}
+			if ($app->nomAppellation==$parametre->nomAppellation){$trouve = true; break;}
 		}
 	}
 	if ($recherche == "cepage"){
 		$appellations = $controleur->trouverCepages();
 		$trouve = false; 
 		foreach ($cepages as $cep){
-			if ($cep->nomCepage==$parametre){$trouve = true; break;}
+			if ($cep->nomCepage==$parametre->nomCepage){$trouve = true; break;}
 		}
 	}
 	if ($recherche == "couleur"){
 		$couleurs = $controleur->trouverTypesVins();
 		$trouve = false; 
 		foreach ($couleurs as $col){
-			if ($col->nomTypeVin==$parametre){$trouve = true; break;}
+			if ($col->nomTypeVin==$parametre->nomTypeVin){$trouve = true; break;}
 		}
 	}
 	if ($trouve) {$param = $parametre;}
@@ -299,7 +405,6 @@ function checkEmail($mail){
 	if (empty($mail)){
 		$error .= "Votre adresse mail est requise <br>";}
 	else if (!preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)+$/",$mail)){
-		print "pas bon";
 		$error .= "L'adresse mail renseignée n'est pas une adresse mail valide. <br>";}
 	return $error;
 }

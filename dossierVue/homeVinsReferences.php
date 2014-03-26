@@ -1,20 +1,14 @@
-<?php
-$controleur = new ControleurOenline('127.0.0.1','root','','oenline');
-$appellations = $controleur->trouverAppellations();
-$cepages = $controleur->trouverCepages();
-$couleurs = $controleur->trouverTypesVins();
-?>
 <?php ob_start(); ?>
 	<aside id= "RechVin"> 
 		<div id = "RechVin">
 			<fieldset>
 				<legend>Rechercher par appellation : </legend>
-				<form action = <?php echo htmlspecialchars("home.php");?> method = "GET">
+				<form action = "home.php" method = "GET">
 					<p>
 						<select name= "parametre">
 							<?php
 								foreach ($appellations as $app){
-									echo '<option>'.$app->nomAppellation.'</option>';
+									echo '<option value ="'.base64_encode(serialize($app)).'" >'.$app->nomAppellation.'</option>';
 								}
 							?>
 						</select><br/>
@@ -25,12 +19,12 @@ $couleurs = $controleur->trouverTypesVins();
 			</fieldset>
 			<fieldset>
 				<legend>Rechercher par cépage : </legend>
-				<form action = <?php echo htmlspecialchars("home.php");?> method = "GET">
+				<form action = "home.php" method = "GET">
 					<p>
 						<select name= "parametre">
 							<?php
-								foreach ($cepages as $cep){
-									echo '<option>'.$cep->nomCepage.'</option>';
+								foreach ($cepages_tout as $cep){
+									echo '<option value = "'.base64_encode(serialize($cep)).'">'.$cep->nomCepage.'</option>';
 								}
 							?>
 						</select><br/>
@@ -41,12 +35,12 @@ $couleurs = $controleur->trouverTypesVins();
 			</fieldset>
 			<fieldset>
 				<legend>Rechercher par couleur de vin : </legend>
-				<form action = <?php echo htmlspecialchars("home.php");?> method = "GET">
+				<form action = "home.php" method = "GET">
 					<p>
 						<select name= "parametre">
 							<?php
 								foreach ($couleurs as $col){
-									echo '<option>'.$col->nomTypeVin.'</option>';
+									echo '<option value = "'.base64_encode(serialize($col)).'">'.$col->nomTypeVin.'</option>';
 								}
 							?>
 						</select><br/>
@@ -57,7 +51,7 @@ $couleurs = $controleur->trouverTypesVins();
 			</fieldset>
 			<fieldset>
 				<legend>Rechercher par nom de domaine : </legend>
-				<form action = <?php echo htmlspecialchars("home.php");?> method = "GET">
+				<form action = "home.php" method = "GET">
 					<p>
 						<input type= "text" name = "parametre"><br/>
 						<input type = "hidden" name = "Section" value = "VinsReferences">
@@ -67,7 +61,7 @@ $couleurs = $controleur->trouverTypesVins();
 			</fieldset>
 			<fieldset>
 				<legend>Rechercher par nom de vin : </legend>
-				<form action = <?php echo htmlspecialchars("home.php");?> method = "GET">
+				<form action = "home.php" method = "GET">
 					<p>
 						<input type= "text" name = "parametre"><br/>
 						<input type = "hidden" name = "Section" value = "VinsReferences">
@@ -80,84 +74,46 @@ $couleurs = $controleur->trouverTypesVins();
 
 	<section>
 		<div id = "ContenuVinsRef">
-			<?php
-				if ($parametre != ""){
-					if ($recherche == "appellation"){
-						foreach ($appellations as $app){
-							if ($app->nomAppellation == $parametre){
-								$appellation = $app;
-								break;
-							}
-						}
-						echo "<h2> Nos résultats pour votre recherche de vins ".(($recherche=="appellation")?"d'":"de ").$recherche." ".$parametre."</h2>";								
-						$vins=$controleur->trouverVinsParAppellation($appellation);
-					}
-					else if ($recherche == "cépage"){
-						foreach ($cepages as $cep){
-							if ($cep->nomCepage== $parametre){
-								$cepage = $cep;
-								break;
-							}
-						}		
-						echo "<h2> Nos résultats pour votre recherche de vins ".(($recherche=="appellation")?"d'":"de ").$recherche." ".$parametre."</h2>";	
-						$vins=$controleur->trouverVinsParCepage($cepage);
-					}
-					
-					else if ($recherche == "couleur") {
-						foreach ($couleurs as $col){
-							if ($col->nomTypeVin == $parametre){
-								$couleur = $col;
-								break;
-							}
-						}
-						echo "<h2> Nos résultats pour votre recherche de vins ".(($recherche=="appellation")?"d'":"de ").$recherche." ".$parametre."</h2>";	
-						$vins=$controleur->trouverVinsParTypeVin($couleur);
-					}
-					else if ($recherche == "domaine"){
-						echo "<h2> Nos résultats pour votre recherche de vins ".(($recherche=="appellation")?"d'":"de ").$recherche." ".$parametre."</h2>";	
-						$vins=$controleur->trouverVinsParNomDeDomaine($parametre);
-					}
-					else if ($recherche == "nom"){
-						echo "<h2> Nos résultats pour votre recherche de vins ".(($recherche=="appellation")?"d'":"de ").$recherche." ".$parametre."</h2>";	
-						$vins=$controleur->trouverVinsParNom($parametre);
-					}
-					else echo  "<p>Une erreur c'est produite, recommencez votre recherche.</p>";
-					if (!empty($vins)){			
-						$nomDomainePrecedant="";
-						echo "<div>";
-						foreach ($vins as $vin){
-							$domaine = $controleur->trouverDomainesParVin($vin);
-							$domaine = $domaine[0];
-							if ($nomDomainePrecedant!=$domaine->nomDomaine){
-								echo "</div>";
-								echo "<div classe = 'Domaine'>";
-								echo "<h3><a href = 'home.php?Section=VinsReferences&Rechercher_par_nomDomaine=Rechercher&parametre=".utf8_encode($domaine->nomDomaine)."'>";
-								echo $domaine->nomDomaine."</a></h3>";
-								$nomDomainePrecedant = $domaine->nomDomaine;}
-							$cepages = $controleur->trouverCepagesParVin($vin);
-							$typeVin = $controleur->trouverTypesVinsParVin($vin);
-							$appellation = $controleur->trouverAppellationsParVin($vin);
-							echo '<article>';
-							echo '<header><a href = "home.php?Section=Jeu&idVinJeu='.$vin->idVin.'">'.$vin->nomVin.'</a>, millésime '.$vin->millesime.'</header>';
-							echo '<hr/>';
-							echo '<p>'.$domaine->nomDomaine. '<br>';
-							echo 'Numero du vin : '.$vin->idVin. '<br>';
-							echo 'Appellation : '.$appellation[0]->nomAppellation.'<br>';
-							echo 'Type de vin : '.$typeVin[0]->nomTypeVin.'<br>';
-							echo 'Cépages : ';
-							echo $cepages[0]->nomCepage;
-							for ($i = 1; $i<count($cepages); $i++){
-								echo ', '.utf8_encode($cepages[$i]->nomCepage);
-								}
-							echo '<br>'.$vin->descCourte;
-							echo '</p></article>';
-						}
-					}
-					else {$str = '<div><p>Aucun vin ne correspond à votre recherche</p></div>';echo $str;}
-						
+			<?php  
+			if (!isset($parametre)){
+					echo "<p> Veuillez renseigner un paramètre pour votre recherche </p>";
 				}
-				else echo "<p>Veuillez renseigner le paramètre de votre recherche</p>"
-			?>
+				else {	?>
+				<h2> Nos résultats pour votre recherche de vins <?php echo (($recherche=="appellation")?"d'":"de ").$recherche." ".$rech_param;?></h2>							
+				<?php 
+					if (isset($error_rech_vin)){
+						echo "<p class = 'error'>".$error_rech_vin."</p>";
+					}
+					else {
+						for($i = 0; $i<count($affichage_vins); $i++){?>
+							<div classe = 'Domaine'>
+								<h3><a href = 'home.php?Section=VinsReferences&Rechercher_par_nomDomaine=Rechercher&parametre=<?php echo $affichage_vins[$i]['domaine']->nomDomaine;?>'>
+									<?php echo $affichage_vins[$i]['domaine']->nomDomaine;?></a></h3>
+								<?php
+									for ($j = 0; $j<count($affichage_vins[$i]['vins']); $j++){?>
+										<article>
+											<header><a href = "home.php?Section=Jeu&idVinJeu=<?php echo $affichage_vins[$i]['vins'][$j]['vin']->idVin;?>">
+												<?php echo $affichage_vins[$i]['vins'][$j]['vin']->nomVin;?></a>, millésime <?php echo $affichage_vins[$i]['vins'][$j]['vin']->millesime;?></header>
+											<hr/>
+											<p><?php echo $affichage_vins[$i]['domaine']->nomDomaine;?><br>
+												<a href = "<?php echo $affichage_vins[$i]['domaine']->urlDomaine;?>">url du domaine.</a><br/>
+												Numero du vin : <?php echo  $affichage_vins[$i]['vins'][$j]['vin']->idVin;?><br>
+												Appellation : <?php echo $affichage_vins[$i]['vins'][$j]['appellation']->nomAppellation;?><br>
+												Type de vin : <?php echo  $affichage_vins[$i]['vins'][$j]['typeVin']->nomTypeVin;?><br>
+												Cépages : <?php echo  $affichage_vins[$i]['vins'][$j]['cepage'][0]->nomCepage;
+												for ($k = 1; $k<count( $affichage_vins[$i]['vins'][$j]['cepage']); $k++){
+													echo ', '.utf8_encode( $affichage_vins[$i]['vins'][$j]['cepage'][$k]->nomCepage);
+													}?>
+												<br>
+												Description : <?php echo $affichage_vins[$i]['vins'][$j]['vin']->descCourte;?>
+											</p>
+										</article>
+									<?php } ?>
+							</div>
+						<?php 
+						} 
+					} 
+				}?>
 		</div>
 	</section>	
 		

@@ -35,7 +35,7 @@ create table if not exists membre (
     idMembre integer not null AUTO_INCREMENT,
     pseudoMembre varchar(32),
     nomMembre varchar(32),
-	motDePasse varchar(32),
+	motDePasse varchar(100),
     mailMembre varchar(50),
 	idGroupe integer not null,
     primary key (idMembre)

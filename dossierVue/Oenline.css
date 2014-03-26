@@ -3,8 +3,13 @@ body{
 	margin:0; 
 	padding:0; 
 	width : 100%;
-
 }
+div#bgHome{ width : 100%; margin : 0; padding : 0; min-height : 100%}
+div#bgCours{ width : 100%; margin : 0; padding : 0;min-height : 100%}
+div#bgVinsReferences{ width : 100%; margin : 0; padding : 0;min-height : 100%}
+div#bgJeu{ width : 100%; margin : 0; padding : 0;min-height : 100%}
+div#bgEspaceMembre{ width : 100%; margin : 0; padding : 0;min-height : 100%}
+div#content{min-height: 100%;}
 
 header{
 	margin : 0; 
@@ -169,6 +174,7 @@ nav ul li:active{background-color: #F7EBBB ;}
 nav ul li a:active{color : #B21313;}
 hr{height: 2px; color: #B21313; background-color: #B21313; width: 85%; border: none;}
 
+p.error {color : red;}
 
 
 @media all and (min-width: 530px), {
@@ -194,9 +200,6 @@ hr{height: 2px; color: #B21313; background-color: #B21313; width: 85%; border: n
 		text-align: center;	
 		width : 65%;	
 		}
-		
-	header div.clear{
-		clear : both;}
 	
 
 	nav {
@@ -315,7 +318,7 @@ hr{height: 2px; color: #B21313; background-color: #B21313; width: 85%; border: n
 		padding-left : 170px;
 		
 }
-	div#bghome{
+	div#bgHome{
 		background-image : url('../Images/Sancerre2.jpg');
 		background-position: center center;
 		background-repeat: no-repeat; 
@@ -357,6 +360,7 @@ hr{height: 2px; color: #B21313; background-color: #B21313; width: 85%; border: n
 		background-size: cover; 
 		-moz-background-size: 100% 100%;     /* Gecko 1.9.2 (Firefox 3.6) */
 		-webkit-background-size: 100% 100%;   /* Safari 3.0 */		background-size: 100% 100%;           /* Gecko 2.0 (Firefox 4.0) > CSS3 */ 
+		background-size: 100% 100%;
 	}
 	div#content{
 		width : 1024px;

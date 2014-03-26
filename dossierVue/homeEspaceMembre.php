@@ -35,7 +35,7 @@ $controleur = new ControleurOenline('127.0.0.1','root','','oenline');
 							<label>Mot de Passe</label><input type = "password" name = "password" required><br>
 							<input type = "Submit" name = "SeConnecter" value = "Connexion">
 						</form>
-						<p class = "error"><?php echo $err_connexion;?>
+						<p class = "error"><?php echo $err_connexion;?></p>
 					</div>
 					<div id = "inscription">
 						<h3> S'inscrire </h3>
