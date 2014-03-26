@@ -1,4 +1,5 @@
 <?php
+
 /*Vérifier que le membre est bien connecté et donc a accès à cette section 
 if (ISSET ($_SESSION['Membre'])){ 
 	$access = true;
@@ -55,3 +56,4 @@ $controleur = new ControleurOenline('127.0.0.1','root','','oenline');
 			</section>
 
 <?php $contenu = ob_get_clean(); ?>
+

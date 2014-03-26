@@ -282,6 +282,7 @@ function AfficherCours($typeCours){
 
 }
 
+
 function SeConnecter($email, $mdp){
 	$controleur = new ControleurOenline('127.0.0.1','root','','oenline');
 	$m = $controleur->trouverMembreParMail($email);
