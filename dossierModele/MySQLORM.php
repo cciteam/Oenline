@@ -122,6 +122,7 @@ class MySQLORM implements ORM
 			}
 
 			$partie->scorePartie = $this->calculerScore($partie->idPartie);
+			$this->partieDAO->modifier($partie);
 			$this->connexion->validerTransaction();
 		}
 		catch(Exception $e)
@@ -129,7 +130,7 @@ class MySQLORM implements ORM
 			$this->connexion->annulerTransaction();
 			throw new Exception($e);
 		}
-
+	
 		return $partie;
 	}
 
@@ -252,7 +253,7 @@ class MySQLORM implements ORM
 
 	public function trouverVinsParCepage($cepage)
 	{
-		$constituent=$this->constitueDAO->trouverParIdCepage($cepage->idCepage);
+		$constituent=$this->constitueDAO->trouverParIdCepage(array($cepage->idCepage));
 		$vinIds=array();
 		foreach($constituent as $constitue)
 			array_push($vinIds, $constitue->idVin);
@@ -264,7 +265,7 @@ class MySQLORM implements ORM
 
 	public function trouverCepagesParVin($vin)
 	{
-		$constituent=$this->constitueDAO->trouverParIdVin($vin->idVin);
+		$constituent=$this->constitueDAO->trouverParIdVin(array($vin->idVin));
 		$cepageIds=array();
 		foreach($constituent as $constitue)
 			array_push($cepageIds, $constitue->idCepage);
@@ -276,7 +277,7 @@ class MySQLORM implements ORM
 
 	public function trouverBouchesParTypeVin($typeVin)
 	{
-		$bouchesTypesVins=$this->boucheTypeVinDAO->trouverParIdTypeVin($typeVin->idTypeVin);
+		$bouchesTypesVins=$this->boucheTypeVinDAO->trouverParIdTypeVin(array($typeVin->idTypeVin));
 		$boucheIds=array();
 		foreach($bouchesTypesVins as $boucheTypeVin)
 			array_push($boucheIds, $boucheTypeVin->idBouche);
@@ -288,9 +289,23 @@ class MySQLORM implements ORM
 		}		
 	}
 
+	public function trouverBouchesParVin($vin)
+	{
+		$aGouts=$this->aGoutDAO->trouverParIdVin(array($vin->idVin));
+		$boucheIds=array();
+		foreach($aGouts as $aGout)
+			array_push($boucheIds, $aGout->idBouche);
+		if(count($boucheIds)==0)
+			return array();
+		else
+		{ 
+			return $this->boucheDAO->trouverParIdBouche($boucheIds);
+		}		
+	}
+
 	public function trouverNezParTypeVin($typeVin)
 	{
-		$nezzTypesVins=$this->nezTypeVinDAO->trouverParIdTypeVin($typeVin->idTypeVin);
+		$nezzTypesVins=$this->nezTypeVinDAO->trouverParIdTypeVin(array($typeVin->idTypeVin));
 		$nezIds=array();
 		foreach($nezzTypesVins as $nezTypeVin)
 			array_push($nezIds, $nezTypeVin->idNez);
@@ -302,12 +317,40 @@ class MySQLORM implements ORM
 		}		
 	}
 
+	public function trouverNezParVin($vin)
+	{
+		$aOdeurs=$this->aOdeurDAO->trouverParIdVin(array($vin->idVin));
+		$nezIds=array();
+		foreach($aOdeurs as $aOdeur)
+			array_push($nezIds, $aOdeur->idNez);
+		if(count($nezIds)==0)
+			return array();
+		else
+		{ 
+			return $this->nezDAO->trouverParIdNez($nezIds);
+		}		
+	}
+
 	public function trouverRobesParTypeVin($typeVin)
 	{
-		$robesTypesVins=$this->robeTypeVinDAO->trouverParIdTypeVin($typeVin->idTypeVin);
+		$robesTypesVins=$this->robeTypeVinDAO->trouverParIdTypeVin(array($typeVin->idTypeVin));
 		$robeIds=array();
 		foreach($robesTypesVins as $robeTypeVin)
 			array_push($robeIds, $robeTypeVin->idRobe);
+		if(count($robeIds)==0)
+			return array();
+		else
+		{ 
+			return $this->robeDAO->trouverParIdRobe($robeIds);
+		}		
+	}
+
+	public function trouverRobesParVin($vin)
+	{
+		$aAspects=$this->aAspectDAO->trouverParIdVin(array($vin->idVin));
+		$robeIds=array();
+		foreach($aAspects as $aAspect)
+			array_push($robeIds, $aAspect->idRobe);
 		if(count($robeIds)==0)
 			return array();
 		else
@@ -339,7 +382,7 @@ class MySQLORM implements ORM
 	
 	public function trouverGoutsVin($vin)
 	{
-		$ontGout=$this->aGoutDAO->trouverParIdVin($vin->idVin);
+		$ontGout=$this->aGoutDAO->trouverParIdVin(array($vin->idVin));
 		$boucheIds=array();
 		foreach($ontGout as $aGout)
 			array_push($boucheIds, $aGout->idBouche);
@@ -351,7 +394,7 @@ class MySQLORM implements ORM
 
 	public function trouverRobesVin($vin)
 	{
-		$ontRobes=$this->aAspectDAO->trouverParIdVin($vin->idVin);
+		$ontRobes=$this->aAspectDAO->trouverParIdVin(array($vin->idVin));
 		$robeIds=array();
 		foreach($ontRobes as $aRobe)
 			array_push($robeIds, $aRobe->idRobe);
@@ -363,7 +406,7 @@ class MySQLORM implements ORM
 
 	public function trouverNezVin($vin)
 	{
-		$ontNez=$this->aOdeurDAO->trouverParIdVin($vin->idVin);
+		$ontNez=$this->aOdeurDAO->trouverParIdVin(array($vin->idVin));
 		$nezIds=array();
 		foreach($ontNez as $aNez)
 			array_push($nezIds, $aNez->idNez);
@@ -375,19 +418,19 @@ class MySQLORM implements ORM
 
 	public function trouverGoutsPartie($partie)
 	{
-		$ontGouts=$this->gouteDAO->trouverParIdPartie($partie->idPartie);
+		$ontGouts=$this->gouteDAO->trouverParIdPartie(array($partie->idPartie));
 		$boucheIds=array();
 		foreach($ontGouts as $aGout)
 			array_push($boucheIds, $aGout->idBouche);
 		if(count($boucheIds)==0)
 			return array();
 		else 
-			return $this->boucheDAO->trouverParIdBouche($boucheIds);
+			return $this->boucheDAO->trouverParIdBouche(array($boucheIds));
 	}
 
 	public function trouverNezPartie($partie)
 	{
-		$ontNez=$this->sentDAO->trouverParIdPartie($partie->idPartie);
+		$ontNez=$this->sentDAO->trouverParIdPartie(array($partie->idPartie));
 		$nezIds=array();
 		foreach($ontNez as $aNez)
 			array_push($nezIds, $aNez->idNez);
@@ -399,7 +442,7 @@ class MySQLORM implements ORM
 
 	public function trouverRobesPartie($partie)
 	{
-		$ontRobes=$this->voitDAO->trouverParIdPartie($partie->idPartie);
+		$ontRobes=$this->voitDAO->trouverParIdPartie(array($partie->idPartie));
 		$robeIds=array();
 		foreach($ontRobes as $aRobe)
 			array_push($robeIds, $aRobe->idRobe);
@@ -411,10 +454,43 @@ class MySQLORM implements ORM
 
 	public function calculerScore($idPartie)
 	{
-		$resultat = $this->connexion->executer("select (100/(scoreNzt+scoreRbt+scoreBct))*(scoreNz+scoreBc+scoreRb) score
-												from scoreN natural join scoreNT natural join scoreB natural join scoreBt natural join scoreR natural join scoreRt
-												where idPartie=$idPartie");
-		return $resultat->fetch()['score'];
+		$RScoreRb = $this->connexion->executer("select scoreRb from scoreR where idPartie=$idPartie");
+		$RScoreNz = $this->connexion->executer("select scoreNz from scoreN where idPartie=$idPartie");
+		$RScoreBc = $this->connexion->executer("select scoreBc from scoreB where idPartie=$idPartie");
+
+		$RScoreRbt = $this->connexion->executer("select scoreRbt from scoreRt where idPartie=$idPartie");
+		$RScoreNzt = $this->connexion->executer("select scoreNzt from scoreNt where idPartie=$idPartie");
+		$RScoreBct = $this->connexion->executer("select scoreBct from scoreBt where idPartie=$idPartie");
+		
+		//directement avec la requête MySQL, si un le joueur n'a rien trouvé de correct sur une des caractéristique du vin , la requête ne renvoie rien
+		//pour éviter ce problème, si la requête ne renvoie rien, le score est égal à 0
+		if(count($RScoreRb) == 0)
+			$scoreRb = 0;
+		else
+			$scoreRb = $RScoreRb->fetchColumn();
+
+		if(count($RScoreNz) == 0)
+			$scoreNz = 0;
+		else
+			$scoreNz = $RScoreNz->fetchColumn();
+
+		if(count($RScoreBc) == 0)
+			$scoreBc = 0;
+		else
+			$scoreBc = $RScoreBc->fetchColumn();
+
+		//si le vin n'a aucun nez, robe, bouche, il peut y avoir une erreur de type 100/0, pour éviter cette erreur, si le vin n'a aucune caractéristique, le joueur a un score de 100 par défaut
+		if(count($RScoreRbt) == 0 and count($RScoreNzt) == 0 and count($RScoreBct) == 0)
+			$resultat = 100;
+		else
+		{
+			$scoreRbt = $RScoreRbt->fetchColumn();
+			$scoreNzt = $RScoreNzt->fetchColumn();
+			$scoreBct = $RScoreBct->fetchColumn();
+			$resultat = 100/($scoreRbt+$scoreNzt+$scoreBct)*($scoreRb+$scoreNz+$scoreBc);
+		}
+
+		return $resultat;
 	}
 
 

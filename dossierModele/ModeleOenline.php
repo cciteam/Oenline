@@ -179,6 +179,12 @@ class ModeleOenline
 	{
 		return $this->partieDAO->trouverTout();
 	}
+	
+	//retourne un tableau de toutes les parties pour un membre donné
+	public function trouverPartiesParIdMembre($idMembre)
+	{
+		return $this->partieDAO->trouverParIdMembre($idMembre);
+	}
 
 	//retourne un tableau de tous les cours
 	public function trouverCours()
@@ -208,19 +214,24 @@ class ModeleOenline
 	//retourne les vins contenant l'appellation $appellation
 	public function trouverVinsParAppellation($appellation)
 	{
-		return $this->vinDAO->trouverParIdAppellation($appellation->idAppellation);
+		return $this->vinDAO->trouverParIdAppellation(array($appellation->idAppellation));
 	}
 
 	//retourne les vins contenant le type de vin $typeVin
 	public function trouverVinsParTypeVin($typeVin)
 	{
-		return $this->vinDAO->trouverParIdTypeVin($typeVin->idTypeVin);
+		return $this->vinDAO->trouverParIdTypeVin(array($typeVin->idTypeVin));
 	}
 
 	//retourne les vins contenant $nomVin dans le nom
 	public function trouverVinsParNom($nomVin)
 	{
 		return $this->vinDAO->rechercherParNom($nomVin);
+	}
+	//retourne les vins contenant $IDVin dans le nom
+	public function trouverVinParIdVin($IDVin)
+	{
+		return $this->vinDAO->trouverParIdVin(array($IDVin));
 	}
 
 	public function trouverCepagesParVin($vin)
@@ -240,7 +251,7 @@ class ModeleOenline
 
 	public function trouverTypesVinsParVin($vin)
 	{
-		return $this->typeVinDAO->trouverParId($vin->idTypeVin);
+		return $this->typeVinDAO->trouverParId(array($vin->idTypeVin));
 	}
 
 	public function trouverBouchesParTypeVin($typeVin)
@@ -288,7 +299,135 @@ class ModeleOenline
 		return $this->orm->trouverRobesPartie($partie);
 	}
 
+	public function trouverBouchesParVin($vin)
+	{
+		return $this->orm->trouverBouchesParVin($vin);
+	}
 
+	public function trouverNezParVin($vin)
+	{
+		return $this->orm->trouverNezParVin($vin);
+	}
+
+	public function trouverRobesParVin($vin)
+	{
+		return $this->orm->trouverRobesParVin($vin);
+	}
+
+	public function trouverMembreParMail($mail)
+	{
+		return $this->membreDAO->trouverParMail($mail);
+	}
+
+	public function trouverMembreParPseudo($pseudo)
+	{
+		return $this->membreDAO->trouverParPseudo($pseudo);
+	}
+
+	//retourne les parties du membre entré en paramètre
+	public function trouverPartiesParMembre($membre)
+	{
+		return $this->partieDAO->trouverParIdMembre(array($membre->idMembre));
+	}
+
+	//teste si le cépage existe, retourne FALSE s'il n'existe pas
+	public function existeCepage($cepage)
+	{
+		$test = count($this->cepageDAO->trouverParId(array($cepage->idCepage)));
+		if($test < 1)
+			return FALSE;
+		else
+			return TRUE;
+	}
+
+	//teste si le vin existe, retourne TRUE s'il existe
+	public function existeVin($vin)
+	{
+		$test = count($this->vinDAO->trouverParIdVin(array($vin->idVin)));
+		if($test < 1)
+			return FALSE;
+		else
+			return TRUE;
+	}
+
+	//teste si le typeVin existe, retourne TRUE s'il existe
+	public function existeTypeVin($typeVin)
+	{
+		$test = count($this->typeVinDAO->trouverParId(array($typeVin->idTypeVin)));
+		if($test < 1)
+			return FALSE;
+		else
+			return TRUE;
+	}
+
+	//teste si l'appellation existe, retourne TRUE si elle existe
+	public function existeAppellation($appellation)
+	{
+		$test = count($this->appellationDAO->trouverParId(array($appellation->idAppellation)));
+		if($test < 1)
+			return FALSE;
+		else
+			return TRUE;
+	}
+
+	//teste si le domaine existe, retourne TRUE s'il existe
+	public function existeDomaine($domaine)
+	{
+		$test = count($this->domaineDAO->trouverParId(array($domaine->idDomaine)));
+		if($test < 1)
+			return FALSE;
+		else
+			return TRUE;
+	}
+
+	//teste si la robe existe, retourne un booléen
+	public function existeRobe($robe)
+	{
+		$test = count($this->robeDAO->trouverParIdRobe(array($robe->idRobe)));
+		if($test < 1)
+			return FALSE;
+		else
+			return TRUE;
+	}
+
+	//teste si le nez existe, retourne un booléen
+	public function existeNez($nez)
+	{
+		$test = count($this->nezDAO->trouverParIdNez(array($nez->idNez)));
+		if($test < 1)
+			return FALSE;
+		else
+			return TRUE;	}
+
+	//retourne TRUE si la bouche existe
+	public function existeBouche($bouche)
+	{
+		$test = count($this->boucheDAO->trouverParIdBouche(array($bouche->idBouche)));
+		if($test < 1)
+			return FALSE;
+		else
+			return TRUE;
+	}
+
+	//retourne TRUE si le membre existe
+	public function existeMembre($membre)
+	{
+		$test = count($this->membreDAO->trouverParIdMembre(array($membre->idMembre)));
+		if($test < 1)
+			return FALSE;
+		else
+			return TRUE;
+	}
+
+	//retourne TRUE si le groupe existe
+	public function existeGroupe($groupe)
+	{
+		$test = count($this->groupeDAO->trouverParIdGroupe(array($groupe->idGroupe)));
+		if($test < 1)
+			return FALSE;
+		else
+			return TRUE;
+	}
 }
 
 ?>

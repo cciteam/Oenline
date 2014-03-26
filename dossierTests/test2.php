@@ -47,8 +47,8 @@ $controleur=new ControleurOenline("localhost", "root", "", "oenline");
 			$nvVin=$controleur->ajouterVin($vin, $domaines[0], $appellations[0], $typesVins[0], $cepages, $robes, $nez, $bouches);
 			$nvMembre = $controleur->ajouterMembre($membre, $groupe[0]);
 
-			echo '<br>LA partie: '.$nvPartie->description();
-			echo $nvVin->description();
+			echo '<br><br>LA partie: '.$nvPartie->description();
+			echo '<br>'.$nvVin->description();
 			echo "<br><br>".$nvMembre->motDePasse;
 
 

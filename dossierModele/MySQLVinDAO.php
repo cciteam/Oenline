@@ -35,7 +35,7 @@ class MySQLVinDAO implements VinDAO
 
 	public function trouverTout()
 	{
-		$requete="SELECT * FROM $this->nomTable";
+		$requete="SELECT * FROM $this->nomTable ORDER BY idDomaine";
 		$resultat=$this->connexion->executer($requete);
 		return $this->creerVins($resultat);	
 	}
@@ -49,21 +49,21 @@ class MySQLVinDAO implements VinDAO
 		{
 			$requete.=", $idVin[$i]";
 		}
-		$requete.=")";
+		$requete.=") ORDER BY idDomaine";
 		$resultat=$this->connexion->executer($requete);
 		return $this->creerVins($resultat);
 	}
 
-	public function trouverParNom($nomCepage)
+	public function trouverParNom($nomVin)
 	{
-		$requete="SELECT * FROM $this->nomTable WHERE nomVin='$nomVin'";
+		$requete="SELECT * FROM $this->nomTable WHERE nomVin='$nomVin' ORDER BY idDomaine";
 		$resultat=$this->connexion->executer($requete);
 		return $this->creerVins($resultat);
 	}
 
 	public function rechercherParNom($nomVin)
 	{
-		$requete="SELECT * FROM $this->nomTable WHERE nomVin LIKE '%$nomVin%'";
+		$requete="SELECT * FROM $this->nomTable WHERE nomVin LIKE '%$nomVin%' ORDER BY idDomaine";
 		$resultat=$this->connexion->executer($requete);
 		return $this->creerVins($resultat);
 	}
@@ -77,7 +77,7 @@ class MySQLVinDAO implements VinDAO
 		{
 			$requete.=", $idDomaine[$i]";
 		}
-		$requete.=")";
+		$requete.=") ORDER BY idDomaine";
 		$resultat=$this->connexion->executer($requete);
 		return $this->creerVins($resultat);
 	}
@@ -91,7 +91,7 @@ class MySQLVinDAO implements VinDAO
 		{
 			$requete.=", $idAppellation[$i]";
 		}
-		$requete.=")";
+		$requete.=") ORDER BY idDomaine";
 		$resultat=$this->connexion->executer($requete);
 		return $this->creerVins($resultat);
 	}
@@ -105,7 +105,7 @@ class MySQLVinDAO implements VinDAO
 		{
 			$requete.=", $idTypeVin[$i]";
 		}
-		$requete.=")";
+		$requete.=") ORDER BY idDomaine";
 		$resultat=$this->connexion->executer($requete);
 		return $this->creerVins($resultat);
 	}

@@ -22,6 +22,7 @@ class PDOConnexion implements ConnexionBDD
 		try
 		{
 			$this->connexion=new PDO('mysql:host='.$this->hote.';port=3306;dbname='.$this->bdd, $this->utilisateur, $this->mdp);
+			$this->connexion->exec("set names utf8");
 		}
 		catch(Exception $e)
 		{
