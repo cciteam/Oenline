@@ -37,4 +37,6 @@ function AfficherCours($typeCours){
 	}
 	return null;
 
+function AfficherVin 
+
 }

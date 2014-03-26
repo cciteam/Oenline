@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title> cours01 </title>
+		<link rel="stylesheet" type="text/css" href="cours01.css">
+	</head>
+	
+	<body>
+	
+		<h1> La dégustation du vin </h1>
+		  
+		<article>	
+			<h2> Définition </h2> 
+				<p> Une dégustation de vin est un événement au cours duquel on expérimente, analyse et apprécie les caractères organoleptiques et plus particulièrement les caractères olfacto-gustatifs d'un ou de plusieurs vins.</p> <br>
+
+				<p> Cette dégustation se compose essentiellement de quatre phases: </p>
+
+				<ul>
+					<li> examen visuel </li>
+					<li> examen olfactif </li>
+					<li> examen gustatif </li>
+					<li> examen global </a></li>
+				</ul>
+		</article>
+
+	</body>
+	
+</html>
