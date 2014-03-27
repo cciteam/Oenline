@@ -56,7 +56,7 @@ class MySQLCoursDAO implements CoursDAO
 
 	public function trouverParTitre($titreCours)
 	{
-		$requete="SELECT * FROM $this->nomTable WHERE titreCours='$titreCours'";
+		$requete="SELECT * FROM $this->nomTable WHERE titreCours LIKE '$titreCours'";
 		$resultat=$this->connexion->executer($requete);
 		return $this->creerCours($resultat);
 	}
