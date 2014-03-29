@@ -1,17 +1,3 @@
-<?php
-
-/*Vérifier que le membre est bien connecté et donc a accès à cette section 
-if (ISSET ($_SESSION['Membre'])){ 
-	$access = true;
-	//Récupérer le membre
-	$membre = unserialize($_SESSION['Membre']);
-}
-
-else $access = false;
-
-$controleur = new ControleurOenline('127.0.0.1','root','','oenline');
-*/
-?>
 <?php 
 	ob_start(); 
 ?>
