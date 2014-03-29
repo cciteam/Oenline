@@ -380,42 +380,6 @@ class MySQLORM implements ORM
 		}
 	}
 	
-	public function trouverGoutsVin($vin)
-	{
-		$ontGout=$this->aGoutDAO->trouverParIdVin(array($vin->idVin));
-		$boucheIds=array();
-		foreach($ontGout as $aGout)
-			array_push($boucheIds, $aGout->idBouche);
-		if(count($boucheIds)==0)
-			return array();
-		else 
-			return $this->boucheDAO->trouverParIdBouche($boucheIds);
-	}
-
-	public function trouverRobesVin($vin)
-	{
-		$ontRobes=$this->aAspectDAO->trouverParIdVin(array($vin->idVin));
-		$robeIds=array();
-		foreach($ontRobes as $aRobe)
-			array_push($robeIds, $aRobe->idRobe);
-		if(count($robeIds)==0)
-			return array();
-		else 
-			return $this->robeDAO->trouverParIdRobe($robeIds);
-	}
-
-	public function trouverNezVin($vin)
-	{
-		$ontNez=$this->aOdeurDAO->trouverParIdVin(array($vin->idVin));
-		$nezIds=array();
-		foreach($ontNez as $aNez)
-			array_push($nezIds, $aNez->idNez);
-		if(count($nezIds)==0)
-			return array();
-		else 
-			return $this->nezDAO->trouverParIdNez($nezIds);
-	}
-
 	public function trouverGoutsPartie($partie)
 	{
 		$ontGouts=$this->gouteDAO->trouverParIdPartie(array($partie->idPartie));
