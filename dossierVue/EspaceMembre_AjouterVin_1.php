@@ -1,44 +1,25 @@
 <?php ob_start();?>
 <h3> Ajouter un vin </h3>
-<form action = "" method = "POST">
-	<fieldset>
-		<legend>Le vin</legend>
-		<label> Son nom : </label><input type = "text" name = "new_nomVin" value = "<?php echo $new_nomVin;?>">
-		<label> Son millésime : </label><input type = "range" name ="new_millesime" min = "1900" max = "<?php echo date('Y');?>" value = "<?php echo $new_millesime;?>"> 
-		<label> Son type : </label>
-			<?php foreach ($typesVins as $tv){?>
-				<input type = "radio" name = "new_typeVin" value = "<?php base64_encode(serialize($tv));?>"><?php echo $tv->nomTypeVin;?>
-			<?php } ?>
-	</fieldset>
+<p class = "error"><?php echo $error_enregistrement;?></p>
+<form action = 'home.php?Section=EspaceMembre&Affichage=AjouterUnVin&Page=1' method = 'POST' name = 'AjouterVinPage1'>
 	<fieldset>
 		<legend>Le domaine : </legend>
 		<div class = "liste_deroulante">
 			<select name = "new_domaine">
 				<option></option>
 				<?php
-			
-
-
-			foreach ($domaines as $dom) {
-						echo '<option value = "'.base64_encode(serialize($dom).'">'.$dom->nomDomaine().'</option>';
-						}
+					foreach ($domaines as $dom) {
+						echo '<option value = "'.base64_encode(serialize($dom)).'">'.$dom->nomDomaine.'</option>';
+					}
 				?>
-				</div>
 			</select>
-		<p class = "error" >* <?php echo $err_choixDomaine;?></p>
+		</div>
 		<div class = "ou"><b> Ou </b></div>
 		<div class = "ajout">
-			<?php if (!isset($add_domaine)){?>
-				<form action = "home.php?Section=EspaceMembre&Affichage=AjouterUnVin" method = "POST">
-					<input type = "submit" name = "add_Dom" value = "Ajouter un domaine">
-				</form>
-			<?php } else { ?>
-				<form action = "home.php?Section=EspaceMembre&Affichage=AjouterUnVin" method = "POST">
-					<label>Nom du domaine: </label><input type = "text" name = "nom_dom"><br/>
-					<label>url du domaine : <label><input type = "text" name = "url_dom"><br/>
-					<input type = "submit" name = "enregistrer_dom" value = "Enregistrer">
-				</form>
-			<?php } ?>
+			<label>Nom du domaine: </label><input type = 'text' name = 'nom_dom'><br/>
+			<label>url du domaine : </label><input type = 'text' name = 'url_dom'><br/>
+			<input type = 'submit' name = 'enregistrer_dom' value = 'Enregistrer'>
+			<p class = "error"><?php echo $error_enregistrement_domaine;?></p>
 		</div>
 	</fieldset>
 	<fieldset>
@@ -48,24 +29,16 @@
 				<option></option>
 				<?php
 					foreach ($appellations as $app) {
-						echo '<option value = "'.base64_encode(serialize($app).'">'.$app->nomAppellation().'</option>';
+						echo '<option value = "'.base64_encode(serialize($app)).'">'.$app->nomAppellation.'</option>';
 						}
 				?>
 				</div>
 			</select>
-		<p class = "error" >* <?php echo $err_choixAppellation;?></p>
 		<div class = "ou"><b> Ou </b></div>
 		<div class = "ajout">
-			<?php if (!isset($add_appellation)){?>
-				<form action = "home.php?Section=EspaceMembre&Affichage=AjouterUnVin" method = "POST">
-					<input type = "submit" name = "add_App" value = "Ajouter une appellation">
-				</form>
-			<?php } else { ?>
-				<form action = "home.php?Section=EspaceMembre&Affichage=AjouterUnVin" method = "POST">
-					<label>Nom de l'appellation : </label><input type = "text" name = "nom_app"><br/>
-					<input type = "submit" name = "enregistrer_app" value = "Enregistrer">
-				</form>
-			<?php } ?>
+			<label>Nom de l'appellation : </label><input type = "text" name = "nom_app"><br/>
+			<input type = "submit" name = "enregistrer_app" value = "Enregistrer">
+			<p class = "error"><?php echo $error_enregistrement_appellation; ?></p>
 		</div>
 	</fieldset>
 	<fieldset>
@@ -73,28 +46,30 @@
 		<div class = "checkboxes">
 			<?php
 				foreach ($cepages as $cep) {
-					echo '<input type = "checkbox" name = "Cepages[]" value = "'.base64_encode(serialize($cep).'">'.$cep->nomCepage();
-					}
+					echo '<input type = "checkbox" name = "Cepages[]" value = "'.base64_encode(serialize($cep)).'">'.$cep->nomCepage;
+				}
 			?>
-			<p class = "error" >* <?php echo $err_choixCepages;?></p>
 		</div>
 		<div class = "ou"><b> Ou </b></div>
 		<div class = "ajout">
-			<?php if (!isset($add_cepage)){?>
-				<form action = "home.php?Section=EspaceMembre&Affichage=AjouterUnVin" method = "POST">
-					<input type = "submit" name = "add_Cep" value = "Ajouter un cépage">
-				</form>
-			<?php } else { ?>
-				<form action = "home.php?Section=EspaceMembre&Affichage=AjouterUnVin" method = "POST">
-					<label>Nom du cépage : </label><input type = "text" name = "nom_app"><br/>
-					<input type = "submit" name = "enregistrer_app" value = "Enregistrer">
-				</form>
-			<?php } ?>
+			<label>Nom du cépage : </label><input type = "text" name = "nom_cep"><br/>
+			<input type = "submit" name = "enregistrer_cep" value = "Enregistrer">
+			<p class = "error"><?php echo $error_enregistrement_cepage; ?></p>
 		</div>
 	</fieldset>
-<input type = "submit" name = "Val_page1" value = "Suivant">
+	<fieldset>
+		<legend>Le vin</legend>
+		<label> Son nom : </label><input type = "text" name = "new_nomVin" value = "<?php echo $nomVin;?>"><br/>
+		<label> Son millésime : </label><input type = "number" name ="new_millesime" min = "1900" max = "<?php echo date('Y');?>" value = "<?php echo $millesime;?>"> <br/>
+		<label> Son type : </label>
+			<?php foreach ($typesVins as $tv){ ?>
+				<input type = "radio" name = "new_typeVin" value = "<?php echo base64_encode(serialize($tv));?>" > <?php echo $tv->nomTypeVin;?>
+			<?php } ?>
+	</fieldset>
+	<input type = 'submit' name = 'Val_page1' value = 'Suivant'>
+</form>
 
 
 			
 		
-<?php $contenu = ob_get_clean(); ?>
+<?php $contenu_ajouterVin = ob_get_clean(); ?>

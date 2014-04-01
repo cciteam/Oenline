@@ -1,5 +1,5 @@
-<?php ob_start?>
-<form>
+<?php ob_start(); ?>
+<form action = 'home.php?Section=EspaceMembre&Affichage=AjouterUnVin&Page=2' method = "POST">
 	<fieldset>
 		<legend> La robe : </legend>
 		<?php $typeRobe = $robes[1]->typeRobe;?>
@@ -15,7 +15,7 @@
 						echo "<br>";
 						echo "<h4>".$typeRobe."</h4>";
 					}
-					echo "<input type='checkbox' name='Robe[]' value ='".serialize($r)."'>".$r->nomRobe."<br>";
+					echo "<input type='checkbox' name='new_robes[]' value ='".base64_encode(serialize($r))."'>".$r->nomRobe."<br>";
 				}
 				?>
 		</div>
@@ -24,7 +24,7 @@
 		<?php $typeNez = $nez[1]->typeNez;?>
 		<div class = 'affichage_formulaire'>
 			<br>
-			<h4><input type='checkbox' name='Nez[]' value ='<?php echo serialize($nez[0]);?>'><?php echo $nez[0]->nomNez; ?></h4>
+			<h4><input type='checkbox' name='new_nez[]' value ='<?php echo base64_encode(serialize($nez[0]));?>'><?php echo $nez[0]->nomNez; ?></h4>
 			<?php
 			for ($i = 1; $i< count($nez); $i++){
 				if ($nez[$i]->typeNez != $typeNez){
@@ -32,10 +32,10 @@
 					echo "</div>";
 					echo "<div class = 'Affichage_formulaire'>";
 					echo "<br>";
-					echo "<h4><input type='checkbox' name='Nez[]' value ='".serialize($nez[$i])."'>".$nez[$i]->nomNez."</h4>";
+					echo "<h4><input type='checkbox' name='new_nez[]' value ='".base64_encode(serialize($nez[$i]))."'>".$nez[$i]->nomNez."</h4>";
 				}
 				else {
-					echo "<input type='checkbox' name='Nez[]' value ='".serialize($nez[$i])."'>".$nez[$i]->nomNez."<br>";
+					echo "<input type='checkbox' name='new_nez[]' value ='".base64_encode(serialize($nez[$i]))."'>".$nez[$i]->nomNez."<br>";
 				}
 			}
 			?>
@@ -52,7 +52,7 @@
 				<?php
 				if ($typeBouche == "Arômes"){
 					echo "<br>";
-					echo "<h4><input type='checkbox' name='Bouche[]' value ='".serialize($bouches[0])."'>".$bouches[0]->nomBouche."</h4><br>";
+					echo "<h4><input type='checkbox' name='new_bouches[]' value ='".base64_encode(serialize($bouches[0]))."'>".$bouches[0]->nomBouche."</h4><br>";
 				}
 				for ($i = 1; $i< count($bouches); $i++){
 					if ($bouches[$i]->typeBouche != $typeBouche){
@@ -71,11 +71,11 @@
 							</div>
 							<div class = 'Affichage_formulaire'>
 							<br>
-							<h4><input type='checkbox' name='Bouche[]' value ='<?php echo serialize($bouches[$i])?>'><?php echo $bouches[$i]->nomBouche;?></h4><br>
+							<h4><input type='checkbox' name='new_bouches[]' value ='<?php echo base64_encode(serialize($bouches[$i]))?>'><?php echo $bouches[$i]->nomBouche;?></h4><br>
 				<?php
 						}
 						else {
-							echo "<input type='checkbox' name='Bouche[]' value ='".serialize($bouches[$i])."'>".$bouches[$i]->nomBouche."<br>";
+							echo "<input type='checkbox' name='new_bouches[]' value ='".base64_encode(serialize($bouches[$i]))."'>".$bouches[$i]->nomBouche."<br>";
 						}
 					}
 					else if ($bouches[$i]->typeDescBouche!= $typeDescBouche){
@@ -84,15 +84,17 @@
 						<div class = 'Affichage_formulaire'>
 						<br>
 						<h4><?php echo $typeDescBouche;?></h4>
-						<input type='checkbox' name='Bouche[]' value ='<?php echo serialize($bouches[$i]);?>'><?php echo $bouches[$i]->nomBouche;?><br>
+						<input type='checkbox' name='new_bouches[]' value ='<?php echo base64_encode(serialize($bouches[$i]));?>'><?php echo $bouches[$i]->nomBouche;?><br>
 				<?php
 					}
 					else {
-						echo "<input type='checkbox' name='Bouche[]' value ='".serialize($bouches[$i])."'>".$bouches[$i]->nomBouche."<br>";
+						echo "<input type='checkbox' name='new_bouches[]' value ='".base64_encode(serialize($bouches[$i]))."'>".$bouches[$i]->nomBouche."<br>";
 					}
 				}?>
 			</div>
 		</div>
 	</fieldset>
-	<input type = "submit" name = "" value = "">
+	<p class = "error"><?php echo $error_enregistrement;?></p>
+	<input type = "submit" name = "Val_page2" value = "Suivant">
 </form>
+<?php $contenu_ajouterVin = ob_get_clean();?>

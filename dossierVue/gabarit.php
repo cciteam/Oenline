@@ -28,7 +28,9 @@
 					<?= $contenu ?>   <!-- Élément spécifique -->
 				</div>
 				<footer>
-					<a href = "#"> Nous contacter </a>
+					<p></p>
+					<h3> L'ABUS D'ALCOOL EST DANGEREUX POUR LA SANTE </h3>
+					<p><a href = ""> Lien vers la partie génie logiciel </a></p>
 					<p> Merci pour votre visite, nous espérons que vous vous êtes bien amusés en apprenant la dégustation!</p>
 				</footer>
 			</div>

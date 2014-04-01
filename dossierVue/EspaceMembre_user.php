@@ -8,7 +8,7 @@
 		<h4><a href = "home.php?Section=EspaceMembre&Affichage=MesParties">Mes parties jouées</a></h4>
 		<?php if ($access_Admin){ ?>
 			<br/>
-			<h4><a href = "home.php?Section=EspaceMembre&Affichage=AjouterUnVin">Ajouter un vin</a></h4>
+			<h4><a href = "home.php?Section=EspaceMembre&Affichage=AjouterUnVin&Page=1">Ajouter un vin</a></h4>
 		<?php } ?>
 	</div>
 </aside>
@@ -99,8 +99,8 @@
 			}
 		}
 		else if ($access_Admin and ($affichage == "AjouterUnVin")){
-			/*include ('dossierVue/EscpaceMembre_AjouterVin_1.php');*/
-			echo "<p>Ajouter un vin : en construction </p>";
+			
+			echo $contenu_ajouterVin;
 		}
 		?>				
 	</div>

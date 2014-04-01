@@ -16,13 +16,8 @@ interface ORM
 	public function trouverCepagesParVin($vin);
 
 	public function trouverBouchesParTypeVin($typeVin);
-	public function trouverBouchesParVin($vin);
-
 	public function trouverNezParTypeVin($typeVin);
-	public function trouverNezParVin($vin);
-
 	public function trouverRobesParTypeVin($typeVin);
-	public function trouverRobesParVin($vin);
 
 	public function trouverBouchesParVin($vin);
 	public function trouverRobesParVin($vin);

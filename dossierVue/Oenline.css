@@ -1,10 +1,13 @@
 /*css du projet oenline */
+
+
 body{
 	margin:0; 
 	padding:0; 
 	width : 100%;
 }
-div#bgHome{ width : 100%; margin : 0; padding : 0; min-height : 100%}
+div#bgHome{ width : 100%; margin : 0; padding : 0; min-height : 100%;}
+
 div#bgCours{ width : 100%; margin : 0; padding : 0;min-height : 100%}
 div#bgVinsReferences{ width : 100%; margin : 0; padding : 0;min-height : 100%}
 div#bgJeu{ width : 100%; margin : 0; padding : 0;min-height : 100%}
@@ -16,6 +19,15 @@ header{
 	padding:0; 
 	text-align: center; 
 	width:100%;
+	border : 1px solid #FFFFFF ;
+	background-image : url('../Images/Vigne3.jpg');
+		background-position: top left;
+		background-repeat: no-repeat; 
+		background-attachment: fixed; 
+		background-size: cover; 
+		-moz-background-size: 1077px 476px;     /* Gecko 1.9.2 (Firefox 3.6) */
+		-webkit-background-size: 1077px 476px;   /* Safari 3.0 */
+		background-size: 1077px 476px;           /* Gecko 2.0 (Firefox 4.0) > CSS3 */ 
 	}
 	
 header div.titre{
@@ -23,6 +35,7 @@ header div.titre{
 	padding:0; 
 	text-align: center; 
 	font-family: "Over the Rainbow";
+	color : #F7EBBB;
 	}
 
 header img{width :100%;}
@@ -41,7 +54,7 @@ nav ul{
 nav ul li{
 	margin :0;
 	padding : 0;
-	background-color: #B21313;
+	background-color: #940101;
 	list-style-type: none; 
 	display: inline-block;
 	vertical-align: center;
@@ -49,7 +62,7 @@ nav ul li{
 	height: 2em;
 	width : 100%;
 	color : #F7EBBB;
-	border: 0px solid #B21313;}
+	border: 0px solid #940101;}
 
 nav ul li a { 
 	color: #F7EBBB;
@@ -73,21 +86,21 @@ div#contenu{
 		color : #000000;
 	}
 	div#contenu aside a:hover{
-		color : #B21313;}
+		color : #940101;}
 	
 	div#contenu aside#RechVin{
 		width :100%;
-		background-image : url('../Images/aside-recherche-vins.jpeg');
+		background-image : url('../Images/aside-recherche-vins1.jpg');
 		background-repeat: repeat;
 	}
 	div#contenu aside#Jeu{
 		width : 100%;
-		background-image : url('../Images/aside-Jeu.jpg');
+		background-image : url('../Images/aside-Jeu2.jpg');
 		background-repeat: repeat;
 	}
 	div#contenu aside#EspaceMembre{
 		width :100%;
-		background-image : url('../Images/aside-recherche-vins.jpeg');
+		background-image : url('../Images/aside-espace-membre1.jpg');
 		background-repeat: repeat;
 	}
 	
@@ -120,22 +133,22 @@ div#contenu{
 		clear : both;}
 	
 	div#contenu section fieldset h3 {
-		color: #B21313;
+		color: #940101;
 		font: 1.3em "Fredericka the Great", Verdana, "Lucida Grande", Tahoma, Helvetica, Sans-Serif;
 	}	
 	div#contenu section h3 {
-		color: #B21313;
+		color: #940101;
 		font: 1.3em "Fredericka the Great", Verdana, "Lucida Grande", Tahoma, Helvetica, Sans-Serif;
 		text-decoration: none;
 	}
 	
 	div#contenu section h5{
-		color: #B21313;
+		color: #940101;
 		font: 1.5em "Over the rainbow", Verdana, "Lucida Grande", Tahoma, Helvetica, Sans-Serif;
 		text-decoration: none;}
 	
 	div#contenu section h3 a{
-		color: #B21313;
+		color: #940101;
 		font: 1.3em "Fredericka the Great", Verdana, "Lucida Grande", Tahoma, Helvetica, Sans-Serif;
 		text-decoration: none;
 	}
@@ -149,33 +162,36 @@ footer{
 	margin : 0;
 	padding : 0; 
 	display: block; 
-	background-color: #B21313; 
+	background-color: #940101; 
 	width:100%; 
 	color :#F7EBBB; 
 	text-align: center;
-	border: 1px solid #B21313;}
+	border: 1px solid #940101;}
 
 footer a {
-	text-decoration : none;
 	color :#F7EBBB;}
+footer h3{
+	width : 100%;
+	background-color: #F7EBBB;
+	color :#940101; }
+	
 
 span.error{color : #E80000;}
 
 
 nav ul li.actif{background-color: #F7EBBB ;}
-nav ul li.actif a{color : #B21313;}
+nav ul li.actif a{color : #940101;}
 
 nav ul li:hover{background-color: #F7EBBB ;}
 
-nav ul li a:hover{color : #B21313;}
+nav ul li a:hover{color : #940101;}
 
 nav ul li:active{background-color: #F7EBBB ;}
 
-nav ul li a:active{color : #B21313;}
-hr{height: 2px; color: #B21313; background-color: #B21313; width: 85%; border: none;}
+nav ul li a:active{color : #940101;}
+hr{height: 2px; color: #940101; background-color: #940101; width: 85%; border: none;}
 
 p.error {color : red;}
-
 
 @media all and (min-width: 530px), {
 
@@ -204,8 +220,8 @@ p.error {color : red;}
 
 	nav {
 		width : 100%;
-		background-color:#B21313; 
-		border : 0px solid #B21313; 
+		background-color:#940101; 
+		border : 0px solid #940101; 
 		display : block; 
 		height : 2em;
 		font-size: 0.65em;
@@ -216,7 +232,7 @@ p.error {color : red;}
 		width : 24.4%;
 		color : #F7EBBB;
 		height: 2em;
-		border: 0px solid #B21313;
+		border: 0px solid #940101;
 		font-size: 1em;}
 
 
@@ -239,7 +255,7 @@ p.error {color : red;}
 	div#contenu aside#EspaceMembre{
 	width : 200px; 
 	display : table-cell;
-	background-image : url('../Images/aside-recherche-vins.jpeg'); 
+	background-image : url('../Images/aside-espace-membre.jpg'); 
 	background-repeat: repeat; 
 	overflow : hidden;}
 	
@@ -281,7 +297,7 @@ p.error {color : red;}
 		display : table-cell;
 		text-align : right;
 		}
-		
+
 	div#contenu div#contenuEspaceMembre{
 		width : 100%;
 		}
@@ -304,6 +320,8 @@ p.error {color : red;}
 }
 
 @media all and (min-width: 1024px), {
+	header{background-image : none; border : 0px;}
+	
 	header img{width :40%;}
 	
 	header div.connexion { 
@@ -316,8 +334,8 @@ p.error {color : red;}
 		display : inline-block;
 		text-align: center;
 		padding-left : 170px;
-		
-}
+		color : #000000;
+		}
 	div#bgHome{
 		background-image : url('../Images/Sancerre2.jpg');
 		background-position: center center;
@@ -393,7 +411,7 @@ p.error {color : red;}
 	div#contenu aside#EspaceMembre{
 	width : 200px; 
 	display : table-cell;
-	background-image : url('../Images/aside-recherche-vins.jpeg'); 
+	background-image : url('../Images/aside-espace-membre.jpg'); 
 	background-repeat: repeat; 
 	overflow : hidden;}
 	

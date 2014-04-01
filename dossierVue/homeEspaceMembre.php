@@ -35,6 +35,7 @@
 							<label>Pseudo </label><input type = "text" name = "pseudo" value = "<?php echo $pseudo;?>"required><br>
 							<label>Mot de passe </label><input type = "password" name= "password" required><br>
 							<label>Validez votre mot de passe </label><input type = "password" name= "validationPassword" required><br>
+							<label>En validant votre inscription vous certifiez avoir plus de 18 ans!</label>
 							<input type = "Submit" name = "SInscrire" value = "Inscription">
 						</form>
 					</div>
