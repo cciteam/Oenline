@@ -35,20 +35,30 @@ function AfficherSection($Section){
 	$controleur = new ControleurOenline('127.0.0.1','root','','oenline');
 	
 	
-	
 	if ($Section == "Cours"){
+		$contenu_section_cours = "";
+		if (ISSET($_GET['typeCours'])){
+			$type_typeCours = test_input($_GET['typeCours']);
+			if (($type_typeCours == 'degustation') or ($type_typeCours == 'cepage') or ($type_typeCours == 'appellation')){
+				$Cours = $controleur -> trouverCoursParTitreCours($type_typeCours); // récupération d'un tableau d'objets de type Cours
+				$contenu_section_cours = fopen($Cours->urlCours, "r"); // lecture de la variable cours et récuparation de l'urlCours
+				print($contenu_section_cours); //vérification 
+			}
+			
+		}
 		require('dossierVue/connexion.php');
 		require('dossierVue/nav_Accueil.php');
 		require('dossierVue/homeCours.php');
 		require('dossierVue/gabarit.php');
-		}
+	}
 		
 		
 		
 	if ($Section == 'VinsReferences' ){
 		$parametre = "";
 		$recherche = "";
-		if (!empty(ISSET($_GET['parametre']))){
+		if (ISSET($_GET['parametre'])){
+			if (!empty($_GET['parametre'])){
 			$parametre = test_input_SQL($_GET['parametre']);
 			if (ISSET($_GET['Rechercher_par_appellation'])){
 				$recherche = "appellation";}
@@ -60,7 +70,7 @@ function AfficherSection($Section){
 				$recherche = "domaine";}
 			else if (ISSET($_GET['Rechercher_par_nomVin'])){
 				$recherche = "nom";}
-			$parametre = test_param($parametre,$recherche);}
+			$parametre = test_param($parametre,$recherche);}}
 		require('dossierVue/connexion.php');
 		require('dossierVue/nav_VinsReferences.php');
 		require('dossierVue/homeVinsReferences.php');
