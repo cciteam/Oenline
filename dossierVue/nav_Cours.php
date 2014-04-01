@@ -1,9 +1,9 @@
 <?php
-	$navigation = echo ("
+	$navigation = ("
 		<ul>
-			<li class = \"actif\"><a href = \"localhost/scripts/test-Oenline?Section='Cours'\">Cours</a></li>
-			<li class = \"inactif\"><a href = \"localhost/scripts/test-Oenline?Section='VinsReferences'\">Vins référencés</a></li>
-			<li class = \"inactif\"><a href = \"localhost/scripts/test-Oenline?Section='Jeu'\">Jeu</a></li>
-			<li class = \"inactif\"><a href = \"localhost/scripts/test-Oenline?Section='EspaceMembre'\">Espace Membre</a></li>
+			<a href = \"home.php?Section=Cours\"><li class = \"actif\">Cours</li></a>
+			<a href = \"home.php?Section=VinsReferences\"><li class = \"inactif\">Vins référencés</li></a>
+			<a href = \"home.php?Section=Jeu\"><li class = \"inactif\">Jeu</li></a>
+			<a href = \"home.php?Section=EspaceMembre\"><li class = \"inactif\">Espace Membre</li></a>
 		</ul>
 		");

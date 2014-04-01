@@ -5,15 +5,15 @@
 		-->
 			<div id = "Jeu">
 				<h3><?php echo $vin->nomVin;?></h3><br><hr>
-				<p>Millésime : <?php echo $vin->millesime;?><br><br>
-				Domaine : <?php echo $domaine[0]->nomDomaine;?><br><br>
-				Appellation : <?php echo $appellation[0]->nomAppellation;?><br><br>
-				Type de vin : <?php echo $couleur[0]->nomTypeVin;?><br><br>
-				Cépage : <ul>
+				<p><span>Millésime : <?php echo $vin->millesime;?></span><br><br>
+				<span>Domaine : <?php echo $domaine[0]->nomDomaine;?></span><br><br>
+				<span>Appellation : <?php echo $appellation[0]->nomAppellation;?></span><br><br>
+				<span>Type de vin : <?php echo $couleur[0]->nomTypeVin;?></span><br><br>
+				<span>Cépage : <ul>
 				<?php
 				foreach ($cepages as $cep){
 					echo "<li>".$cep->nomCepage."</li>";}?>
-				</ul>	
+				</span></ul>	
 			</div>
 		</aside>
 		<section>

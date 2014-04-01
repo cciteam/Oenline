@@ -38,20 +38,21 @@ header div.titre{
 	color : #F7EBBB;
 	}
 
-header img{width :100%;}
+header img{width :70%;}
 
 nav{
 	margin: 0;
 	padding:0; 
 	width : 100%;
-	background-color: #F7EBBB;}
+	background-color: #F7EBBB;
+	border : 1px solid #940101}
 
 nav ul{
 	margin :0; 
 	padding:0; 
 	width : 100%;}
 
-nav ul li{
+nav ul a li{
 	margin :0;
 	padding : 0;
 	background-color: #940101;
@@ -62,14 +63,9 @@ nav ul li{
 	height: 2em;
 	width : 100%;
 	color : #F7EBBB;
-	border: 0px solid #940101;}
-
-nav ul li a { 
-	color: #F7EBBB;
-	font: 1.3em "Trebuchet MS", Verdana, "Lucida Grande", Tahoma, Helvetica, Sans-Serif;
 	text-decoration: none;
-	float: left;
-	width : 100%;
+	font: 1.3em "Trebuchet MS", Verdana, "Lucida Grande", Tahoma, Helvetica, Sans-Serif;
+	border: 0px solid #940101;
 	text-align: center;}
 
 div#contenu{
@@ -132,6 +128,9 @@ div#contenu{
 	div.clear {
 		clear : both;}
 	
+	div#contenu aside span{
+		background-color : #FFFFFF;}
+	
 	div#contenu section fieldset h3 {
 		color: #940101;
 		font: 1.3em "Fredericka the Great", Verdana, "Lucida Grande", Tahoma, Helvetica, Sans-Serif;
@@ -179,19 +178,38 @@ footer h3{
 span.error{color : #E80000;}
 
 
-nav ul li.actif{background-color: #F7EBBB ;}
-nav ul li.actif a{color : #940101;}
+nav ul a li.actif{background-color: #F7EBBB ;}
+nav ul a li.actif {color : #940101;}
 
-nav ul li:hover{background-color: #F7EBBB ;}
 
-nav ul li a:hover{color : #940101;}
 
-nav ul li:active{background-color: #F7EBBB ;}
+nav ul a li:hover{color : #940101; background-color: #F7EBBB ;}
 
-nav ul li a:active{color : #940101;}
+nav ul a li:active{background-color: #F7EBBB ;}
+
+nav ul a li:active{color : #940101;}
 hr{height: 2px; color: #940101; background-color: #940101; width: 85%; border: none;}
 
 p.error {color : red;}
+
+input[type=submit] {
+	padding:5px 15px; 
+	background:#940101; 
+	color : #F7EBBB;
+	border:1px none;
+	cursor:pointer;
+	-webkit-border-radius: 5px;
+	border-radius: 5px; 
+	-moz-box-shadow:inset 0px 1px 2px 0px #CCCCCC;
+	-webkit-box-shadow:inset 0px 1px 2px 0px #CCCCCC;
+	box-shadow:inset 0px 1px 2px 0px #CCCCCC;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #F65B5B), color-stop(0.6, #940101));
+	background:-moz-linear-gradient(top, #F65B5B 5%, #940101 60%);
+	background:-webkit-linear-gradient(top, #F65B5B 5%, #940101 60%);
+	background:-o-linear-gradient(top, #F65B5B 5%, #940101 60%);
+	background:-ms-linear-gradient(top, #F65B5B 5%, #940101 60%);
+	background:linear-gradient(to bottom, #F65B5B 5%, #940101 60%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#F65B5B', endColorstr='#940101',GradientType=0);}
 
 @media all and (min-width: 530px), {
 
@@ -208,6 +226,7 @@ p.error {color : red;}
 		float : right;
 		width : 30%;
 		}
+
 		
 	header div.titre  {
 		margin : 0;
@@ -224,14 +243,21 @@ p.error {color : red;}
 		border : 0px solid #940101; 
 		display : block; 
 		height : 2em;
-		font-size: 0.65em;
+		font-size: 1em;
 		clear:both;}
 
-	nav ul li{
+	nav ul a{
 		float : left;
 		width : 24.4%;
 		color : #F7EBBB;
 		height: 2em;
+		border: 0px solid #940101;
+		font-size: 1em;}
+	
+	nav ul a li{
+		width :100%;
+		color : #F7EBBB;
+		height: 100%;
 		border: 0px solid #940101;
 		font-size: 1em;}
 
@@ -383,6 +409,9 @@ p.error {color : red;}
 	div#content{
 		width : 1024px;
 		margin : 0 auto;
+	}
+	div#content section span.ALaLigne{
+		display : none;
 	}
 
 	header img{width :300px;}

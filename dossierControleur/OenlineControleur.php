@@ -494,7 +494,7 @@ function AfficherSection($Section){
 		
 		
 		require('dossierVue/connexion.php');
-		require('dossierVue/nav_Accueil.php');
+		require('dossierVue/nav_EspaceMembre.php');
 		require('dossierVue/gabarit.php');
 	}
 	else if ($Section=="Home"){

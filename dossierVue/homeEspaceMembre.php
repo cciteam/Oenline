@@ -18,8 +18,8 @@
 					<div id = "connexionEspMem">
 						<h3> Se connecter </h3>
 						<form action="home.php?Section=EspaceMembre" method = "POST">
-							<label>Adresse email</label><input type = "email" name = "email" required><br>
-							<label>Mot de Passe</label><input type = "password" name = "password" required><br>
+							<label>Adresse email</label><span class = "ALaLigne"><br/></span><input type = "email" name = "email" required><br>
+							<label>Mot de Passe</label><span class = "ALaLigne"><br/></span><input type = "password" name = "password" required><br>
 							<input type = "Submit" name = "SeConnecter" value = "Connexion">
 						</form>
 						<p class = "error"><?php echo $err_connexion;?></p>
@@ -30,12 +30,12 @@
 							<?php echo $error ?>
 						</p>
 						<form action = "home.php?Section=EspaceMembre" method = "POST">
-							<label>Adresse email</label><input type = "email" name = "email" value = "<?php echo $email;?>" required><br>
-							<label>Nom </label><input type = "text" name = "nomMembre" value = "<?php echo $nom;?>"required><br>
-							<label>Pseudo </label><input type = "text" name = "pseudo" value = "<?php echo $pseudo;?>"required><br>
-							<label>Mot de passe </label><input type = "password" name= "password" required><br>
-							<label>Validez votre mot de passe </label><input type = "password" name= "validationPassword" required><br>
-							<label>En validant votre inscription vous certifiez avoir plus de 18 ans!</label>
+							<label>Adresse email</label><span class = "ALaLigne"><br/></span><input type = "email" name = "email" value = "<?php echo $email;?>" required><br>
+							<label>Nom </label><span class = "ALaLigne"><br/></span><input type = "text" name = "nomMembre" value = "<?php echo $nom;?>"required><br>
+							<label>Pseudo </label><span class = "ALaLigne"><br/></span><input type = "text" name = "pseudo" value = "<?php echo $pseudo;?>"required><br>
+							<label>Mot de passe </label><span class = "ALaLigne"><br/></span><input type = "password" name= "password" required><br>
+							<label>Validez votre mot de passe </label><span class = "ALaLigne"><br/></span><input type = "password" name= "validationPassword" required><br>
+							<label>En validant votre inscription vous certifiez avoir plus de 18 ans!</label><br/>
 							<input type = "Submit" name = "SInscrire" value = "Inscription">
 						</form>
 					</div>
