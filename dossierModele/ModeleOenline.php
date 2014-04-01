@@ -269,20 +269,6 @@ class ModeleOenline
 		return $this->orm->trouverRobesParTypeVin($typeVin);
 	}
 
-	public function trouverGoutsVin($vin)
-	{
-		return $this->orm->trouverGoutsVin($vin);
-	}
-
-	public function trouverRobesVin($vin)
-	{
-		return $this->orm->trouverrobesVin($vin);
-	}
-
-	public function trouverNezVin($vin)
-	{
-		return $this->orm->trouverNezVin($vin);
-	}
 
 	public function trouverGoutsPartie($partie)
 	{
@@ -328,6 +314,12 @@ class ModeleOenline
 	public function trouverPartiesParMembre($membre)
 	{
 		return $this->partieDAO->trouverParIdMembre(array($membre->idMembre));
+	}
+
+	//retourne les parties du membre entré en paramètre
+	public function trouverCoursParTitreCours($titreCours)
+	{
+		return $this->coursDAO->trouverParTitre($titreCours);
 	}
 
 	//teste si le cépage existe, retourne FALSE s'il n'existe pas

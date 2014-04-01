@@ -4,8 +4,12 @@
 <aside id = "EspaceMembre"> 		
 	<div id = "asideEspaceMembre">
 		<h4><a href = "home.php?Section=EspaceMembre&Affichage=MesCoordonnees" >Mes coordonnées </a></h4>
-		<br>
+		<br/>
 		<h4><a href = "home.php?Section=EspaceMembre&Affichage=MesParties">Mes parties jouées</a></h4>
+		<?php if ($access_Admin){ ?>
+			<br/>
+			<h4><a href = "home.php?Section=EspaceMembre&Affichage=AjouterUnVin&Page=1">Ajouter un vin</a></h4>
+		<?php } ?>
 	</div>
 </aside>
 <section>
@@ -93,6 +97,10 @@
 		<?php
 				}
 			}
+		}
+		else if ($access_Admin and ($affichage == "AjouterUnVin")){
+			
+			echo $contenu_ajouterVin;
 		}
 		?>				
 	</div>

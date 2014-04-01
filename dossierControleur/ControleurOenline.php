@@ -1,6 +1,6 @@
 ﻿<?php
 
-require_once('/dossierModele/ModeleOenline.php');
+require_once('dossierModele/ModeleOenline.php');
 
 class ControleurOenline
 {
@@ -369,25 +369,6 @@ class ControleurOenline
 		return $this->modele->trouverMembreParPseudo($pseudo);
 	}
 
-
-	//retourne les gouts du vin passé en paramètre
-	public function trouverGoutsVin($vin)
-	{
-		return $this->modele->trouverGoutsVin($vin);
-	}
-
-	//retourne les robes du vin passé en paramètre
-	public function trouverRobesVin($vin)
-	{
-		return $this->modele->trouverRobesVin($vin);
-	}
-
-	//retourne les nez du vin passé en paramètre
-	public function trouverNezVin($vin)
-	{
-		return $this->modele->trouverNezVin($vin);
-	}
-
 	//retourne les gouts sélectionnés dans la partie passée en paramètre
 	public function trouverGoutsPartie($partie)
 	{
@@ -441,150 +422,13 @@ class ControleurOenline
 	{
 		return $this->modele->trouverNezParVin($vins);
 	}
-	
-	
-	//retourne un tableau de String décrivant les vins correspondant au cépage entré en paramètre
-	public function afficherVinsParCepage($cepage)
-	{
 
-		$vins = $this->modele->trouverVinsParCepage($cepage);
-		$str = $this->descriptionVins($vins);
-		return $str;
+	//retourne les nez correspondant au vin passé en paramètre
+	public function trouverCoursParTitreCours($titreCours)
+	{
+		return $this->modele->trouverCoursParTitreCours($titreCours);
 	}
 
-	//retourne un tableau de String décrivant les vins correspondant au nom de domaine
-	public function afficherVinsParNomDeDomaine($nomDomaine)
-	{
-
-		$vins = $this->modele->trouverVinsParNomDeDomaine($nomDomaine);
-		$str = $this->descriptionVins($vins);
-		return $str;
-	}
-
-	//retourne un tableau de String décrivant les vins correspondant a l'appellation entrée en paramètre
-	public function afficherVinsParAppellation($appellation)
-	{
-
-		$vins = $this->modele->trouverVinsParAppellation($appellation);
-		$str = $this->descriptionVins($vins);
-		return $str;
-	}
-
-	//retourne un tableau de String décrivant les vins correspondant au cépage entré en paramètre
-	public function afficherVinsParTypeVin($typeVin)
-	{
-
-		$vins = $this->modele->trouverVinsParTypeVin($typeVin);
-		$str = $this->descriptionVins($vins);
-		return $str;
-	}
-
-	//retourne un tableau de String décrivant les vins contenant $nomVin dans le nom
-	public function afficherVinsParNom($nomVin)
-	{
-		$vins = $this->modele->trouverVinsParNom($nomVin);
-		$str = $this->descriptionVins($vins);
-		return $str;
-	}
-
-	//retourne un tableau de String et prends un tableau de vin en paramètre
-	public function descriptionVins($vins)
-	{
-		if (!empty($vins)){			
-			ob_start();
-			$nomDomainePrecedant="";
-			echo "<div>";
-			foreach ($vins as $vin){
-				$domaine = $this->trouverDomainesParVin($vin);
-				$domaine = $domaine[0];
-				if ($nomDomainePrecedant!=$domaine->nomDomaine){
-					echo "</div>";
-					echo "<div classe = 'Domaine'>";
-					echo "<h3><a href = 'home.php?Section=VinsReferences&Rechercher_par_nomDomaine=Rechercher&parametre=".utf8_encode($domaine->nomDomaine)."'>";
-					echo $domaine->nomDomaine."</a></h3>";
-					$nomDomainePrecedant = $domaine->nomDomaine;}
-				$cepages = $this->trouverCepagesParVin($vin);
-				$typeVin = $this->trouverTypesVinsParVin($vin);
-				$appellation = $this->trouverAppellationsParVin($vin);
-				echo '<article>';
-				echo '<header><a href = "">'.$vin->nomVin.'</a>, millésime '.$vin->millesime.'</header>';
-				echo '<hr/>';
-				echo '<p>'.$domaine->nomDomaine. '<br>';
-				echo 'Numero du vin : '.$vin->idVin. '<br>';
-				echo 'Appellation : '.$appellation[0]->nomAppellation.'<br>';
-				echo 'Type de vin : '.$typeVin[0]->nomTypeVin.'<br>';
-				echo 'Cépages : ';
-				echo $cepages[0]->nomCepage;
-				for ($i = 1; $i<count($cepages); $i++){
-					echo ', '.utf8_encode($cepages[$i]->nomCepage);
-					}
-				echo '<br>'.$vin->descCourte;
-				echo '</p></article>';
-			}
-			$str = ob_get_clean();
-		}
-		else {$str = '<div><p>Aucun vin ne correspond à votre recherche</p></div>';}
-		return $str;
-	}
-
-	//retourne un tableau de String avec la description complète des vins donné en paramètre(avec leurs bouches, leurs nez, leurs robes...)
-	public function descriptionVinsComplete($vins)
-	{
-		$str = array();
-		for ($i = 0; $i < count($vins); $i++) 
-		{
-			$domaines = $this->modele->trouverDomainesParVin($vins[$i]);
-			$cepages = $this->modele->trouverCepagesParVin($vins[$i]);
-			$appellations = $this->modele->trouverAppellationsParVin($vins[$i]);
-			$typesVins = $this->modele->trouverTypesVinsParVin($vins[$i]);
-			$bouches = $this->modele->trouverBouchesParVin($vins[$i]);
-			$robes = $this->modele->trouverRobesParVin($vins[$i]);
-			$nezz = $this->modele->trouverNezParVin($vins[$i]);
-
-			$strDom = "<br>Domaine: ";
-			$strCep = "<br>Cépages: ";
-			$strApp = "<br>Appellation: ";
-			$strTyp = "<br>Type: ";
-			$strRob = "<br><br>Notre oenologue a observé les robes suivantes: ";
-			$strNez = "<br><br>Notre oenologue a senti les nez suivants: ";
-			$strBou = "<br><br>Notre oenologue a relevé les bouches suivantes: ";
-
-			$strVin = "<br>Référence: ".$vins[$i]->idVin."<br>Nom: ".$vins[$i]->nomVin."<br>Brève description: ".$vins[$i]->descCourte."<br>Description approfondie: ".$vins[$i]->descLongue;
-
-			foreach ($domaines as $domaine) {
-				$strDom .= $domaine->nomDomaine;
-			}
-
-			foreach ($cepages as $cepage) {
-				$strCep .= " ".$cepage->nomCepage;
-			}
-
-			foreach ($appellations as $appellation) {
-				$strApp .= " ".$appellation->nomAppellation;
-			}
-
-			foreach ($typesVins as $typeVin) {
-				$strTyp .= " ".$typeVin->nomTypeVin;
-			}
-
-			foreach ($robes as $robe) {
-				$strRob .= "<br> -".$robe->nomRobe." |  Score: ".$robe->scoreRobe;
-			}
-
-			foreach ($nezz as $nez) {
-				$strNez .= "<br> -".$nez->nomNez." | Score: ".$nez->scoreNez;
-			}
-
-			foreach ($bouches as $bouche) {
-				$strBou .= "<br> -".$bouche->nomBouche." | Score: ".$bouche->scoreBouche;
-			}
-
-			$str[$i] = $strVin.$strTyp.$strApp.$strDom.$strCep.$strRob.$strNez.$strBou."<br>";
-
-		}
-
-		return $str;
-	}
 
 }
 
