@@ -39,13 +39,15 @@ function AfficherSection($Section){
 			$type_typeCours = test_input($_GET['typeCours']);
 			if (($type_typeCours == 'degustation') or ($type_typeCours == 'cepage') or ($type_typeCours == 'appellation')){
 				$Cours = $controleur -> trouverCoursParTitreCours($type_typeCours); // récupération d'un tableau d'objets de type Cours
-				$contenu_section_cours = fopen($Cours->urlCours, "r"); // lecture de la variable cours et récuparation de l'urlCours
-				print($contenu_section_cours); //vérification 
+				$file = fopen($Cours[0]->urlCours, "r"); // lecture de la variable cours et récuparation de l'urlCours
+				while (!feof($file)) {
+					$contenu_section_cours.= fgets($file);
+				}
 			}
 			
 		}
 		require('dossierVue/connexion.php');
-		require('dossierVue/nav_Accueil.php');
+		require('dossierVue/nav_Cours.php');
 		require('dossierVue/homeCours.php');
 		require('dossierVue/gabarit.php');
 	}

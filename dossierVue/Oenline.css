@@ -263,7 +263,12 @@ input[type=submit] {
 		border: 0px solid #940101;
 		font-size: 1em;}
 
-
+	div#contenu aside#Cours{
+	width : 200px;
+	display : table-cell;
+	background-image : url('../Images/aside-Jeu.jpg'); 
+	background-repeat: repeat; 
+	overflow : hidden;}
 
 	
 	div#contenu aside#Jeu{
@@ -424,6 +429,12 @@ input[type=submit] {
 		font-size : 1em;
 		width : 24.75%;}
 		
+	div#contenu aside#Cours{
+	width : 200px;
+	display : table-cell;
+	background-image : url('../Images/aside-Jeu.jpg'); 
+	background-repeat: repeat; 
+	overflow : hidden;}	
 
 	div#contenu aside#Jeu{
 	width : 200px;
