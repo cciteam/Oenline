@@ -1,6 +1,6 @@
 <?php
-require_once("dossierControleur/ControleurOenline.php");
-/*$controleur = new ControleurOenline('127.0.0.1','root','','oenline');*/
+require_once("dossierMetier/MetierOenline.php");
+
 
 
 function AfficherSection($Section){
@@ -30,7 +30,7 @@ function AfficherSection($Section){
 
 	
 	/*récupération du controleur vers la base de données*/
-	$controleur = new ControleurOenline('127.0.0.1','root','','oenline');
+	include('dossierControleur/appelControleur.php');
 	
 	
 	if ($Section == "Cours"){
@@ -56,7 +56,6 @@ function AfficherSection($Section){
 		
 	if ($Section == 'VinsReferences' ){
 	
-		$controleur = new ControleurOenline('127.0.0.1','root','','oenline');
 		$appellations = $controleur->trouverAppellations();
 		$cepages_tout = $controleur->trouverCepages();
 		$couleurs = $controleur->trouverTypesVins();
@@ -170,18 +169,18 @@ function AfficherSection($Section){
 				$nezz;
 				$bouchess;
 				foreach($_POST['Robe'] as $robe){
-					if ($robe){$robess[]=unserialize($robe);}
+					if ($robe){$robess[]=unserialize(base64_decode($robe));}
 				}
 				foreach($_POST['Nez'] as $nez){
-					if ($nez){$nezz[] = unserialize($nez);}
+					if ($nez){$nezz[] = unserialize(base64_decode($nez));}
 				}
 				foreach($_POST['Bouche'] as $bouche){
-					if ($bouche){$bouchess[] = unserialize($bouche);}
+					if ($bouche){$bouchess[] = unserialize(base64_decode($bouche));}
 				}
 				$partie = $controleur->ajouterPartie($partie, $vin, $membre,$robess, $nezz, $bouchess);
-				$gouts = $controleur->trouverGoutsVin($vin);
-				$odeurs = $controleur->trouverNezVin($vin);
-				$aspects = $controleur->trouverRobesVin($vin);
+				$gouts = $controleur->trouverBouchesParVin($vin);
+				$odeurs = $controleur->trouverNezParVin($vin);
+				$aspects = $controleur->trouverRobesParVin($vin);
 				require ('dossierVue/JeuResultat.php');
 			}
 			else {require ('dossierVue/JeuFormulaire.php');}
@@ -225,6 +224,7 @@ function AfficherSection($Section){
 					$msg_enregistrement="Bienvenue ".$membre->pseudoMembre.", vous avez bien été enregistré.";
 					SeConnecter($membre->mailMembre, $membre->motDePasse);
 					$access_User = true;
+					header('location:home.php?Section=EspaceMembre');
 				}
 				else require ('dossierVue/homeEspaceMembre.php');
 			}
@@ -531,7 +531,7 @@ function AfficherCours($typeCours){
 
 
 function SeConnecter($email, $mdp){
-	$controleur = new ControleurOenline('127.0.0.1','root','','oenline');
+	include ('dossierControleur/appelControleur.php');
 	$m = $controleur->trouverMembreParMail($email);
 	$m = $m[0];
 	if (!empty($m)){
@@ -574,7 +574,7 @@ function test_param($parametre, $recherche)
 /* Vérifie que les paramètres issus des listes déroulantes n'ont pas été modifiés dans l'url 
 Si le paramètre est bien dans la base de données on renvoie le parametre, sinon on renvoie la chaine vide
 */
-	$controleur = new ControleurOenline('127.0.0.1','root','','oenline');
+	include ('dossierControleur/appelControleur.php');
 	$trouve = true;
 	if ($recherche == "appellation"){
 		$appellations = $controleur->trouverAppellations();
@@ -632,7 +632,7 @@ function checkUsername($pseudo){
 	else if (!preg_match("/^[A-Za-z0-9]*[-_]?[A-Za-z0-9]*$/",$pseudo)){ 
 		$error .="Votre pseudo ne peut contenir que des caractères alphanumériques et les symboles - et _. <br>";}
 	else {
-		$controleur = new ControleurOenline("127.0.0.1","root","","oenline");
+		include ('dossierControleur/appelControleur.php');
 		$membre = $controleur->trouverMembreParPseudo($pseudo);
 		if (!empty($membre[0])){
 			$error .= "Ce pseudo est déjà enregistré <br>";}
@@ -665,7 +665,7 @@ function checkEmail($mail){
 }
 
 function getAffichagePartie($parties){
-	$controleur= new ControleurOenline("127.0.0.1", "root", "", "oenline");
+	include ('dossierControleur/appelControleur.php');
 	$affichagePartie = null;
 	foreach($parties as $p){
 		$vin = $controleur->trouverVinParIdVin($p->idVin);
@@ -691,7 +691,7 @@ function getAffichagePartie($parties){
 }
 
 function existe($param){
-	$controleur = new ControleurOenline("127.0.0.1", "root", "", "oenline");
+	include ('dossierControleur/appelControleur.php');
 	if (get_class($param)== "Domaine"){
 		$domaines = $controleur->trouverDomaines();
 		foreach ($domaines as $d){

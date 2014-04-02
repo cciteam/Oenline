@@ -18,7 +18,7 @@
 			</aside>
 			<section>
 				<h3> Les résultats de votre de dégustation du vin <?php echo $vin->nomVin;?> proposé par <?php echo $domaine[0]->nomDomaine;?></h3>
-				<br><p> Vous avez obtenu pour cette dégustation un score de <?php echo round($partie->scorePartie,2);?>/100. <p><br>
+				<br><p> Vous avez obtenu pour cette dégustation un score de <?php echo round($partie->scorePartie,2);?>/20. <p><br>
 				<div id = 'results'>
 					<div id = 'ResJeu'>
 						<h4>Vos réponses : </h4>
