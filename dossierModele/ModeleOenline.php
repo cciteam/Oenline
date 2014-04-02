@@ -102,6 +102,12 @@ class ModeleOenline
 		$this->cepageDAO->ajouter($cepage);
 	}
 
+	//ajoute une appellation
+	public function ajouterAppellation($appellation)
+	{
+		$this->appellationDAO->ajouter($appellation);
+	}
+
 	//ajouter des cepages à un vin
 	public function ajouterCepagesVin($vin, $cepages)
 	{
@@ -322,100 +328,132 @@ class ModeleOenline
 		return $this->coursDAO->trouverParTitre($titreCours);
 	}
 
-	//teste si le cépage existe, retourne FALSE s'il n'existe pas
+	//teste si un cépage de même nom existe déjà dans la base
 	public function existeCepage($cepage)
 	{
+		$test = count($this->cepageDAO->trouverParNom(array($cepage->nomCepage)));
+		if($test<1)
+			return FALSE;
+		else
+			return TRUE;
+	}
+
+	//teste si un domaine de même nom existe déjà dans la base
+	public function existeDomaine($domaine)
+	{
+		$test = count($this->domaineDAO->trouverParNom(array($domaine->nomDomaine)));
+		if($test<1)
+			return FALSE;
+		else
+			return TRUE;
+	}
+
+	//teste si un cépage de même nom existe déjà dans la base
+	public function existeAppellation($appellation)
+	{
+		$test = count($this->appellationDAO->trouverParNom(array($appellation->nomAppellation)));
+		if($test<1)
+			return FALSE;
+		else
+			return TRUE;
+	}
+
+	//teste si le cépage existe, retourne FALSE s'il n'existe pas
+	public function existeIdCepage($cepage)
+	{
 		$test = count($this->cepageDAO->trouverParId(array($cepage->idCepage)));
-		if($test < 1)
+		if($test<1)
 			return FALSE;
 		else
 			return TRUE;
 	}
 
 	//teste si le vin existe, retourne TRUE s'il existe
-	public function existeVin($vin)
+	public function existeIdVin($vin)
 	{
 		$test = count($this->vinDAO->trouverParIdVin(array($vin->idVin)));
-		if($test < 1)
+		if($test<1)
 			return FALSE;
 		else
 			return TRUE;
 	}
 
 	//teste si le typeVin existe, retourne TRUE s'il existe
-	public function existeTypeVin($typeVin)
+	public function existeIdTypeVin($typeVin)
 	{
 		$test = count($this->typeVinDAO->trouverParId(array($typeVin->idTypeVin)));
-		if($test < 1)
+		if($test<1)
 			return FALSE;
 		else
 			return TRUE;
 	}
 
 	//teste si l'appellation existe, retourne TRUE si elle existe
-	public function existeAppellation($appellation)
+	public function existeIdAppellation($appellation)
 	{
 		$test = count($this->appellationDAO->trouverParId(array($appellation->idAppellation)));
-		if($test < 1)
+		if($test<1)
 			return FALSE;
 		else
 			return TRUE;
 	}
 
 	//teste si le domaine existe, retourne TRUE s'il existe
-	public function existeDomaine($domaine)
+	public function existeIdDomaine($domaine)
 	{
 		$test = count($this->domaineDAO->trouverParId(array($domaine->idDomaine)));
-		if($test < 1)
+		if($test<1)
 			return FALSE;
 		else
 			return TRUE;
 	}
 
 	//teste si la robe existe, retourne un booléen
-	public function existeRobe($robe)
+	public function existeIdRobe($robe)
 	{
 		$test = count($this->robeDAO->trouverParIdRobe(array($robe->idRobe)));
-		if($test < 1)
+		echo $test;
+		if($test<1)
 			return FALSE;
 		else
 			return TRUE;
 	}
 
 	//teste si le nez existe, retourne un booléen
-	public function existeNez($nez)
+	public function existeIdNez($nez)
 	{
 		$test = count($this->nezDAO->trouverParIdNez(array($nez->idNez)));
-		if($test < 1)
+		if($test<1)
 			return FALSE;
 		else
-			return TRUE;	}
+			return TRUE;	
+	}
 
 	//retourne TRUE si la bouche existe
-	public function existeBouche($bouche)
+	public function existeIdBouche($bouche)
 	{
 		$test = count($this->boucheDAO->trouverParIdBouche(array($bouche->idBouche)));
-		if($test < 1)
+		if($test<1)
 			return FALSE;
 		else
 			return TRUE;
 	}
 
 	//retourne TRUE si le membre existe
-	public function existeMembre($membre)
+	public function existeIdMembre($membre)
 	{
 		$test = count($this->membreDAO->trouverParIdMembre(array($membre->idMembre)));
-		if($test < 1)
+		if($test<1)
 			return FALSE;
 		else
 			return TRUE;
 	}
 
 	//retourne TRUE si le groupe existe
-	public function existeGroupe($groupe)
+	public function existeIdGroupe($groupe)
 	{
 		$test = count($this->groupeDAO->trouverParIdGroupe(array($groupe->idGroupe)));
-		if($test < 1)
+		if($test<1)
 			return FALSE;
 		else
 			return TRUE;

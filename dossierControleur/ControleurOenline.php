@@ -28,41 +28,41 @@ class ControleurOenline
 
 		//teste si les cépages existent bien dans la bdd
 		foreach ($cepages as $cepage) {
-			if(!$this->modele->existeCepage($cepage))
+			if(!$this->modele->existeIdCepage($cepage))
 				throw new Exception("<br>Le cépage ".$cepage->idCepage." n'est pas dans la base de données");
 		}
 
 		//teste si les robes existent bien dans la bdd
 		foreach ($robes as $robe) 
 		{
-			if(!$this->modele->existeRobe($robe))
+			if(!$this->modele->existeIdRobe($robe))
 				throw new Exception("<br>La robe ".$robe->idRobe." n'est pas dans la base de données");
 		}
 
-		//teste si les nez existent bien dans la bdd
+		//teste si les nez existeIdnt bien dans la bdd
 		foreach ($nezz as $nez) 
 		{
-			if(!$this->modele->existeNez($nez))
+			if(!$this->modele->existeIdNez($nez))
 				throw new Exception("<br>Le nez ".$nez->idNez." n'est pas dans la base de données");
 		}
 
 		//teste si les bouches existent bien dans la bdd
 		foreach ($bouches as $bouche) 
 		{
-			if(!$this->modele->existeBouche($bouche))
+			if(!$this->modele->existeIdBouche($bouche))
 				throw new Exception("<br>La bouche ".$bouche->idBouche." n'est pas dans la base de données");
 		}
 
 		//teste si le domaine, l'appellation et le type de vin sont dans la bdd
-		if(!$this->modele->existeDomaine($domaine))
+		if(!$this->modele->existeIdDomaine($domaine))
 		{
 			throw new Exception("<br>Le domaine ".$domaine->idDomaine." n'est pas dans la base de données ");
 		}
-		if(!$this->modele->existeAppellation($appellation))
+		if(!$this->modele->existeIdAppellation($appellation))
 		{
 			throw new Exception("<br>L'appellation ".$appellation->idAppellation." n'est pas dans la base de données ");
 		}
-		if(!$this->modele->existeTypeVin($typeVin))
+		if(!$this->modele->existeIdTypeVin($typeVin))
 		{
 			throw new Exception("<br>Le typeVin ".$typeVin->idTypeVin." n'est pas dans la base de données ");
 		}
@@ -100,29 +100,29 @@ class ControleurOenline
 		//teste si les robes existent bien dans la bdd
 		foreach ($robess as $robe) 
 		{
-			if(!$this->modele->existeRobe($robe))
+			if(!$this->modele->existeIdRobe($robe))
 				throw new Exception("<br>La robe ".$robe->idRobe." n'est pas dans la base de données");
 		}
 
 		//teste si les nez existent bien dans la bdd
 		foreach ($nezz as $nez) 
 		{
-			if(!$this->modele->existeNez($nez))
+			if(!$this->modele->existeIdNez($nez))
 				throw new Exception("<br>Le nez ".$nez->idNez." n'est pas dans la base de données");
 		}
 
 		//teste si les bouches existent bien dans la bdd
 		foreach ($bouches as $bouche) {
-			if(!$this->modele->existeBouche($bouche))
+			if(!$this->modele->existeIdBouche($bouche))
 				throw new Exception("<br>La bouche ".$bouche->idBouche." n'est pas dans la base de données");
 		}
 
 		//teste si le vin et le membre exitent dans la bdd
-		if(!$this->modele->existeVin($vin))
+		if(!$this->modele->existeIdVin($vin))
 		{
 			throw new Exception("<br>Le vin ".$vin->idVin." n'est pas dans la base de données ");
 		}
-		if(!$this->modele->existeMembre($membre))
+		if(!$this->modele->existeIdMembre($membre))
 		{
 			throw new Exception("<br>Le membre ".$membre->idMembre." n'est pas dans la base de données ");
 		}
@@ -153,11 +153,11 @@ class ControleurOenline
 		//teste si les bons objets sont entré en paramètre
 		if(!is_a($membre, "Membre") or !is_a($groupe, "Groupe"))
 		{
-			throw new Exception("<br>Le parametre il faut entrer un objet de la classe Membre et un objet de la classe Groupe en paramètre");
+			throw new Exception("<br>Il faut entrer un objet de la classe Membre et un objet de la classe Groupe en paramètre");
 		}
 
-		$nbMail = count($this->modele->trouverMembreParMail($membre->mailMembre));
-		$nbPseudo = count($this->modele->trouverMembreParPseudo($membre->pseudoMembre));
+		$nbMail = $this->modele->trouverMembreParMail($membre->mailMembre);
+		$nbPseudo = $this->modele->trouverMembreParPseudo($membre->pseudoMembre);
 
 		$nomMembre = trim($membre->nomMembre);
 		$pseudoMembre = trim($membre->pseudoMembre);
@@ -171,17 +171,17 @@ class ControleurOenline
 		}
 
 		//vériefie que le groupe existe bien dans la bdd
-		if(!$this->modele->existeGroupe($groupe))
+		if(!$this->modele->existeIdGroupe($groupe))
 			throw new Exception("<br>Le groupe ".$groupe->idGroupe." n'est pas dans la base de données");
 		
 		//vérifie si aucun autre membre a le même mail
-		if($nbMail > 0)
+		if($nbMail<1)
 		{
 			throw new Exception("<br>Un membre avec le mail ".$membre->mailMembre." a déjà été inscrit");
 		}
 
 		//vérifie si aucun autre membre a le même pseudo
-		if($nbPseudo > 0)
+		if($nbPseudo<1)
 		{
 			throw new Exception("<br>Un membre avec le pseudo ".$membre->pseudoMembre." a déjà été inscrit");
 		}
@@ -193,13 +193,46 @@ class ControleurOenline
 	//ajoute un domaine
 	public function ajouterDomaine($domaine)
 	{
+		$nom = trim($domaine->nomDomaine);
+		if($nom==NULL or $nom=='')
+		{
+			throw new Exception("<br>Il faut renseigner le nom du domaine");
+		}
+		if($this->existeDomaine($domaine))
+		{
+			throw new Exception("<br>Le domaine existe déjà dans la base");
+		}
 		$this->modele->ajouterDomaine($domaine);
 	}
 
 	//ajoute un cépage
 	public function ajouterCepage($cepage)
 	{
+		$nom = trim($cepage->nomCepage);
+		if($nom==NULL or $nom=='')
+		{
+			throw new Exception("<br>Il faut renseigner le nom du cépage");
+		}
+		if($this->existeCepage($cepage))
+		{
+			throw new Exception("<br>Le cépage existe déjà dans la base");
+		}
 		$this->modele->ajouterCepage($cepage);
+	}
+
+	//ajoute une appellation
+	public function ajouterAppellation($appellation)
+	{
+		$nom = trim($appellation->nomAppellation);
+		if($nom==NULL or $nom=='')
+		{
+			throw new Exception("<br>Il faut renseigner le nom de l'appellation");
+		}
+		if($this->existeAppellation($appellation))
+		{
+			throw new Exception("<br>L'appellation existe déjà dans la base");
+		}
+		$this->modele->ajouterAppellation($appellation);
 	}
 
 	//ajouter des cepages à un vin, attention, si le cépage a déjà été associé à un vin, message d'erreur MySQL: duplicate primary key!!
@@ -428,6 +461,24 @@ class ControleurOenline
 	{
 		return $this->modele->trouverCoursParTitreCours($titreCours);
 	}
+
+	//vérifie si le un cépage de ce nom existe déjà, retourne un booléen
+	public function existeCepage($cepage)
+	{
+		return $this->modele->existeCepage($cepage);
+	} 
+
+	//vérifie si le un domaine de ce nom existe déjà, retourne un booléen
+	public function existeDomaine($domaine)
+	{
+		return $this->modele->existedomaine($domaine);
+	} 
+
+	//vérifie si une appellation de ce nom existe déjà, retourne un booléen
+	public function existeAppellation($appellation)
+	{
+		return $this->modele->existeAppellation($appellation);
+	} 
 
 
 }

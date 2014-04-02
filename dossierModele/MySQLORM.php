@@ -418,6 +418,7 @@ class MySQLORM implements ORM
 
 	public function calculerScore($idPartie)
 	{
+		$resultat = 0;
 		$RScoreRb = $this->connexion->executer("select scoreRb from scoreR where idPartie=$idPartie");
 		$RScoreNz = $this->connexion->executer("select scoreNz from scoreN where idPartie=$idPartie");
 		$RScoreBc = $this->connexion->executer("select scoreBc from scoreB where idPartie=$idPartie");
@@ -428,29 +429,24 @@ class MySQLORM implements ORM
 		
 		//directement avec la requête MySQL, si un le joueur n'a rien trouvé de correct sur une des caractéristique du vin , la requête ne renvoie rien
 		//pour éviter ce problème, si la requête ne renvoie rien, le score est égal à 0
-		if(count($RScoreRb) == 0)
+		/*if(count($RScoreRb) == 0)
 			$scoreRb = 0;
-		else
-			$scoreRb = $RScoreRb->fetchColumn();
+		else*/
+		$scoreRb = $RScoreRb->fetchColumn();
+		$scoreNz = $RScoreNz->fetchColumn();
+		$scoreBc = $RScoreBc->fetchColumn();
 
-		if(count($RScoreNz) == 0)
-			$scoreNz = 0;
-		else
-			$scoreNz = $RScoreNz->fetchColumn();
-
-		if(count($RScoreBc) == 0)
-			$scoreBc = 0;
-		else
-			$scoreBc = $RScoreBc->fetchColumn();
+		$scoreRbt = $RScoreRbt->fetchColumn();
+		$scoreNzt = $RScoreNzt->fetchColumn();
+		$scoreBct = $RScoreBct->fetchColumn();
 
 		//si le vin n'a aucun nez, robe, bouche, il peut y avoir une erreur de type 100/0, pour éviter cette erreur, si le vin n'a aucune caractéristique, le joueur a un score de 100 par défaut
-		if(count($RScoreRbt) == 0 and count($RScoreNzt) == 0 and count($RScoreBct) == 0)
+		if($scoreRbt==FALSE and $scoreNzt==FALSE and $scoreBct==FALSE)
+		{
 			$resultat = 100;
+		}
 		else
 		{
-			$scoreRbt = $RScoreRbt->fetchColumn();
-			$scoreNzt = $RScoreNzt->fetchColumn();
-			$scoreBct = $RScoreBct->fetchColumn();
 			$resultat = 100/($scoreRbt+$scoreNzt+$scoreBct)*($scoreRb+$scoreNz+$scoreBc);
 		}
 

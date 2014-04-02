@@ -35,7 +35,7 @@ class MySQLAppellationDAO implements AppellationDAO
 
 	public function trouverTout()
 	{
-		$requete="SELECT * FROM $this->nomTable";
+		$requete="SELECT * FROM $this->nomTable ORDER BY nomAppellation";
 		$resultat=$this->connexion->executer($requete);
 		return $this->creerAppellations($resultat);	
 	}
@@ -49,7 +49,7 @@ class MySQLAppellationDAO implements AppellationDAO
 		{
 			$requete.=", $ids[$i]";
 		}
-		$requete.=")";
+		$requete.=") ORDER BY nomAppellation";
 		$resultat=$this->connexion->executer($requete);
 		return $this->creerAppellations($resultat);
 	}

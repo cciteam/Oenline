@@ -35,7 +35,7 @@ class MySQLDomaineDAO implements DomaineDAO
 
 	public function trouverTout()
 	{
-		$requete="SELECT * FROM $this->nomTable";
+		$requete="SELECT * FROM $this->nomTable ORDER BY nomDomaine";
 		$resultat=$this->connexion->executer($requete);
 		return $this->creerDomaines($resultat);	
 	}
@@ -49,7 +49,7 @@ class MySQLDomaineDAO implements DomaineDAO
 		{
 			$requete.=", $ids[$i]";
 		}
-		$requete.=")";
+		$requete.=") ORDER BY nomDomaine";
 		$resultat=$this->connexion->executer($requete);
 		return $this->creerDomaines($resultat);
 	}
@@ -63,7 +63,7 @@ class MySQLDomaineDAO implements DomaineDAO
 
 	public function rechercherParNom($nomDomaine)
 	{
-		$requete="SELECT * FROM $this->nomTable WHERE nomDomaine LIKE '%$nomDomaine%'";
+		$requete="SELECT * FROM $this->nomTable WHERE nomDomaine LIKE '%$nomDomaine%' ORDER BY nomDomaine";
 		$resultat=$this->connexion->executer($requete);
 		return $this->creerDomaines($resultat);
 	}

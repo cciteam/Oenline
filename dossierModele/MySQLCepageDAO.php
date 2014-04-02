@@ -35,7 +35,7 @@ class MySQLCepageDAO implements CepageDAO
 
 	public function trouverTout()
 	{
-		$requete="SELECT * FROM $this->nomTable";
+		$requete="SELECT * FROM $this->nomTable ORDER BY nomCepage";
 		$resultat=$this->connexion->executer($requete);
 		return $this->creerCepages($resultat);	
 	}
@@ -49,7 +49,7 @@ class MySQLCepageDAO implements CepageDAO
 		{
 			$requete.=", $ids[$i]";
 		}
-		$requete.=")";
+		$requete.=") ORDER BY nomCepage";
 		$resultat=$this->connexion->executer($requete);
 		return $this->creerCepages($resultat);
 	}
