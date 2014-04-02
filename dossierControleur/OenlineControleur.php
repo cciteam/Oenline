@@ -225,6 +225,7 @@ function AfficherSection($Section){
 					$msg_enregistrement="Bienvenue ".$membre->pseudoMembre.", vous avez bien été enregistré.";
 					SeConnecter($membre->mailMembre, $membre->motDePasse);
 					$access_User = true;
+					header('location:home.php?Section=EspaceMembre');
 				}
 				else require ('dossierVue/homeEspaceMembre.php');
 			}
