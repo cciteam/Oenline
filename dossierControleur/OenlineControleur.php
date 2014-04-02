@@ -179,9 +179,9 @@ function AfficherSection($Section){
 					if ($bouche){$bouchess[] = unserialize($bouche);}
 				}
 				$partie = $controleur->ajouterPartie($partie, $vin, $membre,$robess, $nezz, $bouchess);
-				$gouts = $controleur->trouverGoutsVin($vin);
-				$odeurs = $controleur->trouverNezVin($vin);
-				$aspects = $controleur->trouverRobesVin($vin);
+				$gouts = $controleur->trouverBouchesParVinVin($vin);
+				$odeurs = $controleur->trouverNezParVin($vin);
+				$aspects = $controleur->trouverRobesParVin($vin);
 				require ('dossierVue/JeuResultat.php');
 			}
 			else {require ('dossierVue/JeuFormulaire.php');}
