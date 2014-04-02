@@ -2,7 +2,7 @@
 
 require_once('dossierModele/ModeleOenline.php');
 
-class ControleurOenline
+class MetierOenline
 {
 	private $modele=NULL;
 
