@@ -30,7 +30,7 @@ function AfficherSection($Section){
 
 	
 	/*récupération du controleur vers la base de données*/
-	$controleur = new ControleurOenline('127.0.0.1','root','','oenline');
+	include('dossierControleur/appelControleur.php');
 	
 	
 	if ($Section == "Cours"){
@@ -56,7 +56,6 @@ function AfficherSection($Section){
 		
 	if ($Section == 'VinsReferences' ){
 	
-		$controleur = new ControleurOenline('127.0.0.1','root','','oenline');
 		$appellations = $controleur->trouverAppellations();
 		$cepages_tout = $controleur->trouverCepages();
 		$couleurs = $controleur->trouverTypesVins();
