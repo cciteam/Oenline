@@ -440,14 +440,14 @@ class MySQLORM implements ORM
 		$scoreNzt = $RScoreNzt->fetchColumn();
 		$scoreBct = $RScoreBct->fetchColumn();
 
-		//si le vin n'a aucun nez, robe, bouche, il peut y avoir une erreur de type 100/0, pour éviter cette erreur, si le vin n'a aucune caractéristique, le joueur a un score de 100 par défaut
+		//si le vin n'a aucun nez, robe, bouche, il peut y avoir une erreur de type 20/0, pour éviter cette erreur, si le vin n'a aucune caractéristique, le joueur a un score de 20 par défaut
 		if($scoreRbt==FALSE and $scoreNzt==FALSE and $scoreBct==FALSE)
 		{
-			$resultat = 100;
+			$resultat = 20;
 		}
 		else
 		{
-			$resultat = 100/($scoreRbt+$scoreNzt+$scoreBct)*($scoreRb+$scoreNz+$scoreBc);
+			$resultat = 20/($scoreRbt+$scoreNzt+$scoreBct)*($scoreRb+$scoreNz+$scoreBc);
 		}
 
 		return $resultat;

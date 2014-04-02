@@ -59,7 +59,7 @@
 							</div>
 							<div class = "descPartie">
 								<p>Date de la partie : <?php echo $p['partie']->datePartie;?><br/>
-								Score : <?php echo $p['partie']->scorePartie;?><br/>
+								Score : <?php echo $p['partie']->scorePartie;?>/20<br/>
 								</p>
 							</div>
 						</section>

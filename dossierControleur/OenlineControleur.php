@@ -170,16 +170,16 @@ function AfficherSection($Section){
 				$nezz;
 				$bouchess;
 				foreach($_POST['Robe'] as $robe){
-					if ($robe){$robess[]=unserialize($robe);}
+					if ($robe){$robess[]=unserialize(base64_decode($robe));}
 				}
 				foreach($_POST['Nez'] as $nez){
-					if ($nez){$nezz[] = unserialize($nez);}
+					if ($nez){$nezz[] = unserialize(base64_decode($nez));}
 				}
 				foreach($_POST['Bouche'] as $bouche){
-					if ($bouche){$bouchess[] = unserialize($bouche);}
+					if ($bouche){$bouchess[] = unserialize(base64_decode($bouche));}
 				}
 				$partie = $controleur->ajouterPartie($partie, $vin, $membre,$robess, $nezz, $bouchess);
-				$gouts = $controleur->trouverBouchesParVinVin($vin);
+				$gouts = $controleur->trouverBouchesParVin($vin);
 				$odeurs = $controleur->trouverNezParVin($vin);
 				$aspects = $controleur->trouverRobesParVin($vin);
 				require ('dossierVue/JeuResultat.php');
