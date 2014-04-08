@@ -17,7 +17,7 @@ class MySQLAppellationDAO implements AppellationDAO
 	{
 		$requete="INSERT INTO $this->nomTable (nomAppellation) VALUES ('$appellation->nomAppellation')";
 		$this->connexion->executer($requete);
-		$apppellation->idAppellation = $this->connexion->dernierID();
+		$appellation->idAppellation = $this->connexion->dernierID();
 		return $appellation;
 	}
 

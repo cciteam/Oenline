@@ -64,7 +64,7 @@ class ModeleOenline
 		$this->voitDAO=new MySQLVoitDAO($this->bdd);
 		
 
-		$this->orm=new MySQLORM($this->bdd, $this->vinDAO, $this->constitueDAO, $this->domaineDAO, $this->cepageDAO, $this->boucheDAO, $this->aGoutDAO, $this->robeDAO, $this->aAspectDAO, $this->nezDAO, $this->aOdeurDAO, $this->gouteDAO, $this->sentDAO, $this->voitDAO, $this->membreDAO, $this->partieDAO, $this->boucheTypeVinDAO, $this->nezTypeVinDAO, $this->robeTypeVinDAO);
+		$this->orm=new MySQLORM($this->bdd, $this->vinDAO, $this->constitueDAO, $this->domaineDAO, $this->cepageDAO, $this->boucheDAO, $this->aGoutDAO, $this->robeDAO, $this->aAspectDAO, $this->nezDAO, $this->aOdeurDAO, $this->gouteDAO, $this->sentDAO, $this->voitDAO, $this->membreDAO, $this->partieDAO, $this->boucheTypeVinDAO, $this->nezTypeVinDAO, $this->robeTypeVinDAO, $this->appellationDAO);
 	}
 
 	public function __destruct()
@@ -93,19 +93,19 @@ class ModeleOenline
 	//ajoute un domaine
 	public function ajouterDomaine($domaine)
 	{
-		$this->domaineDAO->ajouter($domaine);
+		$this->orm->ajouterDomaine($domaine);
 	}
 
 	//ajoute un cépage
 	public function ajouterCepage($cepage)
 	{
-		$this->cepageDAO->ajouter($cepage);
+		$this->orm->ajouterCepage($cepage);
 	}
 
 	//ajoute une appellation
 	public function ajouterAppellation($appellation)
 	{
-		$this->appellationDAO->ajouter($appellation);
+		$this->orm->ajouterAppellation($appellation);
 	}
 
 	//ajouter des cepages à un vin
@@ -331,7 +331,7 @@ class ModeleOenline
 	//teste si un cépage de même nom existe déjà dans la base
 	public function existeCepage($cepage)
 	{
-		$test = count($this->cepageDAO->trouverParNom(array($cepage->nomCepage)));
+		$test = count($this->cepageDAO->trouverParNom($cepage->nomCepage));
 		if($test<1)
 			return FALSE;
 		else
@@ -341,7 +341,7 @@ class ModeleOenline
 	//teste si un domaine de même nom existe déjà dans la base
 	public function existeDomaine($domaine)
 	{
-		$test = count($this->domaineDAO->trouverParNom(array($domaine->nomDomaine)));
+		$test = count($this->domaineDAO->trouverParNom($domaine->nomDomaine));
 		if($test<1)
 			return FALSE;
 		else
@@ -351,7 +351,7 @@ class ModeleOenline
 	//teste si un cépage de même nom existe déjà dans la base
 	public function existeAppellation($appellation)
 	{
-		$test = count($this->appellationDAO->trouverParNom(array($appellation->nomAppellation)));
+		$test = count($this->appellationDAO->trouverParNom($appellation->nomAppellation));
 		if($test<1)
 			return FALSE;
 		else

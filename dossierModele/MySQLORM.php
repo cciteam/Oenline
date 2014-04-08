@@ -25,7 +25,7 @@ class MySQLORM implements ORM
 	private $nezTypeVinDAO=NULL;
 	private $robeTypeVinDAO=NULL;
 
-	public function __construct($connexion, $vinDAO, $constitueDAO, $domaineDAO, $cepageDAO, $boucheDAO, $aGoutDAO, $robeDAO, $aAspectDAO, $nezDAO, $aOdeurDAO, $gouteDAO, $sentDAO, $voitDAO, $membreDAO, $partieDAO, $boucheTypeVinDAO, $nezTypeVinDAO, $robeTypeVinDAO)
+	public function __construct($connexion, $vinDAO, $constitueDAO, $domaineDAO, $cepageDAO, $boucheDAO, $aGoutDAO, $robeDAO, $aAspectDAO, $nezDAO, $aOdeurDAO, $gouteDAO, $sentDAO, $voitDAO, $membreDAO, $partieDAO, $boucheTypeVinDAO, $nezTypeVinDAO, $robeTypeVinDAO, $appellationDAO)
 	{
 		$this->connexion=$connexion;
 		$this->vinDAO=$vinDAO;
@@ -46,6 +46,7 @@ class MySQLORM implements ORM
 		$this->boucheTypeVinDAO=$boucheTypeVinDAO;
 		$this->nezTypeVinDAO=$nezTypeVinDAO;
 		$this->robeTypeVinDAO=$robeTypeVinDAO;
+		$this->appellationDAO=$appellationDAO;
 	}
 
 	public function ajouterVin($vin, $domaine, $appellation, $typeVin, $cepages, $robes, $nezz, $bouches)
@@ -151,6 +152,49 @@ class MySQLORM implements ORM
 			throw new Exception($e);
 		}
 		return $membre;
+	}
+
+	//ajoute un domaine
+	public function ajouterDomaine($domaine)
+	{
+		try{
+			$this->connexion->commencerTransaction();
+			$domaine = $this->domaineDAO->ajouter($domaine);
+			$this->connexion->validerTransaction();
+		}
+		catch(Exception $e){
+			$this->connexion->annulerTransaction();
+			throw new Exception($e);
+		}
+		return $domaine;
+	}
+
+	public function ajouterCepage($cepage)
+	{
+		try{
+			$this->connexion->commencerTransaction();
+			$cepage = $this->cepageDAO->ajouter($cepage);
+			$this->connexion->validerTransaction();
+		}
+		catch(Exception $e){
+			$this->connexion->annulerTransaction();
+			throw new Exception($e);
+		}
+		return $cepage;
+	}
+
+	public function ajouterAppellation($appellation)
+	{
+		try{
+			$this->connexion->commencerTransaction();
+			$domaine = $this->appellationDAO->ajouter($appellation);
+			$this->connexion->validerTransaction();
+		}
+		catch(Exception $e){
+			$this->connexion->annulerTransaction();
+			throw new Exception($e);
+		}
+		return $appellation;
 	}
 
 	public function supprimerVin($vin)
