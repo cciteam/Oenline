@@ -7,6 +7,7 @@
 		<link href='http://fonts.googleapis.com/css?family=Fredericka+the+Great' rel='stylesheet' type='text/css'>
 		<link href='http://fonts.googleapis.com/css?family=Oregano' rel='stylesheet' type='text/css'>
 		<link href='http://fonts.googleapis.com/css?family=Over+the+Rainbow' rel='stylesheet' type='text/css'>
+		<link rel="icon" href="Images/favicon.ico" />
 	</head>
 	<body>
 		<div id=<?php echo "'bg".$Section."'";?>>
