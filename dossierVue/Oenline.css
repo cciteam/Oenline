@@ -5,8 +5,9 @@ body{
 	margin:0; 
 	padding:0; 
 	width : 100%;
+	border : 0px solid #000000;
 }
-div#bgHome{ width : 100%; margin : 0; padding : 0; min-height : 100%;}
+div#bgHome{ width : 100%; margin : 0; padding : 0; min-height : 100%;border : 0px solid #000000}
 
 div#bgCours{ width : 100%; margin : 0; padding : 0;min-height : 100%}
 div#bgVinsReferences{ width : 100%; margin : 0; padding : 0;min-height : 100%}
@@ -19,7 +20,7 @@ header{
 	padding:0; 
 	text-align: center; 
 	width:100%;
-	border : 1px solid #FFFFFF ;
+	border : 0px solid #FFFFFF ;
 	background-image : url('../Images/Vigne3.jpg');
 		background-position: top left;
 		background-repeat: no-repeat; 
@@ -129,9 +130,15 @@ div#contenu{
 	}
 	div.clear {
 		clear : both;}
-	
+	p.clear{
+		clear : both;}
+		
 	div#contenu aside span{
-		background-color : #FFFFFF;}
+		background-color : #FFFFFF;	/* pour les navigateurs qui ne supportent pas la propriété RGBa*/
+		background-color : RGBa(255,255,255,0.5);}
+	div#contenu aside legend{
+		background-color : #FFFFFF;	/* pour les navigateurs qui ne supportent pas la propriété RGBa*/
+		background-color : RGBa(255,255,255,0.5);}
 	
 	div#contenu section fieldset h3 {
 		color: #940101;
@@ -158,6 +165,31 @@ div#contenu{
 	div#contenu div#contenuJeu div#ResJeu{text-align : left;}
 
 	section h3{text-align: center;}
+div.domaine {padding : 0 50px 0 10px;}
+div.titre_ref {font-family: "Over the Rainbow"; font-size : 1.1em; text-align : center;}
+div.donneesVin p.jouer{text-align : center;}
+div.donneesVin p.jouer a{
+	text-decoration : none;
+	font-family : 'sans-serif';
+	padding:5px 15px; 
+	background:#940101; 
+	color : #F7EBBB;
+	border:1px none;
+	cursor:pointer;
+	-webkit-border-radius: 5px;
+	border-radius: 5px; 
+	-moz-box-shadow:inset 0px 1px 2px 0px #CCCCCC;
+	-webkit-box-shadow:inset 0px 1px 2px 0px #CCCCCC;
+	box-shadow:inset 0px 1px 2px 0px #CCCCCC;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #F65B5B), color-stop(0.6, #940101));
+	background:-moz-linear-gradient(top, #F65B5B 5%, #940101 60%);
+	background:-webkit-linear-gradient(top, #F65B5B 5%, #940101 60%);
+	background:-o-linear-gradient(top, #F65B5B 5%, #940101 60%);
+	background:-ms-linear-gradient(top, #F65B5B 5%, #940101 60%);
+	background:linear-gradient(to bottom, #F65B5B 5%, #940101 60%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#F65B5B', endColorstr='#940101',GradientType=0);
+	font-size : 0.8em;
+}
 
 footer{
 	margin : 0;
@@ -497,5 +529,7 @@ input[type=submit] {
 		padding-right : 20px;
 		text-align : right;}
 	
-	
+	div.donneesVin p.jouer {float : right;}
+	p#descCourte{width : 45%; float : left;}
+	p#descLongue{width : 45%; float : left;}
 }

@@ -43,7 +43,7 @@
 				foreach ($affichagePartie as $p){
 	?>
 					<article>
-						<header><h5><?php echo $p['vin']->nomVin;?> millésime <?php echo $p['vin']->millesime;?><h5></header>
+						<div class = "titre_ref"><h5><?php echo $p['vin']->nomVin;?> millésime <?php echo $p['vin']->millesime;?><h5></div>
 						<hr/>
 						<section class = "affichagePartie">
 							<div class = "descVin">	

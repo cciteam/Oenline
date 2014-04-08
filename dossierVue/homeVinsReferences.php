@@ -86,27 +86,33 @@
 					}
 					else {
 						for($i = 0; $i<count($affichage_vins); $i++){?>
-							<div classe = 'Domaine'>
+							<div class = 'Domaine'>
 								<h3><a href = 'home.php?Section=VinsReferences&Rechercher_par_nomDomaine=Rechercher&parametre=<?php echo $affichage_vins[$i]['domaine']->nomDomaine;?>'>
 									<?php echo $affichage_vins[$i]['domaine']->nomDomaine;?></a></h3>
 								<?php
 									for ($j = 0; $j<count($affichage_vins[$i]['vins']); $j++){?>
 										<article>
-											<header><a href = "home.php?Section=Jeu&idVinJeu=<?php echo $affichage_vins[$i]['vins'][$j]['vin']->idVin;?>">
-												<?php echo $affichage_vins[$i]['vins'][$j]['vin']->nomVin;?></a>, millésime <?php echo $affichage_vins[$i]['vins'][$j]['vin']->millesime;?></header>
+											<div class = "titre_ref">
+												<label><?php echo $affichage_vins[$i]['vins'][$j]['vin']->nomVin;?>, millésime <?php echo $affichage_vins[$i]['vins'][$j]['vin']->millesime;?></label>
+											</div>
 											<hr/>
-											<p><?php echo $affichage_vins[$i]['domaine']->nomDomaine;?><br>
-												<a href = "<?php echo $affichage_vins[$i]['domaine']->urlDomaine;?>">url du domaine.</a><br/>
-												Numero du vin : <?php echo  $affichage_vins[$i]['vins'][$j]['vin']->idVin;?><br>
-												Appellation : <?php echo $affichage_vins[$i]['vins'][$j]['appellation']->nomAppellation;?><br>
-												Type de vin : <?php echo  $affichage_vins[$i]['vins'][$j]['typeVin']->nomTypeVin;?><br>
-												Cépages : <?php echo  $affichage_vins[$i]['vins'][$j]['cepage'][0]->nomCepage;
-												for ($k = 1; $k<count( $affichage_vins[$i]['vins'][$j]['cepage']); $k++){
-													echo ', '.utf8_encode( $affichage_vins[$i]['vins'][$j]['cepage'][$k]->nomCepage);
-													}?>
-												<br>
-												Description : <?php echo $affichage_vins[$i]['vins'][$j]['vin']->descCourte;?>
-											</p>
+											<div class = "donneesVin">
+												<p class = "jouer">
+													<a href = "home.php?Section=Jeu&idVinJeu=<?php echo $affichage_vins[$i]['vins'][$j]['vin']->idVin;?>">Jouer avec ce vin</a>
+												</p>
+												<p><?php echo $affichage_vins[$i]['domaine']->nomDomaine;?><br>
+													<a href = "<?php echo $affichage_vins[$i]['domaine']->urlDomaine;?>">url du domaine.</a><br/>
+													Numero du vin : <?php echo  $affichage_vins[$i]['vins'][$j]['vin']->idVin;?><br>
+													Appellation : <?php echo $affichage_vins[$i]['vins'][$j]['appellation']->nomAppellation;?><br>
+													Type de vin : <?php echo  $affichage_vins[$i]['vins'][$j]['typeVin']->nomTypeVin;?><br>
+													Cépages : <?php echo  $affichage_vins[$i]['vins'][$j]['cepage'][0]->nomCepage;
+													for ($k = 1; $k<count( $affichage_vins[$i]['vins'][$j]['cepage']); $k++){
+														echo ', '.utf8_encode( $affichage_vins[$i]['vins'][$j]['cepage'][$k]->nomCepage);
+														}?>
+													<br>
+													Description : <?php echo $affichage_vins[$i]['vins'][$j]['vin']->descCourte;?>
+												</p>
+											</div>
 										</article>
 									<?php } ?>
 							</div>
