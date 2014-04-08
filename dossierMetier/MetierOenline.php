@@ -67,11 +67,10 @@ class MetierOenline
 			throw new Exception("<br>Le typeVin ".$typeVin->idTypeVin." n'est pas dans la base de données ");
 		}
 
-		//la fonction trim(...) supprime les espaces en début de chaîne
-		$nomVin = trim($vin->nomVin);
-		$millesime = trim($vin->millesime);
-		$descCourte = trim($vin->descCourte);
-		$descCourte = trim($vin->descCourte);
+		$nomVin = $vin->nomVin;
+		$millesime = $vin->millesime;
+		$descCourte = $vin->descCourte;
+		$descCourte = $vin->descCourte;
 
 		//teste si le vin a bien tous les bons paramètres
 		if($nomVin == "" or $millesime == "" or $descCourte == "" or $descCourte=="")
@@ -128,7 +127,7 @@ class MetierOenline
 		}
 
 		//teste que la date de partie est bien entrée
-		if(trim($partie->datePartie==''))
+		if($partie->datePartie=='')
 		{
 			throw new Exception("<br>La date de la partie n'est pas renseignée");
 		}
@@ -159,10 +158,10 @@ class MetierOenline
 		$nbMail = $this->modele->trouverMembreParMail($membre->mailMembre);
 		$nbPseudo = $this->modele->trouverMembreParPseudo($membre->pseudoMembre);
 
-		$nomMembre = trim($membre->nomMembre);
-		$pseudoMembre = trim($membre->pseudoMembre);
+		$nomMembre = $membre->nomMembre;
+		$pseudoMembre = $membre->pseudoMembre;
 		$mdp = $membre->motDePasse;
-		$mailMembre = trim($membre->mailMembre);
+		$mailMembre = $membre->mailMembre;
 
 		//teste si les champs sont bien renseigné
 		if($nomMembre=="" OR $pseudoMembre=="" OR $mailMembre=="" OR $mdp=="")
@@ -193,10 +192,15 @@ class MetierOenline
 	//ajoute un domaine
 	public function ajouterDomaine($domaine)
 	{
-		$nom = trim($domaine->nomDomaine);
+		$nom = $domaine->nomDomaine;
+		$url = $domaine->urlDomaine;
 		if($nom==NULL or $nom=='')
 		{
 			throw new Exception("<br>Il faut renseigner le nom du domaine");
+		}
+		if($url==NULL or $url=='')
+		{
+			throw new Exception("<br>Il faut renseigner l'url du domaine'");
 		}
 		if($this->existeDomaine($domaine))
 		{
@@ -208,7 +212,7 @@ class MetierOenline
 	//ajoute un cépage
 	public function ajouterCepage($cepage)
 	{
-		$nom = trim($cepage->nomCepage);
+		$nom = $cepage->nomCepage;
 		if($nom==NULL or $nom=='')
 		{
 			throw new Exception("<br>Il faut renseigner le nom du cépage");
@@ -223,7 +227,7 @@ class MetierOenline
 	//ajoute une appellation
 	public function ajouterAppellation($appellation)
 	{
-		$nom = trim($appellation->nomAppellation);
+		$nom = $appellation->nomAppellation;
 		if($nom==NULL or $nom=='')
 		{
 			throw new Exception("<br>Il faut renseigner le nom de l'appellation");
