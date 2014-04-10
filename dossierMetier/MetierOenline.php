@@ -191,15 +191,11 @@ class MetierOenline
 	public function ajouterDomaine($domaine)
 	{
 		$nom = $domaine->nomDomaine;
-		$url = $domaine->urlDomaine;
 		if($nom==NULL or $nom=='')
 		{
 			throw new Exception("<br>Il faut renseigner le nom du domaine");
 		}
-		if($url==NULL or $url=='')
-		{
-			throw new Exception("<br>Il faut renseigner l'url du domaine'");
-		}
+		
 		if($this->existeDomaine($domaine))
 		{
 			throw new Exception("<br>Le domaine existe déjà dans la base");

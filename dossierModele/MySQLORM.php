@@ -466,9 +466,9 @@ class MySQLORM implements ORM
 		$RScoreNz = $this->connexion->executer("select scoreNz from scoreN where idPartie=$idPartie");
 		$RScoreBc = $this->connexion->executer("select scoreBc from scoreB where idPartie=$idPartie");
 
-		$RScoreRbt = $this->connexion->executer("select scoreRbt from scoreRt where idPartie=$idPartie");
-		$RScoreNzt = $this->connexion->executer("select scoreNzt from scoreNt where idPartie=$idPartie");
-		$RScoreBct = $this->connexion->executer("select scoreBct from scoreBt where idPartie=$idPartie");
+		$RScoreRbt = $this->connexion->executer("select scoreRbT from scoreRT where idPartie=$idPartie");
+		$RScoreNzt = $this->connexion->executer("select scoreNzT from scoreNT where idPartie=$idPartie");
+		$RScoreBct = $this->connexion->executer("select scoreBcT from scoreBT where idPartie=$idPartie");
 		
 		//directement avec la requête MySQL, si un le joueur n'a rien trouvé de correct sur une des caractéristique du vin , la requête ne renvoie rien
 		//pour éviter ce problème, si la requête ne renvoie rien, le score est égal à 0
@@ -483,15 +483,9 @@ class MySQLORM implements ORM
 		$scoreNzt = $RScoreNzt->fetchColumn();
 		$scoreBct = $RScoreBct->fetchColumn();
 
-		//si le vin n'a aucun nez, robe, bouche, il peut y avoir une erreur de type 20/0, pour éviter cette erreur, si le vin n'a aucune caractéristique, le joueur a un score de 20 par défaut
-		if($scoreRbt==FALSE and $scoreNzt==FALSE and $scoreBct==FALSE)
-		{
-			$resultat = 20;
-		}
-		else
-		{
-			$resultat = 20/($scoreRbt+$scoreNzt+$scoreBct)*($scoreRb+$scoreNz+$scoreBc);
-		}
+
+		$resultat = 20/($scoreRbt+$scoreNzt+$scoreBct)*($scoreRb+$scoreNz+$scoreBc);
+		
 
 		return $resultat;
 	}
