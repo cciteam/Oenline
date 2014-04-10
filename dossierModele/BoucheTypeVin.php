@@ -1,5 +1,4 @@
 <?php 
-
 class BoucheTypeVin
 {
 	public $idTypeVin=NULL;
@@ -16,5 +15,4 @@ class BoucheTypeVin
 		return '<br/>Réf Vin: '.$this->idTypeVin.'<br/>Réf bouche: '.$this->idBouche;
 	}
 }
-
 ?>

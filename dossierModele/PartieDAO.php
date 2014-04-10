@@ -1,5 +1,4 @@
 <?php
-
 interface PartieDAO
 {
 	public function ajouter($partie);
@@ -12,5 +11,4 @@ interface PartieDAO
 	public function trouverParDate($datePartie);
 	public function trouverParScore($scorePartieBas, $scorePartieHaut);
 }
-
 ?>

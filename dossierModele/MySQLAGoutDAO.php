@@ -2,7 +2,6 @@
 require_once("AGoutDAO.php");
 require_once("AGout.php");
 require_once("ConnexionBDD.php");
-
 class MySQLAGoutDAO implements AGoutDAO
 {
 	private $connexion=NULL;
@@ -74,7 +73,5 @@ class MySQLAGoutDAO implements AGoutDAO
 			$ontGout[]=new AGout($ligne['idVin'], $ligne['idBouche']);
 		return $ontGout;
 	}
-	
 }
-
 ?>

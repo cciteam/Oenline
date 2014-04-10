@@ -1,5 +1,4 @@
 <?php 
-
 class NezTypeVin
 {
 	public $idTypeVin=NULL;
@@ -16,5 +15,4 @@ class NezTypeVin
 		return '<br/>Réf Vin: '.$this->idTypeVin.'<br/>Réf nez: '.$this->idNez;
 	}
 }
-
 ?>

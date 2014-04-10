@@ -1,5 +1,4 @@
 <?php
-
 interface VoitDAO
 {
 	public function ajouter($voit);
@@ -9,5 +8,4 @@ interface VoitDAO
 	public function trouverParIdPartie($idPartie);
 	public function trouverParIdRobe($idRobe);
 }
-
 ?>

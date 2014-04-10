@@ -2,11 +2,10 @@
 require_once("CoursDAO.php");
 require_once("Cours.php");
 require_once("ConnexionBDD.php");
-
 class MySQLCoursDAO implements CoursDAO
 {
 	private $connexion=NULL;
-	private $nomTable="Cours";
+	private $nomTable="cours";
 
 	public function __construct($connexion)
 	{
@@ -56,7 +55,7 @@ class MySQLCoursDAO implements CoursDAO
 
 	public function trouverParTitre($titreCours)
 	{
-		$requete="SELECT * FROM $this->nomTable WHERE titreCours LIKE '$titreCours'";
+		$requete="SELECT * FROM $this->nomTable WHERE titreCours LIKE '%$titreCours%'";
 		$resultat=$this->connexion->executer($requete);
 		return $this->creerCours($resultat);
 	}
@@ -76,7 +75,5 @@ class MySQLCoursDAO implements CoursDAO
 			$cours[]=new cours($ligne['idCours'], $ligne['titreCours'], $ligne['motCleCours'], $ligne['urlCours']);
 		return $cours;
 	}
-	
 }
-
 ?>

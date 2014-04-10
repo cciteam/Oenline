@@ -2,7 +2,6 @@
 require_once("VinDAO.php");
 require_once("Vin.php");
 require_once("ConnexionBDD.php");
-
 class MySQLVinDAO implements VinDAO
 {
 	private $connexion=NULL;
@@ -117,7 +116,5 @@ class MySQLVinDAO implements VinDAO
 			$vins[]=new Vin($ligne['idVin'], $ligne['nomVin'], $ligne['millesime'], $ligne['descCourte'], $ligne['descLongue'], $ligne['idDomaine'], $ligne['idAppellation'], $ligne['idTypeVin']);
 		return $vins;
 	}
-	
 }
-
 ?>

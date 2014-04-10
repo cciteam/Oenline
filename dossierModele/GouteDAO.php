@@ -1,5 +1,4 @@
 <?php
-
 interface GouteDAO
 {
 	public function ajouter($goute);
@@ -9,5 +8,4 @@ interface GouteDAO
 	public function trouverParIdPartie($idPartie);
 	public function trouverParIdBouche($idBouche);
 }
-
 ?>

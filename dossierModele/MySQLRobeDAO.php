@@ -2,7 +2,6 @@
 require_once("RobeDAO.php");
 require_once("Robe.php");
 require_once("ConnexionBDD.php");
-
 class MySQLRobeDAO implements RobeDAO
 {
 	private $connexion=NULL;
@@ -83,7 +82,5 @@ class MySQLRobeDAO implements RobeDAO
 			$robes[]=new Robe($ligne['idRobe'], $ligne['nomRobe'], $ligne['typeDescRobe'], $ligne['typeRobe'], $ligne['scoreRobe']);
 		return $robes;
 	}
-	
 }
-
 ?>

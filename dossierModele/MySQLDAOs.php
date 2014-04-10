@@ -1,5 +1,4 @@
 <?php
-
 require_once("MySQLAAspectDAO.php");
 require_once("MySQLAGoutDAO.php");
 require_once("MySQLAOdeurDAO.php");
@@ -22,5 +21,4 @@ require_once("MySQLSentDAO.php");
 require_once("MySQLTypeVinDAO.php");
 require_once("MySQLVinDAO.php");
 require_once("MySQLVoitDAO.php");
-
 ?>

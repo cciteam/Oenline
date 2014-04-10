@@ -1,5 +1,4 @@
 <?php
-
 interface CoursDAO
 {
 	public function ajouter($cours);
@@ -10,5 +9,4 @@ interface CoursDAO
 	public function trouverParTitre($titreCours);
 	public function rechercherParMotCle($motCle);
 }
-
 ?>

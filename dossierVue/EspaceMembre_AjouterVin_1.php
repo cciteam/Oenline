@@ -5,6 +5,7 @@
 	<fieldset>
 		<legend>Le domaine : </legend>
 		<div class = "liste_deroulante">
+			<span><b>Choisissez un domaine dans la liste : </b></span><br/>
 			<select name = "new_domaine">
 				<option></option>
 				<?php
@@ -14,10 +15,11 @@
 				?>
 			</select>
 		</div>
-		<div class = "ou"><b> Ou </b></div>
+		<div class = "ou"><b> ou </b></div>
 		<div class = "ajout">
-			<label>Nom du domaine: </label><input type = 'text' name = 'nom_dom'><br/>
-			<label>url du domaine : </label><input type = 'text' name = 'url_dom'><br/>
+			<span>Ajouter un domaine :</span><br/>
+			<label>Nom du domaine: </label><br/><input type = 'text' name = 'nom_dom'><br/>
+			<label>url du domaine : </label><br/><input type = 'text' name = 'url_dom'><br/>
 			<input type = 'submit' name = 'enregistrer_dom' value = 'Enregistrer'>
 			<p class = "error"><?php echo $error_enregistrement_domaine;?></p>
 		</div>
@@ -25,6 +27,7 @@
 	<fieldset>
 		<legend>L'appellation</legend>
 		<div class = "liste_deroulante">
+			<span>Choisissez une appellation <br/> la liste :</span><br/>
 			<select name = "new_appellation">
 				<option></option>
 				<?php
@@ -32,27 +35,30 @@
 						echo '<option value = "'.base64_encode(serialize($app)).'">'.$app->nomAppellation.'</option>';
 						}
 				?>
-				</div>
 			</select>
-		<div class = "ou"><b> Ou </b></div>
+		</div>
+		<div class = "ou"><b> ou </b></div>
 		<div class = "ajout">
-			<label>Nom de l'appellation : </label><input type = "text" name = "nom_app"><br/>
+			<span>Ajouter une appellation :</span><br/>
+			<label>Nom de l'appellation : </label><br/><input type = "text" name = "nom_app"><br/>
 			<input type = "submit" name = "enregistrer_app" value = "Enregistrer">
 			<p class = "error"><?php echo $error_enregistrement_appellation; ?></p>
 		</div>
 	</fieldset>
 	<fieldset>
 		<legend>Le ou les cépages :</legend>
+		<span>Choisissez un ou des cépage(s) dans la liste :</span><br/><br/>
 		<div class = "checkboxes">
 			<?php
 				foreach ($cepages as $cep) {
-					echo '<input type = "checkbox" name = "Cepages[]" value = "'.base64_encode(serialize($cep)).'">'.$cep->nomCepage;
+					echo '<input type = "checkbox" name = "Cepages[]" value = "'.base64_encode(serialize($cep)).'">'.$cep->nomCepage.'<br/>';
 				}
 			?>
 		</div>
-		<div class = "ou"><b> Ou </b></div>
 		<div class = "ajout">
-			<label>Nom du cépage : </label><input type = "text" name = "nom_cep"><br/>
+			<br/><br/>
+			<span>Ou jouter un cépage :</span><br/>
+			<label>Nom du cépage : </label><br/><input type = "text" name = "nom_cep"><br/>
 			<input type = "submit" name = "enregistrer_cep" value = "Enregistrer">
 			<p class = "error"><?php echo $error_enregistrement_cepage; ?></p>
 		</div>
@@ -68,8 +74,4 @@
 	</fieldset>
 	<input type = 'submit' name = 'Val_page1' value = 'Suivant'>
 </form>
-
-
-			
-		
 <?php $contenu_ajouterVin = ob_get_clean(); ?>

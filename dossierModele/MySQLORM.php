@@ -2,7 +2,6 @@
 require_once("DAOs.php");
 require_once("ORM.php");
 require_once("ConnexionBDD.php");
-
 class MySQLORM implements ORM
 {
 	private $connexion=NULL;
@@ -496,8 +495,5 @@ class MySQLORM implements ORM
 
 		return $resultat;
 	}
-
-
 }
-
 ?>

@@ -2,7 +2,6 @@
 require_once("CepageDAO.php");
 require_once("Cepage.php");
 require_once("ConnexionBDD.php");
-
 class MySQLCepageDAO implements CepageDAO
 {
 	private $connexion=NULL;
@@ -67,8 +66,6 @@ class MySQLCepageDAO implements CepageDAO
 		foreach($resultatRequete as $ligne)
 			$cepages[]=new Cepage($ligne['idCepage'], $ligne['nomCepage']);
 		return $cepages;
-	}
-	
+	}	
 }
-
 ?>

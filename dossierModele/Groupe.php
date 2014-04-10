@@ -1,5 +1,4 @@
 <?php 
-
 class Groupe
 {
 	public $idGroupe=NULL;
@@ -16,5 +15,4 @@ class Groupe
 		return '<br>Réf:'.$this->idGroupe.'<br/>Nom : '.$this->nomGroupe;
 	}
 }
-
 ?>

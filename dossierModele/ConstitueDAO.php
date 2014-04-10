@@ -1,5 +1,4 @@
 <?php
-
 interface ConstitueDAO
 {
 	public function ajouter($constitue);
@@ -9,5 +8,4 @@ interface ConstitueDAO
 	public function trouverParIdVin($idVin);
 	public function trouverParIdCepage($idCepage);
 }
-
 ?>

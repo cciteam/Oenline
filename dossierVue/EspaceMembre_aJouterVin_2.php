@@ -1,5 +1,6 @@
 <?php ob_start(); ?>
 <form action = 'home.php?Section=EspaceMembre&Affichage=AjouterUnVin&Page=2' method = "POST">
+	<p class = "error"><?php echo $error_enregistrement;?></p>
 	<fieldset>
 		<legend> La robe : </legend>
 		<?php $typeRobe = $robes[1]->typeRobe;?>
@@ -94,7 +95,6 @@
 			</div>
 		</div>
 	</fieldset>
-	<p class = "error"><?php echo $error_enregistrement;?></p>
 	<input type = "submit" name = "Val_page2" value = "Suivant">
 </form>
 <?php $contenu_ajouterVin = ob_get_clean();?>

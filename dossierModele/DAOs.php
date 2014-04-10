@@ -1,5 +1,4 @@
 <?php
-
 require_once("AAspectDAO.php");
 require_once("AGoutDAO.php");
 require_once("AOdeurDAO.php");
@@ -22,5 +21,4 @@ require_once("SentDAO.php");
 require_once("TypeVinDAO.php");
 require_once("VinDAO.php");
 require_once("VoitDAO.php");
-
 ?>

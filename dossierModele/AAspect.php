@@ -1,5 +1,4 @@
 <?php 
-
 class AAspect
 {
 	public $idVin=NULL;
@@ -16,5 +15,4 @@ class AAspect
 		return '<br/>Réf Vin: '.$this->idVin.'<br/>Réf robe: '.$this->idRobe;
 	}
 }
-
 ?>

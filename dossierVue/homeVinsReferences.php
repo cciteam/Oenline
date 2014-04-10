@@ -1,6 +1,6 @@
 <?php ob_start(); ?>
 	<aside id= "RechVin"> 
-		<div id = "RechVin">
+		<div id = "RechVin2">
 			<fieldset>
 				<legend>Rechercher par appellation : </legend>
 				<form action = "home.php" method = "GET">
@@ -71,7 +71,6 @@
 			</fieldset>
 		</div>
 	</aside>
-
 	<section>
 		<div id = "ContenuVinsRef">
 			<?php  
@@ -121,7 +120,5 @@
 					} 
 				}?>
 		</div>
-	</section>	
-		
+	</section>			
 <?php $contenu = ob_get_clean(); ?>
-

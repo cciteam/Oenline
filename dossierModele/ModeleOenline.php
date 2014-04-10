@@ -1,11 +1,9 @@
 <?php
-
 require_once("MySQLDAOs.php");
 require_once("PDOConnexion.php");
 require_once("MySQLORM.php");
 require_once("ORM.php");
 require_once("ConnexionBDD.php");
-
 class ModeleOenline
 {
 	private $bdd=NULL;

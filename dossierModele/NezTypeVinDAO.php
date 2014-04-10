@@ -1,5 +1,4 @@
 <?php
-
 interface NezTypeVinDAO
 {
 	public function ajouter($nezTypeVin);
@@ -9,5 +8,4 @@ interface NezTypeVinDAO
 	public function trouverParIdTypeVin($idTypeVin);
 	public function trouverParIdNez($idNez);
 }
-
 ?>

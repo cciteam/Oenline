@@ -1,5 +1,4 @@
 <?php 
-
 class Domaine
 {
 	public $idDomaine=NULL;
@@ -18,5 +17,4 @@ class Domaine
 		return '<br/>Réf: '.$this->idDomaine.'<br/>Nom: '.$this->nomDomaine.'<br/>Url: '.$this->urlDomaine;
 	}
 }
-
 ?>

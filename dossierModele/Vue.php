@@ -1,5 +1,4 @@
 <?php 
-
 class Vue
 {
 	public $idRobe=NULL;
@@ -22,5 +21,4 @@ class Vue
 		return '<br>Réf:'.$this->idRobe.'<br/>Nom: '.$this->nomRobe.'<br/>Type desc robe: '.$this->typeDescRobe.'<br/>type robe: '.$this->typeRobe;
 	}
 }
-
 ?>

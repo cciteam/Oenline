@@ -1,5 +1,4 @@
 <?php 
-
 class Bouche
 {
 	public $idBouche=NULL;
@@ -22,5 +21,4 @@ class Bouche
 		return '<br>Réf:'.$this->idBouche.'<br/>Nom: '.$this->nomBouche.'<br/>Type desc bouche: '.$this->typeDescBouche.'<br/>typeBouche: '.$this->typeBouche.'<br/>score bouche: '.$this->scoreBouche;
 	}
 }
-
 ?>

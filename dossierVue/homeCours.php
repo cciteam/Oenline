@@ -2,12 +2,11 @@
 ?>
 <aside id="Cours"> 
 	<ul>
-		<li> <a href = "home.php?Section=Cours&typeCours=degustation"> Dégustation </a> </li>
-		<li> <a href = "home.php?Section=Cours&typeCours=cepage"> Cépage </a> </li>
-		<li> <a href = "home.php?Section=Cours&typeCours=appellation"> Appellation </a> </li>
+		<li> <a href = "home.php?Section=Cours&amp;typeCours=degustation"> Dégustation </a> </li><br/><br/>
+		<li> <a href = "home.php?Section=Cours&amp;typeCours=cepage"> Cépage </a> </li><br/><br/>
+		<li> <a href = "home.php?Section=Cours&amp;typeCours=appellation"> Appellation </a> </li><br/><br/>
 	</ul>
 </aside>
-
 <section>
 	<?= $contenu_section_cours; ?>
 	

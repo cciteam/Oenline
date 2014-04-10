@@ -2,7 +2,6 @@
 require_once("DomaineDAO.php");
 require_once("Domaine.php");
 require_once("ConnexionBDD.php");
-
 class MySQLDomaineDAO implements DomaineDAO
 {
 	private $connexion=NULL;
@@ -74,8 +73,6 @@ class MySQLDomaineDAO implements DomaineDAO
 		foreach($resultatRequete as $ligne)
 			$domaines[]=new Domaine($ligne['idDomaine'], $ligne['nomDomaine'], $ligne['urlDomaine']);
 		return $domaines;
-	}
-	
+	}	
 }
-
 ?>

@@ -1,5 +1,4 @@
 <?php 
-
 class AGout
 {
 	public $idVin=NULL;
@@ -16,5 +15,4 @@ class AGout
 		return '<br/>Réf Vin: '.$this->idVin.'<br/>Réf robe: '.$this->idBouche;
 	}
 }
-
 ?>

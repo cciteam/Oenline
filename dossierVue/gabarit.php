@@ -1,12 +1,14 @@
 <!doctype html>
 <html>
 	<head>
-		<meta charset="utf-8">
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="keywords" content="Vin, dégustation, jeu, cours"/>
+		<meta name="description" content="Dans ce site web vous pourrez apprendre à déguster du vin en lisant nos cours ou en jouant à notre jeu de dégustation."/>
 		<title>Oenline</title>
-		<link rel="stylesheet" type="text/css" href="dossierVue/Oenline.css">
-		<link href='http://fonts.googleapis.com/css?family=Fredericka+the+Great' rel='stylesheet' type='text/css'>
-		<link href='http://fonts.googleapis.com/css?family=Oregano' rel='stylesheet' type='text/css'>
-		<link href='http://fonts.googleapis.com/css?family=Over+the+Rainbow' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" type="text/css" href="dossierVue/Oenline.css"/>
+		<link href='http://fonts.googleapis.com/css?family=Fredericka+the+Great' rel='stylesheet' type='text/css'/>
+		<link href='http://fonts.googleapis.com/css?family=Oregano' rel='stylesheet' type='text/css'/>
+		<link href='http://fonts.googleapis.com/css?family=Over+the+Rainbow' rel='stylesheet' type='text/css'/>
 		<link rel="icon" href="Images/favicon.ico" />
 	</head>
 	<body>
@@ -31,7 +33,7 @@
 				<footer>
 					<p></p>
 					<h3> L'ABUS D'ALCOOL EST DANGEREUX POUR LA SANTE </h3>
-					<p><a href = ""> Lien vers la partie génie logiciel </a></p>
+					<p><a href = "http://oenline.host56.com/fiches/acceuil.htm"> Lien vers la partie génie logiciel </a></p>
 					<p> Merci pour votre visite, nous espérons que vous vous êtes bien amusés en apprenant la dégustation!</p>
 				</footer>
 			</div>

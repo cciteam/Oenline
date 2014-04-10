@@ -1,5 +1,4 @@
 <?php
-
 interface AppellationDAO 
 {
 	public function ajouter($appellation);
@@ -9,5 +8,4 @@ interface AppellationDAO
 	public function trouverParId($ids);
 	public function trouverParNom($nomAppellation);
 }
-
 ?>

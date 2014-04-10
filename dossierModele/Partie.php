@@ -1,5 +1,4 @@
 <?php 
-
 class Partie
 {
 	public $idPartie=NULL;
@@ -24,5 +23,4 @@ class Partie
 		return '<br>Réf:'.$this->idPartie.'<br/>Date: '.$this->datePartie.'<br/>Score: '.$this->scorePartie.'<br/>Commentaire: '.$this->commentairePartie.'<br>Score de la partie: '.$this->scorePartie;
 	}
 }
-
 ?>

@@ -1,5 +1,4 @@
 <?php
-
 interface BoucheDAO
 {
 	public function ajouter($bouche);
@@ -11,5 +10,4 @@ interface BoucheDAO
 	public function trouverParTypeDescBouche($typeDescBouche);
 	public function trouverParTypeBouche($descBouche);
 }
-
 ?>

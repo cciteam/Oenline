@@ -2,7 +2,6 @@
 require_once("SentDAO.php");
 require_once("Sent.php");
 require_once("ConnexionBDD.php");
-
 class MySQLSentDAO implements SentDAO
 {
 	private $connexion=NULL;
@@ -74,7 +73,5 @@ class MySQLSentDAO implements SentDAO
 			$sentent[]=new Sent($ligne['idPartie'], $ligne['idNez']);
 		return $sentent;
 	}
-	
 }
-
 ?>

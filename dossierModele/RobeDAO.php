@@ -1,5 +1,4 @@
 <?php
-
 interface RobeDAO
 {
 	public function ajouter($robe);
@@ -11,5 +10,4 @@ interface RobeDAO
 	public function trouverParTypeDescRobe($typeDescRobe);
 	public function trouverParTypeRobe($typeRobe);
 }
-
 ?>

@@ -1,5 +1,4 @@
 <?php 
-
 class Cepage
 {
 	public $idCepage=NULL;
@@ -16,5 +15,4 @@ class Cepage
 		return '<br/>Réf: '.$this->idCepage.'<br/>Nom: '.$this->nomCepage;
 	}
 }
-
 ?>

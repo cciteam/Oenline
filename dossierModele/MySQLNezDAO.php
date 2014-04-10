@@ -2,7 +2,6 @@
 require_once("NezDAO.php");
 require_once("Nez.php");
 require_once("ConnexionBDD.php");
-
 class MySQLNezDAO implements NezDAO
 {
 	private $connexion=NULL;
@@ -75,8 +74,6 @@ class MySQLNezDAO implements NezDAO
 		foreach($resultatRequete as $ligne)
 			$nez[]=new Nez($ligne['idNez'], $ligne['nomNez'], $ligne['typeNez'], $ligne['scoreNez']);
 		return $nez;
-	}
-	
+	}	
 }
-
 ?>

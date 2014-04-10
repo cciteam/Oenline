@@ -2,7 +2,6 @@
 require_once("NezTypeVinDAO.php");
 require_once("NezTypeVin.php");
 require_once("ConnexionBDD.php");
-
 class MySQLNezTypeVinDAO implements NezTypeVinDAO
 {
 	private $connexion=NULL;
@@ -74,7 +73,5 @@ class MySQLNezTypeVinDAO implements NezTypeVinDAO
 			$nezTypesVins[]=new NezTypeVin($ligne['idTypeVin'], $ligne['idNez']);
 		return $nezTypesVins;
 	}
-	
 }
-
 ?>

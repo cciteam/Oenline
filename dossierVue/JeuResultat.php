@@ -1,9 +1,8 @@
-<?php ob_start(); ?>	
+<?php ob_start(); ?>
 			<aside id = "Jeu"> 
 			<!--
 			aside affiche un récapitulatif du vin sur lequel la partie porte 
 			-->
-				<div id = "Jeu">
 					<h3><?php echo $vin->nomVin;?></h3><br><hr>
 					<p><span>Millésime : <?php echo $vin->millesime;?></span><br><br>
 					<span>Domaine : <?php echo $domaine[0]->nomDomaine;?></span><br><br>
@@ -14,7 +13,6 @@
 					foreach ($cepages as $cep){
 						echo "<li>".$cep->nomCepage."</li>";}?>
 					</span></ul>	
-				</div>
 			</aside>
 			<section>
 				<h3> Les résultats de votre de dégustation du vin <?php echo $vin->nomVin;?> proposé par <?php echo $domaine[0]->nomDomaine;?></h3>

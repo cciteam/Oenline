@@ -2,7 +2,6 @@
 require_once("AAspectDAO.php");
 require_once("AAspect.php");
 require_once("ConnexionBDD.php");
-
 class MySQLAAspectDAO implements AAspectDAO
 {
 	private $connexion=NULL;
@@ -74,7 +73,5 @@ class MySQLAAspectDAO implements AAspectDAO
 			$ontAspect[]=new AAspect($ligne['idVin'], $ligne['idRobe']);
 		return $ontAspect;
 	}
-	
 }
-
 ?>

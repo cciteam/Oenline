@@ -1,5 +1,4 @@
-﻿<?php 
-
+<?php 
 class Vin 
 {
 	public $idVin=NULL;
@@ -32,8 +31,5 @@ class Vin
 	{
 		return array('idVin', 'nomVin', 'idDomaine', 'idAppellation', 'idTypeVin', 'descCourte', 'descLongue', 'millesime');
 	}
-	
-	
 }
-
 ?>

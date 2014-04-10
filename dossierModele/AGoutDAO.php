@@ -1,5 +1,4 @@
 <?php
-
 interface AGoutDAO
 {
 	public function ajouter($aGout);
@@ -9,5 +8,4 @@ interface AGoutDAO
 	public function trouverParIdVin($idVin);
 	public function trouverParIdBouche($idBouche);
 }
-
 ?>

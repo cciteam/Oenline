@@ -2,7 +2,6 @@
 require_once("BoucheTypeVinDAO.php");
 require_once("BoucheTypeVin.php");
 require_once("ConnexionBDD.php");
-
 class MySQLBoucheTypeVinDAO implements BoucheTypeVinDAO
 {
 	private $connexion=NULL;
@@ -73,8 +72,6 @@ class MySQLBoucheTypeVinDAO implements BoucheTypeVinDAO
 		foreach($resultatRequete as $ligne)
 			$bouchesTypesVins[]=new BoucheTypeVin($ligne['idTypeVin'], $ligne['idBouche']);
 		return $bouchesTypesVins;
-	}
-	
+	}	
 }
-
 ?>

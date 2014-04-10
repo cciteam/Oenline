@@ -2,7 +2,6 @@
 require_once("RobeTypeVinDAO.php");
 require_once("RobeTypeVin.php");
 require_once("ConnexionBDD.php");
-
 class MySQLRobeTypeVinDAO implements RobeTypeVinDAO
 {
 	private $connexion=NULL;
@@ -74,7 +73,5 @@ class MySQLRobeTypeVinDAO implements RobeTypeVinDAO
 			$robesTypesVins[]=new RobeTypeVin($ligne['idTypeVin'], $ligne['idRobe']);
 		return $robesTypesVins;
 	}
-	
 }
-
 ?>

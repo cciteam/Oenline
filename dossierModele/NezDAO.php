@@ -1,5 +1,4 @@
 <?php
-
 interface NezDAO
 {
 	public function ajouter($nez);
@@ -10,5 +9,4 @@ interface NezDAO
 	public function trouverParNom($nomNez);
 	public function trouverParTypeNez($typeNez);
 }
-
 ?>

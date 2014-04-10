@@ -2,7 +2,6 @@
 require_once("TypeVinDAO.php");
 require_once("TypeVin.php");
 require_once("ConnexionBDD.php");
-
 class MySQLTypeVinDAO implements TypeVinDAO
 {
 	private $connexion=NULL;
@@ -68,7 +67,5 @@ class MySQLTypeVinDAO implements TypeVinDAO
 			$typesVins[]=new TypeVin($ligne['idTypeVin'], $ligne['nomTypeVin']);
 		return $typesVins;
 	}
-	
 }
-
 ?>

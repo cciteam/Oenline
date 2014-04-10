@@ -1,5 +1,4 @@
 <?php ob_start();
-
 if (!ISSET($membre)){
 	if ($Section != "Home"){?>
 		<form action = 'home.php?Section=<?php echo $Section;?>' method = 'POST'>
@@ -27,4 +26,3 @@ if (!ISSET($membre)){
 <?php 
 } 
 $contenu_connexion = ob_get_clean(); ?>
-

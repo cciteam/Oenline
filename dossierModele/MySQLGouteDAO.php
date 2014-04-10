@@ -2,7 +2,6 @@
 require_once("GouteDAO.php");
 require_once("Goute.php");
 require_once("ConnexionBDD.php");
-
 class MySQLGouteDAO implements GouteDAO
 {
 	private $connexion=NULL;
@@ -74,7 +73,5 @@ class MySQLGouteDAO implements GouteDAO
 			$goutent[]=new Goute($ligne['idPartie'], $ligne['idBouche']);
 		return $goutent;
 	}
-	
 }
-
 ?>

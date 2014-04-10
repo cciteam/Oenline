@@ -1,5 +1,4 @@
 <?php 
-
 class Cours
 {
 	public $idCours=NULL;
@@ -20,5 +19,4 @@ class Cours
 		return '<br>Réf:'.$this->idCours.'<br/>Titre : '.$this->titreCours.'<br>Mot cle: '.$this->motCleCours.'<br>Lien: '.$this->urlCours;
 	}
 }
-
 ?>

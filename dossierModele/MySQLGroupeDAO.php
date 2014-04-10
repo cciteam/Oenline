@@ -2,7 +2,6 @@
 require_once("GroupeDAO.php");
 require_once("Groupe.php");
 require_once("ConnexionBDD.php");
-
 class MySQLGroupeDAO implements GroupeDAO
 {
 	private $connexion=NULL;
@@ -69,8 +68,6 @@ class MySQLGroupeDAO implements GroupeDAO
 		foreach($resultatRequete as $ligne)
 			$groupes[]=new Groupe($ligne['idGroupe'], $ligne['nomGroupe']);
 		return $groupes;
-	}
-	
+	}	
 }
-
 ?>

@@ -2,7 +2,6 @@
 require_once("PartieDAO.php");
 require_once("Partie.php");
 require_once("ConnexionBDD.php");
-
 class MySQLPartieDAO implements PartieDAO
 {
 	private $connexion=NULL;
@@ -105,7 +104,5 @@ class MySQLPartieDAO implements PartieDAO
 			$parties[]=new Partie($ligne['idPartie'], $ligne['datePartie'], $ligne['scorePartie'], $ligne['commentairePartie'], $ligne['idVin'], $ligne['idMembre']);
 		return $parties;
 	}
-	
 }
-
 ?>

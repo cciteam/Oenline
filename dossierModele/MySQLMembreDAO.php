@@ -2,7 +2,6 @@
 require_once("MembreDAO.php");
 require_once("Membre.php");
 require_once("ConnexionBDD.php");
-
 class MySQLMembreDAO implements MembreDAO
 {
 	private $connexion=NULL;
@@ -96,7 +95,5 @@ class MySQLMembreDAO implements MembreDAO
 			$membres[]=new Membre($ligne['idMembre'], $ligne['pseudoMembre'], $ligne['nomMembre'], $ligne['motDePasse'], $ligne['mailMembre'], $ligne['idGroupe']);
 		return $membres;
 	}
-	
 }
-
 ?>

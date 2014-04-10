@@ -1,5 +1,4 @@
 <?php 
-
 class Goute
 {
 	public $idPartie=NULL;
@@ -16,5 +15,4 @@ class Goute
 		return '<br/>Réf Vin: '.$this->idPartie.'<br/>Réf bouche: '.$this->idBouche;
 	}
 }
-
 ?>

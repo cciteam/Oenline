@@ -1,5 +1,4 @@
 <?php
-
 interface VueDAO
 {
 	public function ajouter($vue);
@@ -12,5 +11,4 @@ interface VueDAO
 	public function trouverParTypeRobe($typeRobe);
 	public function trouverParIdTypeVin($idTypeVin);
 }
-
 ?>

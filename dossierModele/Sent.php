@@ -1,5 +1,4 @@
 <?php 
-
 class Sent
 {
 	public $idPartie=NULL;
@@ -16,5 +15,4 @@ class Sent
 		return '<br/>Réf Vin: '.$this->idPartie.'<br/>Réf nez: '.$this->idNez;
 	}
 }
-
 ?>

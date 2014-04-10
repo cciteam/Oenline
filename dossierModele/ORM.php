@@ -1,5 +1,4 @@
 <?php
-
 interface ORM
 {
 	public function ajouterVin($vin, $domaine, $appellation, $typeVin, $cepages, $robes, $nezz, $bouches);
@@ -29,5 +28,4 @@ interface ORM
 	public function calculerScore($idPartie);
 	
 }
-
 ?>

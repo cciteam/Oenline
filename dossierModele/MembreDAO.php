@@ -1,5 +1,4 @@
 <?php
-
 interface MembreDAO
 {
 	public function ajouter($membre);
@@ -12,5 +11,4 @@ interface MembreDAO
 	public function trouverParMail($mail);
 	public function trouverParIdGroupe($idGroupe);
 }
-
 ?>

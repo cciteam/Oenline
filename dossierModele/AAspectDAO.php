@@ -1,5 +1,4 @@
 <?php
-
 interface AAspectDAO
 {
 	public function ajouter($aAspect);
@@ -9,5 +8,4 @@ interface AAspectDAO
 	public function trouverParIdVin($idVin);
 	public function trouverParIdRobe($idRobe);
 }
-
 ?>

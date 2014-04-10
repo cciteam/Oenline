@@ -1,5 +1,4 @@
 <?php 
-
 class Membre
 {
 	public $idMembre=NULL;
@@ -24,5 +23,4 @@ class Membre
 		return '<br>Réf:'.$this->idMembre.'<br/>pseudo: '.$this->pseudoMembre.'<br/>Nom: '.$this->nomMembre.'<br/>Mail: '.$this->mailMembre;
 	}
 }
-
 ?>

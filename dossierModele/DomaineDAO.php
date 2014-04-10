@@ -1,5 +1,4 @@
 <?php
-
 interface DomaineDAO 
 {
 	public function ajouter($domaine);
@@ -10,5 +9,4 @@ interface DomaineDAO
 	public function trouverParNom($nomDomaine);
 	public function rechercherParNom($nomDomaine);
 }
-
 ?>

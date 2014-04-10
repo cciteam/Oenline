@@ -2,7 +2,6 @@
 require_once("BoucheDAO.php");
 require_once("Bouche.php");
 require_once("ConnexionBDD.php");
-
 class MySQLBoucheDAO implements BoucheDAO
 {
 	private $connexion=NULL;
@@ -83,7 +82,5 @@ class MySQLBoucheDAO implements BoucheDAO
 			$bouches[]=new Bouche($ligne['idBouche'], $ligne['nomBouche'], $ligne['typeDescBouche'], $ligne['typeBouche'], $ligne['scoreBouche']);
 		return $bouches;
 	}
-	
 }
-
 ?>

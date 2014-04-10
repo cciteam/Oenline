@@ -2,7 +2,6 @@
 require_once("VueDAO.php");
 require_once("Vue.php");
 require_once("ConnexionBDD.php");
-
 class MySQLVueDAO implements VueDAO
 {
 	private $connexion=NULL;
@@ -96,7 +95,5 @@ class MySQLVueDAO implements VueDAO
 			$vues[]=new Vue($ligne['idRobe'], $ligne['nomRobe'], $ligne['typeDescRobe'], $ligne['typeRobe'], $ligne['idTypeVin']);
 		return $vues;
 	}
-	
 }
-
 ?>

@@ -1,5 +1,4 @@
 <?php 
-
 class Voit
 {
 	public $idPartie=NULL;
@@ -16,5 +15,4 @@ class Voit
 		return '<br/>Réf partie: '.$this->idPartie.'<br/>Réf robe: '.$this->idRobe;
 	}
 }
-
 ?>

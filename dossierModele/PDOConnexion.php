@@ -1,6 +1,5 @@
 <?php
 require_once("ConnexionBDD.php");
-
 class PDOConnexion implements ConnexionBDD
 {
 	private $hote=NULL;

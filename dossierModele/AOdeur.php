@@ -1,5 +1,4 @@
 <?php 
-
 class AOdeur
 {
 	public $idVin=NULL;
@@ -16,5 +15,4 @@ class AOdeur
 		return '<br/>Réf Vin: '.$this->idVin.'<br/>Réf robe: '.$this->idNez;
 	}
 }
-
 ?>

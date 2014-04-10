@@ -1,5 +1,4 @@
 <?php
-
 interface CepageDAO
 {
 	public function ajouter($cepage);
@@ -9,5 +8,4 @@ interface CepageDAO
 	public function trouverParId($ids);
 	public function trouverParNom($nomCepage);
 }
-
 ?>

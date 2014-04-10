@@ -1,5 +1,4 @@
 <?php 
-
 class Constitue
 {
 	public $idVin=NULL;
@@ -16,5 +15,4 @@ class Constitue
 		return '<br/>Réf Vin: '.$this->idVin.'<br/>Réf cépage: '.$this->idCepage;
 	}
 }
-
 ?>

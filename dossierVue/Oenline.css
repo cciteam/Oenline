@@ -1,27 +1,27 @@
 /*css du projet oenline */
-
-
+html { height : 100%;}
 body{
 	margin:0; 
 	padding:0; 
 	width : 100%;
-	border : 0px solid #000000;
+	border : 0px solid #F90000;
+	height : 100%;
 }
-div#bgHome{ width : 100%; margin : 0; padding : 0; min-height : 100%;border : 0px solid #000000}
+div#bgHome{ width : 100%; margin : 0; padding : 0; min-height : 100%; border : 0px solid #000000;}
 
-div#bgCours{ width : 100%; margin : 0; padding : 0;min-height : 100%}
-div#bgVinsReferences{ width : 100%; margin : 0; padding : 0;min-height : 100%}
-div#bgJeu{ width : 100%; margin : 0; padding : 0;min-height : 100%}
-div#bgEspaceMembre{ width : 100%; margin : 0; padding : 0;min-height : 100%}
-div#content{min-height: 100%;}
+div#bgCours{ width : 100%; margin : 0; padding : 0;min-height : 100%;border : 0px solid #000000;}
+div#bgVinsReferences{ width : 100%; margin : 0; padding : 0;min-height : 100% ; border : 0px solid #000000;}
+div#bgJeu{ width : 100%; margin : 0; padding : 0;min-height : 100%;border : 0px solid #000000;}
+div#bgEspaceMembre{ width : 100%; margin : 0; padding : 0;min-height : 100%;border : 0px solid #000000;}
+div#content{min-height: 100%;border : 0px solid #000000;}
 
 header{
-	margin : 0; 
+	margin :0; 
 	padding:0; 
 	text-align: center; 
 	width:100%;
 	border : 0px solid #FFFFFF ;
-	background-image : url('../Images/Vigne3.jpg');
+	background-image : url('../Images/Vigne3.png');
 		background-position: top left;
 		background-repeat: no-repeat; 
 		background-attachment: fixed; 
@@ -53,15 +53,18 @@ nav ul{
 	padding:0; 
 	width : 100%;}
 
-nav ul a li{
+nav ul li {
+	list-style-type: none; 
+}
+
+nav ul li a{
 	margin :0;
 	padding : 0;
+	line-height: 2em;
 	background-color: #940101;
-	list-style-type: none; 
 	display: inline-block;
 	vertical-align: center;
 	text-align : center;
-	height: 2em;
 	width : 100%;
 	color : #F7EBBB;
 	text-decoration: none;
@@ -86,7 +89,6 @@ div#contenu{
 
 		color : #940101;}
 
-	
 	div#contenu aside#RechVin{
 		width :100%;
 		background-image : url('../Images/aside-recherche-vins1.jpg');
@@ -107,10 +109,11 @@ div#contenu{
 		padding : 7px;
 		background-color : #F7EBBB;}
 	
-	/*div#contenu section fieldset{
+	div#contenu section fieldset{
 		display : block;
-	}*/
-		
+	}
+	form {text-align : center;}	
+	form div{text-align : left;}
 	div#contenu div.affichage_formulaire{
 		width : 200px;
 		display : block;
@@ -125,9 +128,7 @@ div#contenu{
 	div#contenu div.typeBouche h3{ 
 		width : 100%;
 	}
-	div#contenu div.affichage_formulaire{
 
-	}
 	div.clear {
 		clear : both;}
 	p.clear{
@@ -212,16 +213,16 @@ footer h3{
 span.error{color : #E80000;}
 
 
-nav ul a li.actif{background-color: #F7EBBB ;}
-nav ul a li.actif {color : #940101;}
+nav ul li.actif{background-color: #F7EBBB ;}
+nav ul li a.actif {color : #940101;}
 
 
 
-nav ul a li:hover{color : #940101; background-color: #F7EBBB ;}
+nav ul li a:hover{color : #940101; background-color: #F7EBBB ;}
 
-nav ul a li:active{background-color: #F7EBBB ;}
+nav ul li a:active{background-color: #F7EBBB ;}
 
-nav ul a li:active{color : #940101;}
+nav ul li a:active{color : #940101;}
 hr{height: 2px; color: #940101; background-color: #940101; width: 85%; border: none;}
 
 p.error {color : red;}
@@ -245,6 +246,8 @@ input[type=submit] {
 	background:linear-gradient(to bottom, #F65B5B 5%, #940101 60%);
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#F65B5B', endColorstr='#940101',GradientType=0);}
 
+span{font-weight : bold;}
+		
 @media all and (min-width: 530px), {
 
 	header img{width :40%;}
@@ -280,7 +283,7 @@ input[type=submit] {
 		font-size: 1em;
 		clear:both;}
 
-	nav ul a{
+	nav ul li{
 		float : left;
 		width : 24.4%;
 		color : #F7EBBB;
@@ -288,10 +291,10 @@ input[type=submit] {
 		border: 0px solid #940101;
 		font-size: 1em;}
 	
-	nav ul a li{
+	nav ul li a{
 		width :100%;
 		color : #F7EBBB;
-		height: 100%;
+		line-height: 2em;
 		border: 0px solid #940101;
 		font-size: 1em;}
 
@@ -356,10 +359,14 @@ input[type=submit] {
 		}
 	div#contenu div#contenuEspaceMembre div#connexionEspMem{
 		display : table-cell; 
+		}
+	div#contenu div#contenuEspaceMembre div#connexionEspMem form{
 		text-align : left;
 		}
 	div#contenu div#contenuEspaceMembre div#inscription{
 		display : table-cell;
+		}
+	div#contenu div#contenuEspaceMembre div#inscription form{
 		text-align : right;
 		}
 
@@ -379,7 +386,6 @@ input[type=submit] {
 		width : 50%;
 		padding-right : 20px;
 		text-align : right;}
-	
 	
 	
 }
@@ -501,6 +507,9 @@ input[type=submit] {
 		width : 50%;
 		padding-left: 18px;
 		}
+	div#contenu div#contenuEspaceMembre div#connexionEspMem form{
+		text-align : left;
+		}
 	div#contenu div#contenuEspaceMembre div#inscription{
 		display : table-cell;
 		width : 50%;
@@ -532,4 +541,29 @@ input[type=submit] {
 	div.donneesVin p.jouer {float : right;}
 	p#descCourte{width : 45%; float : left;}
 	p#descLongue{width : 45%; float : left;}
+	
+	fieldset div.liste_deroulante{
+		display : inline-block;
+		float : left;
+		width : 40%;
+	}
+	fieldset div.ou{
+		display : inline-block;
+		float : left; 
+		width : 10%;
+		}
+
+	fieldset div.ajout{
+		display : inline-block;
+		float : left; 
+		width : 40%;
+	}
+	fieldset div.checkboxes{
+		column-count : 3;
+		column-gap : 1em;
+		 -webkit-column-count : 3;
+		 -webkit-column-gap : 1em;
+		 -moz-column-count : 3;
+		 -moz-column-gap : 1em;
+	}
 }

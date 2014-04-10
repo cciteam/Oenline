@@ -1,5 +1,4 @@
 <?php 
-
 interface ConnexionBDD
 {
 	public function connecter();
@@ -10,5 +9,4 @@ interface ConnexionBDD
 	public function annulerTransaction();
 	public function dernierID();
 }
-
 ?>

@@ -1,5 +1,4 @@
 <?php
-
 interface SentDAO
 {
 	public function ajouter($sent);
@@ -9,5 +8,4 @@ interface SentDAO
 	public function trouverParIdPartie($idPartie);
 	public function trouverParIdNez($idNez);
 }
-
 ?>

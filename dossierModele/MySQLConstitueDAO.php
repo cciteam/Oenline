@@ -2,7 +2,6 @@
 require_once("ConstitueDAO.php");
 require_once("Constitue.php");
 require_once("ConnexionBDD.php");
-
 class MySQLConstitueDAO implements ConstitueDAO
 {
 	private $connexion=NULL;
@@ -74,7 +73,5 @@ class MySQLConstitueDAO implements ConstitueDAO
 			$constituent[]=new Constitue($ligne['idVin'], $ligne['idCepage']);
 		return $constituent;
 	}
-	
 }
-
 ?>

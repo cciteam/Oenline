@@ -13,9 +13,6 @@
 	</div>
 </aside>
 <section>
-	<!--
-	
-	-->
 	<div id = "contenuEspaceMembre">
 	<?php
 		if ($affichage == "MesCoordonnees"){
@@ -98,12 +95,10 @@
 				}
 			}
 		}
-		else if ($access_Admin and ($affichage == "AjouterUnVin")){
-			
+		else if ($access_Admin and ($affichage == "AjouterUnVin")){	
 			echo $contenu_ajouterVin;
 		}
 		?>				
 	</div>
 </section>
-
 <?php $contenu = ob_get_clean(); ?>

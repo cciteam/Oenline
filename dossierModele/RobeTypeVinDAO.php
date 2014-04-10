@@ -1,5 +1,4 @@
 <?php
-
 interface RobeTypeVinDAO
 {
 	public function ajouter($robeTypeVin);
@@ -9,5 +8,4 @@ interface RobeTypeVinDAO
 	public function trouverParIdTypeVin($idTypeVin);
 	public function trouverParIdRobe($idRobe);
 }
-
 ?>

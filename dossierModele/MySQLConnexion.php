@@ -1,6 +1,5 @@
 <?php
 require_once("ConnexionBDD.php");
-
 class MySQLConnexion implements ConnexionBDD
 {
 	private $hote=NULL;

@@ -1,5 +1,4 @@
 <?php 
-
 class RobeTypeVin
 {
 	public $idTypeVin=NULL;
@@ -16,5 +15,4 @@ class RobeTypeVin
 		return '<br/>Réf Vin: '.$this->idTypeVin.'<br/>Réf robe: '.$this->idRobe;
 	}
 }
-
 ?>

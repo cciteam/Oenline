@@ -2,7 +2,6 @@
 require_once("AppellationDAO.php");
 require_once("Appellation.php");
 require_once("ConnexionBDD.php");
-
 class MySQLAppellationDAO implements AppellationDAO
 {
 	private $connexion=NULL;
@@ -67,8 +66,6 @@ class MySQLAppellationDAO implements AppellationDAO
 		foreach($resultatRequete as $ligne)
 			$appellations[]=new Appellation($ligne['idAppellation'], $ligne['nomAppellation']);
 		return $appellations;
-	}
-	
+	}	
 }
-
 ?>

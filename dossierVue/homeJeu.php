@@ -3,10 +3,8 @@
 <!-- 
 aside n'affiche rien ici
 -->
-		<div id = "asideJeu">
 				<p>
 				</p>
-		</div>
 	</aside>
 	<section>
 <!--

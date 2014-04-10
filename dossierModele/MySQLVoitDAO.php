@@ -2,7 +2,6 @@
 require_once("VoitDAO.php");
 require_once("Voit.php");
 require_once("ConnexionBDD.php");
-
 class MySQLVoitDAO implements VoitDAO
 {
 	private $connexion=NULL;
@@ -74,7 +73,5 @@ class MySQLVoitDAO implements VoitDAO
 			$voient[]=new Voit($ligne['idPartie'], $ligne['idRobe']);
 		return $voient;
 	}
-	
 }
-
 ?>

@@ -1,5 +1,4 @@
 <?php
-
 interface GroupeDAO
 {
 	public function ajouter($groupe);
@@ -9,5 +8,4 @@ interface GroupeDAO
 	public function trouverParIdGroupe($idGroupe);
 	public function trouverParNom($nomGroupe);
 }
-
 ?>

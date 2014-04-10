@@ -1,5 +1,4 @@
 <?php
-
 	$contenu = ("
 		<section>
 		<h3> Bienvenue sur notre site </h3>
@@ -8,4 +7,4 @@
 		<p> Nous vous souhaitons un bon apprentissage et surtout de bonnes dégustations! </p>
 		<h5> La CCI team </h5>
 		</section>
-		");
+		");?>

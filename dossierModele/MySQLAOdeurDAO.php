@@ -2,7 +2,6 @@
 require_once("AOdeurDAO.php");
 require_once("AOdeur.php");
 require_once("ConnexionBDD.php");
-
 class MySQLAOdeurDAO implements AOdeurDAO
 {
 	private $connexion=NULL;
@@ -74,7 +73,5 @@ class MySQLAOdeurDAO implements AOdeurDAO
 			$ontOdeur[]=new AOdeur($ligne['idVin'], $ligne['idNez']);
 		return $ontOdeur;
 	}
-	
 }
-
 ?>

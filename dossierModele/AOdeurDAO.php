@@ -1,5 +1,4 @@
 <?php
-
 interface AOdeurDAO
 {
 	public function ajouter($aOdeur);
@@ -9,5 +8,4 @@ interface AOdeurDAO
 	public function trouverParIdVin($idVin);
 	public function trouverParIdNez($idNez);
 }
-
 ?>

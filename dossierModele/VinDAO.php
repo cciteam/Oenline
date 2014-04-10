@@ -1,5 +1,4 @@
 <?php
-
 interface VinDAO
 {
 	public function ajouter($vin);
@@ -12,5 +11,4 @@ interface VinDAO
 	public function trouverParIdAppellation($idAppellation);
 	public function trouverParIdTypeVin($idTypeVin);
 }
-
 ?>

@@ -1,5 +1,4 @@
 <?php 
-
 class Appellation
 {
 	public $idAppellation=NULL;
@@ -16,5 +15,4 @@ class Appellation
 		return '<br/>Réf: '.$this->idAppellation.'<br/>Nom: '.$this->nomAppellation;
 	}
 }
-
 ?>
