@@ -4,11 +4,21 @@ function AfficherSection($Section){
 /*Vérifications préliminaires : */
 	/*Connexion*/
 	$err_connexion = "";
+	if (!ISSET($_POST['SeConnecter']) and !ISSET($_POST['SInscrire']) and !ISSET($_SESSION['Membre'])){
+		if (ISSET($_COOKIE["connexionOenline"])){
+			$_SESSION['Membre']=$_COOKIE["connexionOenline"];
+		}
+	}
 	if (ISSET($_POST['SeConnecter'])){
 		$email = test_input($_POST['email']);
 		$password = test_input($_POST['password']);
 		$connexion = SeConnecter($email, $password);
 		if (!$connexion){$err_connexion = "Email ou mot de passe incorrect";}
+		else {
+			if (ISSET($_POST['SeSouvenirDeMoi'])){
+				setcookie("connexionOenline", $connexion, time()+60*60*24*256);
+			}
+		}
 	}
 	else if (ISSET($_POST['SeDeconnecter'])){
 		SeDeconnecter();
@@ -28,7 +38,7 @@ function AfficherSection($Section){
 		afficherCours($Section, $err_connexion,$membre);
 	}
 	else if ($Section == 'VinsReferences' ){
-		afficherVinsReferences($Section, $err_connexion);
+		afficherVinsReferences($Section, $err_connexion,$membre);
 	}
 	else if ($Section=="Jeu" ){
 		afficherJeu($Section, $err_connexion, $access_User, $membre);
@@ -59,7 +69,7 @@ function SeConnecter($email, $mdp){
 	if (!empty($m)){
 		if ($m->motDePasse == $mdp){
 			$_SESSION['Membre']=serialize($m);
-			return true;
+			return serialize($m);
 		}
 	}
 	return false;
@@ -155,14 +165,14 @@ function checkPassword($mdp, $valMdp){
 	else if (strlen($mdp)<6){
 		$error .= "Votre mot de passe doit contenir au moins 6 caractères. <br>";}
 	else if ($mdp!=$valMdp){
-		$error .= "Vous avez commis une erreur dans la saisie ou la validation de votre mot de passe";}
+		$error .= "Vous avez commis une erreur dans la saisie ou la validation de votre mot de passe.<br/>";}
 	return $error;
 }
 function checkEmail($mail){
 	$error = "";
 	if (empty($mail)){
 		$error .= "Votre adresse mail est requise <br>";}
-	else if (!preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)+$/",$mail)){
+	else if (!preg_match("/^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA_Z0-9-]+)+$/",$mail)){
 		$error .= "L'adresse mail renseignée n'est pas une adresse mail valide. <br>";}
 	return $error;
 }
@@ -253,7 +263,7 @@ function afficherCours($Section, $err_connexion,$membre){
 	require('dossierVue/homeCours.php');
 	require('dossierVue/gabarit.php');
 }
-function afficherVinsReferences($Section, $err_connexion){
+function afficherVinsReferences($Section, $err_connexion, $membre){
 	include ('dossierControleur/appelControleur.php');
 	$appellations = $controleur->trouverAppellations();
 	$cepages_tout = $controleur->trouverCepages();
@@ -451,6 +461,9 @@ function afficherEspaceMembre($Section, $err_connexion, $access_User, $access_Ad
 			if ($temp == ""){
 				$email = test_input($_POST["email"]);}
 			$error .=$temp;
+			if (!ISSET($_POST["AgeOK"])){
+				$error .= "Vous ne pouvez pas vous inscrire si vous n'avez pas plus de 18 ans";
+			}			
 			if ($error == ""){
 				$membre = new Membre(null, $pseudo, $nom, $password, $email, 2);
 				$groupe = new Groupe(2, "user");

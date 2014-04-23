@@ -20,6 +20,7 @@
 			<form action="home.php?Section=EspaceMembre" method = "POST">
 				<label>Adresse email</label><span class = "ALaLigne"><br/></span><input type = "email" name = "email" required><br>
 				<label>Mot de Passe</label><span class = "ALaLigne"><br/></span><input type = "password" name = "password" required><br>
+				<input type = "checkbox" name = "SeSouvrnirDeMoi">Se souvenir de moi<br/>
 				<input type = "Submit" name = "SeConnecter" value = "Connexion">
 			</form>
 			<p class = "error"><?php echo $err_connexion;?></p>
@@ -35,7 +36,7 @@
 				<label>Pseudo </label><span class = "ALaLigne"><br/></span><input type = "text" name = "pseudo" value = "<?php echo $pseudo;?>"required><br>
 				<label>Mot de passe </label><span class = "ALaLigne"><br/></span><input type = "password" name= "password" required><br>
 				<label>Validez votre mot de passe </label><span class = "ALaLigne"><br/></span><input type = "password" name= "validationPassword" required><br>
-				<label>En validant votre inscription vous certifiez avoir plus de 18 ans!</label><br/>
+				<input type = "checkbox" name = "AgeOK">Je certifie avoir plus de 18 ans.<br/>
 				<input type = "Submit" name = "SInscrire" value = "Inscription">
 			</form>
 		</div>

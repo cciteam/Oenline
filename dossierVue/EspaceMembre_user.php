@@ -55,7 +55,7 @@
 								</p>
 							</div>
 							<div class = "descPartie">
-								<p>Date de la partie : <?php echo $p['partie']->datePartie;?><br/>
+								<p>Date de la partie : <?php echo date("d/m/Y", strtotime($p['partie']->datePartie));?><br/>
 								Score : <?php echo $p['partie']->scorePartie;?>/20<br/>
 								</p>
 							</div>
