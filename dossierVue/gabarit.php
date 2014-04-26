@@ -6,6 +6,7 @@
 		<meta name="description" content="Dans ce site web vous pourrez apprendre à déguster du vin en lisant nos cours ou en jouant à notre jeu de dégustation."/>
 		<title>Oenline</title>
 		<link rel="stylesheet" type="text/css" href="dossierVue/Oenline.css"/>
+		<link rel="stylesheet" type="text/css" media = "screen and (max-device-width:520px) and (orientation : portrait)" href="dossierVue/OenlineSP.css"/>
 		<link href='http://fonts.googleapis.com/css?family=Fredericka+the+Great' rel='stylesheet' type='text/css'/>
 		<link href='http://fonts.googleapis.com/css?family=Oregano' rel='stylesheet' type='text/css'/>
 		<link href='http://fonts.googleapis.com/css?family=Over+the+Rainbow' rel='stylesheet' type='text/css'/>

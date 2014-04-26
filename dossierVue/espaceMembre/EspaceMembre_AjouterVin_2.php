@@ -12,7 +12,7 @@
 					if ($r->typeRobe != $typeRobe){
 						$typeRobe = $r->typeRobe;
 						echo "</div>";
-						echo "<div class = 'Affichage_formulaire'>";
+						echo "<div class = 'affichage_formulaire'>";
 						echo "<br>";
 						echo "<h4>".$typeRobe."</h4>";
 					}
@@ -31,7 +31,7 @@
 				if ($nez[$i]->typeNez != $typeNez){
 					$typeNez = $nez[$i]->typeNez;
 					echo "</div>";
-					echo "<div class = 'Affichage_formulaire'>";
+					echo "<div class = 'affichage_formulaire'>";
 					echo "<br>";
 					echo "<h4><input type='checkbox' name='new_nez[]' value ='".base64_encode(serialize($nez[$i]))."'>".$nez[$i]->nomNez."</h4>";
 				}
@@ -70,7 +70,7 @@
 						if ($bouches[$i]->typeDescBouche!= $typeDescBouche){
 							$typeDescBouche = $bouches[$i]->typeDescBouche;?>
 							</div>
-							<div class = 'Affichage_formulaire'>
+							<div class = 'affichage_formulaire'>
 							<br>
 							<h4><input type='checkbox' name='new_bouches[]' value ='<?php echo base64_encode(serialize($bouches[$i]))?>'><?php echo $bouches[$i]->nomBouche;?></h4><br>
 				<?php
@@ -82,7 +82,7 @@
 					else if ($bouches[$i]->typeDescBouche!= $typeDescBouche){
 						$typeDescBouche = $bouches[$i]->typeDescBouche;?>
 						</div>
-						<div class = 'Affichage_formulaire'>
+						<div class = 'affichage_formulaire'>
 						<br>
 						<h4><?php echo $typeDescBouche;?></h4>
 						<input type='checkbox' name='new_bouches[]' value ='<?php echo base64_encode(serialize($bouches[$i]));?>'><?php echo $bouches[$i]->nomBouche;?><br>

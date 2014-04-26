@@ -1,12 +1,14 @@
 <?php
 require_once("dossierMetier/MetierOenline.php");
 function AfficherSection($Section){
-/*Vérifications préliminaires : */
+	include("dossierControleur/appelControleur.php");
+	/*Vérifications préliminaires : */
 	/*Connexion*/
 	$err_connexion = "";
-	if (!ISSET($_POST['SeConnecter']) and !ISSET($_POST['SInscrire']) and !ISSET($_SESSION['Membre'])){
+	if (!(ISSET($_POST['SeConnecter'])) and !(ISSET($_POST['SInscrire'])) and !(ISSET($_SESSION['Membre']))){
 		if (ISSET($_COOKIE["connexionOenline"])){
-			$_SESSION['Membre']=$_COOKIE["connexionOenline"];
+			$membre=$controleur->trouverMembreParPseudo($_COOKIE["connexionOenline"]);
+			$_SESSION['Membre']=serialize($membre[0]);
 		}
 	}
 	if (ISSET($_POST['SeConnecter'])){
@@ -16,7 +18,7 @@ function AfficherSection($Section){
 		if (!$connexion){$err_connexion = "Email ou mot de passe incorrect";}
 		else {
 			if (ISSET($_POST['SeSouvenirDeMoi'])){
-				setcookie("connexionOenline", $connexion, time()+60*60*24*256);
+				setcookie("connexionOenline", $connexion->pseudoMembre, time()+60*60*24*356);
 			}
 		}
 	}
@@ -62,14 +64,38 @@ function AfficherCours($typeCours){
 
 }
 */
+function hash_password($password){
+	// 256 bits random string
+	$salt = bin2hex(mcrypt_create_iv(32, MCRYPT_DEV_URANDOM));
+
+	// prepend salt then hash
+	$hash = hash("sha256", $password . $salt);
+
+	// return salt and hash in the same string
+	return $salt . $hash;
+}
+function check_password($password, $dbhash){
+	// get salt from dbhash
+	$salt = substr($dbhash, 0, 64);
+
+	// get the SHA256 hash
+	$valid_hash = substr($dbhash, 64, 64);
+
+	// hash the password
+	$test_hash = hash("sha256", $password . $salt);
+
+	// test
+	return $test_hash === $valid_hash;
+}
+
 function SeConnecter($email, $mdp){
 	include ('dossierControleur/appelControleur.php');
 	$m = $controleur->trouverMembreParMail($email);
 	$m = $m[0];
 	if (!empty($m)){
-		if ($m->motDePasse == $mdp){
+		if (check_password($mdp,$m->motDePasse)){
 			$_SESSION['Membre']=serialize($m);
-			return serialize($m);
+			return $m;
 		}
 	}
 	return false;
@@ -77,6 +103,7 @@ function SeConnecter($email, $mdp){
 function SeDeconnecter(){
 	session_unset();
 	session_destroy();
+	session_start();
 }
 function test_input($data)
 {
@@ -234,20 +261,24 @@ function existe($param){
 }
 function afficherErreur($Section, $err_connexion, $membre){
 	include('dossierControleur/appelControleur.php');
+	$nav_cours = $nav_vinsRef = $nav_jeu = $nav_espMembre = "inactif";
 	$contenu = "<section><p class = 'error'><br/><br/> Une erreur est survenue, veuillez nous en excuser. <br/>Choisissez un section pour continuer votre navigation<br/><br/></p></section>";
 	require('dossierVue/connexion.php');
-	require('dossierVue/nav_Accueil.php');
+	require('dossierVue/navigation.php');
 	require('dossierVue/gabarit.php');
 }
 function afficherHome($Section, $err_connexion, $membre){
 	include ('dossierControleur/appelControleur.php');
+	$nav_cours = $nav_vinsRef = $nav_jeu = $nav_espMembre = "inactif";
 	require('dossierVue/connexion.php');
-	require('dossierVue/nav_Accueil.php');
+	require('dossierVue/navigation.php');
 	require('dossierVue/texteAccueil.php');
 	require('dossierVue/gabarit.php');
 }
 function afficherCours($Section, $err_connexion,$membre){
 	include ('dossierControleur/appelControleur.php');
+	$nav_vinsRef = $nav_jeu = $nav_espMembre = "inactif";
+	$nav_cours = "actif";
 	$contenu_section_cours = "";
 	if (ISSET($_GET['typeCours'])){
 		$type_typeCours = test_input($_GET['typeCours']);
@@ -259,12 +290,14 @@ function afficherCours($Section, $err_connexion,$membre){
 		}		
 	}
 	require('dossierVue/connexion.php');
-	require('dossierVue/nav_Cours.php');
-	require('dossierVue/homeCours.php');
+	require('dossierVue/navigation.php');
+	require('dossierVue/cours/homeCours.php');
 	require('dossierVue/gabarit.php');
 }
 function afficherVinsReferences($Section, $err_connexion, $membre){
 	include ('dossierControleur/appelControleur.php');
+	$nav_cours = $nav_jeu = $nav_espMembre = "inactif";
+	$nav_vinsRef = "actif";
 	$appellations = $controleur->trouverAppellations();
 	$cepages_tout = $controleur->trouverCepages();
 	$couleurs = $controleur->trouverTypesVins();	
@@ -354,18 +387,20 @@ function afficherVinsReferences($Section, $err_connexion, $membre){
 		$error_rech_vin = "Aucun paramètre renseigné pour la recherche, vueillez sélectionner un paramètre.";		
 	}
 	require('dossierVue/connexion.php');
-	require('dossierVue/nav_VinsReferences.php');
-	require('dossierVue/homeVinsReferences.php');
+	require('dossierVue/navigation.php');
+	require('dossierVue/vinsReferences/homeVinsReferences.php');
 	require('dossierVue/gabarit.php');
 }		
 function afficherJeu($Section, $err_connexion, $access_User, $membre){
 	include ('dossierControleur/appelControleur.php');
+	$nav_cours = $nav_vinsRef = $nav_espMembre = "inactif";
+	$nav_jeu = "actif";
 	if ((!ISSET($_GET['idVinJeu'])) or (empty($_GET['idVinJeu'])) or (!is_numeric($_GET['idVinJeu']))){
 		/*Si pas d'idVin rentré ou 
 		  si le joueur a validé avant de rentrer un entier ou
 		  si le joueur a rentré autre chose q'un entier, 
 		  renvoyer la page d'accueil du jeu*/
-		require ('dossierVue/homeJeu.php');
+		require ('dossierVue/jeu/homeJeu.php');
 		}
 	else {
 		if (!$access_User && (ISSET($_GET['idVinJeu']))) {
@@ -421,18 +456,20 @@ function afficherJeu($Section, $err_connexion, $access_User, $membre){
 				$gouts = $controleur->trouverBouchesParVin($vin);
 				$odeurs = $controleur->trouverNezParVin($vin);
 				$aspects = $controleur->trouverRobesParVin($vin);
-				require ('dossierVue/JeuResultat.php');
+				require ('dossierVue/jeu/JeuResultat.php');
 			}
-			else {require('dossierVue/JeuFormulaire.php');}
+			else {require('dossierVue/jeu/JeuFormulaire.php');}
 		}
-		else {require ('dossierVue/JeuFormulaire.php');}
+		else {require ('dossierVue/jeu/JeuFormulaire.php');}
 	}
 	require('dossierVue/connexion.php');
-	require('dossierVue/nav_Jeu.php');
+	require('dossierVue/navigation.php');
 	require('dossierVue/gabarit.php');
 }
 function afficherEspaceMembre($Section, $err_connexion, $access_User, $access_Admin, $membre){
 	include ('dossierControleur/appelControleur.php');
+	$nav_cours = $nav_vinsRef = $nav_jeu = "inactif";
+	$nav_espMembre = "actif";
 	$msg_enregistrement = "";
 	$error = "";
 	if ((!$access_User) && (!$access_Admin)) {
@@ -465,23 +502,20 @@ function afficherEspaceMembre($Section, $err_connexion, $access_User, $access_Ad
 				$error .= "Vous ne pouvez pas vous inscrire si vous n'avez pas plus de 18 ans";
 			}			
 			if ($error == ""){
+				$password = hash_password($password);
 				$membre = new Membre(null, $pseudo, $nom, $password, $email, 2);
 				$groupe = new Groupe(2, "user");
 				$membre = $controleur->AjouterMembre($membre, $groupe);
-				$msg_enregistrement="Bienvenue ".$membre->pseudoMembre.", vous avez bien été enregistré.";
-				SeConnecter($membre->mailMembre, $membre->motDePasse);
-				$access_User = true;
-				/*Une fois l'inscription du membre réalisée, le connecter et le renvoyer vers la page
-				d'accueil de l'espace membre.*/
-				header('location:home.php?Section=EspaceMembre');
-				exit;
+				$_SESSION['Membre']=serialize($membre);
+				require ('dossierVue/espaceMembre/EspaceMembre_user.php');
+				$affichage = "";
 			}
 			/*Si des erreurs sont reconnues dans l'inscription, réafficher le formulaire avec les erreurs*/
-			else require ('dossierVue/homeEspaceMembre.php');
+			else require ('dossierVue/espaceMembre/homeEspaceMembre.php');
 		}
 		/*Si pas d'acces membre, afficher les formulaire de connexion et d'inscription.
 		La connexion est gérée au début de cette page dans la fonction afficherSection.*/
-		else require ('dossierVue/homeEspaceMembre.php');
+		else require ('dossierVue/espaceMembre/homeEspaceMembre.php');
 	}
 	else if ($access_User){
 		/*Si le membre bénéficie d'un accès user, on affiche les sous-section Mes coordonnées et Mes parties*/
@@ -570,7 +604,7 @@ function afficherEspaceMembre($Section, $err_connexion, $access_User, $access_Ad
 									$error_enregistrement_domaine .= "Une erreur est survenue pendant l'enregistrement du domaine. Il est possible que celui-ci existe déjà. Vérifiez qu'il n'est pas dans la liste avant de réessayer";
 								}
 							}
-							require('dossierVue/EspaceMembre_AjouterVin_1.php');
+							require('dossierVue/espaceMembre/EspaceMembre_AjouterVin_1.php');
 						}
 						else if (ISSET($_POST['enregistrer_app'])){
 							$nomAppellation = $_POST['nom_app'];
@@ -588,7 +622,7 @@ function afficherEspaceMembre($Section, $err_connexion, $access_User, $access_Ad
 									$error_enregistrement_appellation .= "Une erreur est survenue lors de l'enregistrement de l'appellation. Il est probable que celle-ci existe déjà. Veuillez vérifier qu'elle n'est pas dans la liste avant de réessayer.";
 								}
 							}
-							require('dossierVue/EspaceMembre_AjouterVin_1.php');
+							require('dossierVue/espaceMembre/EspaceMembre_AjouterVin_1.php');
 						}
 						else if (ISSET($_POST['enregistrer_cep'])){
 							$nomCepage = $_POST['nom_cep'];
@@ -606,7 +640,7 @@ function afficherEspaceMembre($Section, $err_connexion, $access_User, $access_Ad
 									$error_enregistrement_cepage .= "Une erreur est survenue lors de l'enregistrement du cépage. Veuillez vérifier que ce cépage n'est pas dans la liste avant de réessayer. ";
 								}
 							}
-							require('dossierVue/EspaceMembre_AjouterVin_1.php');
+							require('dossierVue/espaceMembre/EspaceMembre_AjouterVin_1.php');
 						}
 					/*Sinon vérifier les paramètres d'enregistrement données.*/
 					else if (ISSET($_POST['Val_page1'])){
@@ -672,11 +706,11 @@ function afficherEspaceMembre($Section, $err_connexion, $access_User, $access_Ad
 						}
 						else {
 							/*Sinon relancer la première page du formulaire en affichant les erreurs*/
-							require ('dossierVue/EspaceMembre_AjouterVin_1.php');
+							require ('dossierVue/espaceMembre/EspaceMembre_AjouterVin_1.php');
 						}
 					}
 					else {
-						require('dossierVue/EspaceMembre_AjouterVin_1.php');
+						require('dossierVue/espaceMembre/EspaceMembre_AjouterVin_1.php');
 					}
 				}
 				else if ($page == 2){
@@ -734,13 +768,13 @@ function afficherEspaceMembre($Section, $err_connexion, $access_User, $access_Ad
 							else {
 								/*Si aucun nez, aucune bouche ou aucune robe n'a été sélectionnée, 
 								re-afficher la deuxième page du formulaire avec les erreurs*/
-								require('dossierVue/EspaceMembre_AjouterVin_2.php');
+								require('dossierVue/espaceMembre/EspaceMembre_AjouterVin_2.php');
 							}
 						}
 						else {
 							/*Si le joueur n'a pas encore valider de formulaire pour la page 2, 
 							afficher cette page*/
-							require('dossierVue/EspaceMembre_AjouterVin_2.php');
+							require('dossierVue/espaceMembre/EspaceMembre_AjouterVin_2.php');
 						}
 					}
 					else {
@@ -778,6 +812,17 @@ function afficherEspaceMembre($Section, $err_connexion, $access_User, $access_Ad
 								try{
 									$controleur->ajouterVin($vin, $domaine, $appellation, $typeVin, $cepages, $robes, $nez, $bouches);
 									$contenu_ajouterVin = "<h3>Votre vin a bien été ajouté. Merci de votre participation !</h3>";
+									$_SESSION['domaine'] = "";
+									$_SESSION['cepages'] = "";
+									$_SESSION['appellation'] = "";
+									$_SESSION['typeVin'] = "";
+									$_SESSION['robes'] = "";
+									$_SESSION['nez'] = "";
+									$_SESSION['bouches'] = "";
+									$_SESSION['millesime'] = "";
+									$_SESSION['nomVin'] = "";
+									$_SESSION['descCourte'] = "";
+									$_SESSION['descLongue'] = "";
 								}
 								catch (Exception $e){	
 									$contenu_ajouterVin = "<p class = 'error'><b>Une erreur c'est produite lors de l'enregistrement du vin, veuillez réessayer</b></p>";
@@ -787,19 +832,19 @@ function afficherEspaceMembre($Section, $err_connexion, $access_User, $access_Ad
 						}
 						else { 
 							/* Réafficher la page 3 du formulaire avec les erreurs */
-							require ('dossierVue/EspaceMembre_AjouterVin_3.php');
+							require ('dossierVue/espaceMembre/EspaceMembre_AjouterVin_3.php');
 						}
 					}
 					else {
-						require('dossierVue/EspaceMembre_AjouterVin_3.php');
+						require('dossierVue/espaceMembre/EspaceMembre_AjouterVin_3.php');
 					}
 				}
 			}
 		}
-		require ('dossierVue/EspaceMembre_user.php');
+		require ('dossierVue/espaceMembre/EspaceMembre_user.php');
 	} 
 	require('dossierVue/connexion.php');
-	require('dossierVue/nav_EspaceMembre.php');
+	require('dossierVue/navigation.php');
 	require('dossierVue/gabarit.php');
 }
 ?>

@@ -410,7 +410,6 @@ class ModeleOenline
 	public function existeIdRobe($robe)
 	{
 		$test = count($this->robeDAO->trouverParIdRobe(array($robe->idRobe)));
-		echo $test;
 		if($test<1)
 			return FALSE;
 		else

@@ -1,5 +1,4 @@
-/*css du projet oenline */
-@media all{
+
 	html { height : 100%;}
 	body{
 		margin:0; 
@@ -7,6 +6,7 @@
 		width : 100%;
 		border : 0px solid #F90000;
 		height : 100%;
+		font-size : 40px;
 	}
 	div#bgHome{ width : 100%; margin : 0; padding : 0; min-height : 100%; border : 0px solid #000000;}
 
@@ -26,7 +26,7 @@
 			background-position: top left;
 			background-repeat: no-repeat; 
 			background-attachment: fixed; 
-			background-size: 150%; 
+			background-size: cover; 
 			-moz-background-size: 150%;     /* Gecko 1.9.2 (Firefox 3.6) */
 			-webkit-background-size: 150%;   /* Safari 3.0 */
 			background-size: 150%;           /* Gecko 2.0 (Firefox 4.0) > CSS3 */ 
@@ -36,8 +36,13 @@
 		margin : 0; 
 		padding:0; 
 		text-align: center; 
-		font-family: "Over the Rainbow";
+		}
+	header div.titre h2{
+		margin : 0; 
+		padding:5px; 
+		font-family: "Over the Rainbow", Verdana, "Lucida Grande", Tahoma, Helvetica;
 		color : #F7EBBB;
+		font-size : 30px;
 		}
 
 	header img{width :70%;}
@@ -61,7 +66,7 @@
 	nav ul li a{
 		margin :0;
 		padding : 0;
-		line-height: 2em;
+		line-height: 70px;
 		background-color: #940101;
 		display: inline-block;
 		vertical-align: center;
@@ -69,9 +74,10 @@
 		width : 100%;
 		color : #F7EBBB;
 		text-decoration: none;
-		font: 1.3em "Trebuchet MS", Verdana, "Lucida Grande", Tahoma, Helvetica, Sans-Serif;
+		font: "Trebuchet MS", Verdana, "Lucida Grande", Tahoma, Helvetica, Sans-Serif;
 		border: 0px solid #940101;
-		text-align: center;}
+		text-align: center;
+		font-size : 30px;}
 
 	div#contenu{
 		margin : 0;
@@ -90,10 +96,17 @@
 
 			color : #940101;}
 
+		div#contenu aside#Cours{
+			width :100%;
+			background-image : url('../Images/aside-Jeu.jpg'); 
+			background-repeat: repeat; 
+			font-size : 30px;
+		}
 		div#contenu aside#RechVin{
 			width :100%;
 			background-image : url('../Images/aside-recherche-vins1.jpg');
 			background-repeat: repeat;
+			font-size : 30px;
 		}
 		div#contenu aside#Jeu{
 			width : 100%;
@@ -116,9 +129,8 @@
 		form {text-align : center;}	
 		form div{text-align : left;}
 		div#contenu div.affichage_formulaire{
-			width : 200px;
+			width : 100%;
 			display : block;
-			float : left;
 		}
 		div#contenu{
 			background-color: #F7EBBB; 
@@ -137,29 +149,30 @@
 			
 		div#contenu aside span{
 			background-color : #FFFFFF;	/* pour les navigateurs qui ne supportent pas la propriété RGBa*/
-			background-color : RGBa(255,255,255,0.5);}
+			background-color : RGBa(255,255,255,0.5);
+			}
 		div#contenu aside legend{
 			background-color : #FFFFFF;	/* pour les navigateurs qui ne supportent pas la propriété RGBa*/
 			background-color : RGBa(255,255,255,0.5);}
 		
 		div#contenu section fieldset h3 {
 			color: #940101;
-			font: 1.3em "Fredericka the Great", Verdana, "Lucida Grande", Tahoma, Helvetica, Sans-Serif;
+			font: "Fredericka the Great", Verdana, "Lucida Grande", Tahoma, Helvetica, Sans-Serif;
 		}	
 		div#contenu section h3 {
 			color: #940101;
-			font: 1.3em "Fredericka the Great", Verdana, "Lucida Grande", Tahoma, Helvetica, Sans-Serif;
+			font: "Fredericka the Great", Verdana, "Lucida Grande", Tahoma, Helvetica, Sans-Serif;
 			text-decoration: none;
 		}
 		
 		div#contenu section h5{
 			color: #940101;
-			font: 1.5em "Over the rainbow", Verdana, "Lucida Grande", Tahoma, Helvetica, Sans-Serif;
+			font: "Over the rainbow", Verdana, "Lucida Grande", Tahoma, Helvetica, Sans-Serif;
 			text-decoration: none;}
 		
 		div#contenu section h3 a{
 			color: #940101;
-			font: 1.3em "Fredericka the Great", Verdana, "Lucida Grande", Tahoma, Helvetica, Sans-Serif;
+			font: "Fredericka the Great", Verdana, "Lucida Grande", Tahoma, Helvetica, Sans-Serif;
 			text-decoration: none;
 		}
 		div#contenu div#contenuJeu{text-align : center;}
@@ -168,7 +181,7 @@
 
 		section h3{text-align: center;}
 	div.domaine {padding : 0 50px 0 10px;}
-	div.titre_ref {font-family: "Over the Rainbow"; font-size : 1.1em; text-align : center;}
+	div.titre_ref {font-family: "Over the Rainbow", Verdana, "Lucida Grande", Tahoma, Helvetica; font-size : 1.1em; text-align : center;}
 	div.donneesVin p.jouer{text-align : center;}
 	div.donneesVin p.jouer a{
 		text-decoration : none;
@@ -190,7 +203,6 @@
 		background:-ms-linear-gradient(top, #F65B5B 5%, #940101 60%);
 		background:linear-gradient(to bottom, #F65B5B 5%, #940101 60%);
 		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#F65B5B', endColorstr='#940101',GradientType=0);
-		font-size : 0.8em;
 	}
 
 	footer{
@@ -214,8 +226,8 @@
 	span.error{color : #E80000;}
 
 
-	nav ul li a.actif{background-color: #F7EBBB ; color : #940101;}
-
+	nav ul li.actif{background-color: #F7EBBB ;}
+	nav ul li a.actif {color : #940101;}
 
 
 
@@ -227,8 +239,9 @@
 	hr{height: 2px; color: #940101; background-color: #940101; width: 85%; border: none;}
 
 	p.error {color : red;}
-
+	input {font-size : 30px; height : 40px;}
 	input[type=submit] {
+		font-size:30px;
 		padding:5px 15px; 
 		background:#940101; 
 		color : #F7EBBB;
@@ -246,10 +259,9 @@
 		background:-ms-linear-gradient(top, #F65B5B 5%, #940101 60%);
 		background:linear-gradient(to bottom, #F65B5B 5%, #940101 60%);
 		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#F65B5B', endColorstr='#940101',GradientType=0);}
+select{font-size : 30px;}
 
-}
-		
-@media all and (min-width: 530px) and (min-device-width : 530px){
+@media screen and (orientation:landscape){
 
 	header img{width :40%;}
 	header { 
@@ -388,184 +400,5 @@
 		padding-right : 20px;
 		text-align : right;}
 	
-	
-}
-
-@media all and (min-width: 1024px) and (min-device-width : 1024px){
-	header{background-image : none; border : 0px;}
-	
-	header img{width :40%;}
-	
-	header div.connexion { 
-		display : inline-block;
-		float : right;
-		width : 170px;
-		}
-		
-	header div.titre  {
-		display : inline-block;
-		text-align: center;
-		padding-left : 170px;
-		color : #000000;
-		}
-	div#bgHome{
-		background-image : url('../Images/Sancerre2.jpg');
-		background-position: center center;
-		background-repeat: no-repeat; 
-		background-attachment: fixed; 
-		background-size: cover; 
-		-moz-background-size: 100% 100%;     /* Gecko 1.9.2 (Firefox 3.6) */
-		-webkit-background-size: 100% 100%;   /* Safari 3.0 */
-		background-size: 100% 100%;           /* Gecko 2.0 (Firefox 4.0) > CSS3 */ 
-	}
-	div#bgCours{background-image : url('../Images/Collioure.jpg');
-		background-position: center center;
-		background-repeat: no-repeat; 
-		background-attachment: fixed; 
-		background-size: cover; 
-		-moz-background-size: 100% 100%;     /* Gecko 1.9.2 (Firefox 3.6) */
-		-webkit-background-size: 100% 100%;   /* Safari 3.0 */		background-size: 100% 100%;           /* Gecko 2.0 (Firefox 4.0) > CSS3 */ 
-	}
-	div#bgJeu{background-image : url('../Images/Alsace.jpg');
-		background-position: center center;
-		background-repeat: no-repeat; 
-		background-attachment: fixed; 
-		background-size: cover; 
-		-moz-background-size: 100% 100%;     /* Gecko 1.9.2 (Firefox 3.6) */
-		-webkit-background-size: 100% 100%;   /* Safari 3.0 */
-		background-size: 100% 100%;           /* Gecko 2.0 (Firefox 4.0) > CSS3 */ 	}
-	div#bgVinsReferences{background-image : url('../Images/Cote-Rotie.jpg');
-		background-position: center center;
-		background-repeat: no-repeat; 
-		background-attachment: fixed; 
-		background-size: cover; 
-		-moz-background-size: 100% 100%;     /* Gecko 1.9.2 (Firefox 3.6) */
-		-webkit-background-size: 100% 100%;   /* Safari 3.0 */
-		background-size: 100% 100%;           /* Gecko 2.0 (Firefox 4.0) > CSS3 */ 
-	}
-	div#bgEspaceMembre{background-image : url('../Images/Sancerre1.jpg');
-		background-position: center center;
-		background-repeat: no-repeat; 
-		background-attachment: fixed; 
-		background-size: cover; 
-		-moz-background-size: 100% 100%;     /* Gecko 1.9.2 (Firefox 3.6) */
-		-webkit-background-size: 100% 100%;   /* Safari 3.0 */		background-size: 100% 100%;           /* Gecko 2.0 (Firefox 4.0) > CSS3 */ 
-		background-size: 100% 100%;
-	}
-	div#content{
-		width : 1024px;
-		margin : 0 auto;
-	}
-	div#content section span.ALaLigne{
-		display : none;
-	}
-
-	header img{width :300px;}
-
-	nav {font-size: 1em;}
-	
-	nav ul li{
-		font-size : 1em;
-		width : 24.75%;}
-		
-	div#contenu aside#Cours{
-	width : 200px;
-	display : table-cell;
-	background-image : url('../Images/aside-Jeu.jpg'); 
-	background-repeat: repeat; 
-	overflow : hidden;}	
-
-	div#contenu aside#Jeu{
-	width : 200px;
-	display : table-cell;
-	background-image : url('../Images/aside-Jeu.jpg'); 
-	background-repeat: repeat; 
-	overflow : hidden;}
-	
-	div#contenu aside#RechVin{
-	width : 200px; 
-	display : table-cell;
-	background-image : url('../Images/aside-recherche-vins.jpeg'); 
-	background-repeat: repeat; 
-	overflow : hidden;}
-	
-	div#contenu aside#EspaceMembre{
-	width : 200px; 
-	display : table-cell;
-	background-image : url('../Images/aside-espace-membre.jpg'); 
-	background-repeat: repeat; 
-	overflow : hidden;}
-	
-	div#contenu aside fieldset{
-		width : 195px;
-	}
-	
-	div#contenu section {
-		overflow : hidden;
-	}
-	div#contenu div#contenuEspaceMembre div#connexionEspMem{
-		display : table-cell;
-		width : 50%;
-		padding-left: 18px;
-		}
-	div#contenu div#contenuEspaceMembre div#connexionEspMem form{
-		text-align : left;
-		}
-	div#contenu div#contenuEspaceMembre div#inscription{
-		display : table-cell;
-		width : 50%;
-		padding-right: 18px;
-		}
-	div#contenu div#contenuEspaceMembre_home{
-		display : table;
-		width : 100%;
-		}
-	div#contenu div#contenuEspaceMembre{
-		width : 100%;
-		display : block;
-		}
-	div#contenu  section div#contenuEspaceMembre article section.affichagePartie{
-		display : table;
-		width : 100%;
-		}
-	div#contenu  section div#contenuEspaceMembre article section.affichagePartie div.descVin{
-		display : table-cell;
-		width : 50%;
-		padding-left : 10px;
-		text-align : left;}
-	div#contenu  section div#contenuEspaceMembre article section.affichagePartie div.descPartie{
-		display : table-cell;
-		width : 50%;
-		padding-right : 20px;
-		text-align : right;}
-	
-	div.donneesVin p.jouer {float : right;}
-	p#descCourte{width : 45%; float : left;}
-	p#descLongue{width : 45%; float : left;}
-	
-	fieldset div.liste_deroulante{
-		display : inline-block;
-		float : left;
-		width : 40%;
-	}
-	fieldset div.ou{
-		display : inline-block;
-		float : left; 
-		width : 10%;
-		}
-
-	fieldset div.ajout{
-		display : inline-block;
-		float : left; 
-		width : 40%;
-	}
-	fieldset div.checkboxes{
-		column-count : 3;
-		column-gap : 1em;
-		 -webkit-column-count : 3;
-		 -webkit-column-gap : 1em;
-		 -moz-column-count : 3;
-		 -moz-column-gap : 1em;
-	}
 	
 }

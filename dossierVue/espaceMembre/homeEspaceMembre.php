@@ -37,7 +37,7 @@
 				<label>Mot de passe </label><span class = "ALaLigne"><br/></span><input type = "password" name= "password" required><br>
 				<label>Validez votre mot de passe </label><span class = "ALaLigne"><br/></span><input type = "password" name= "validationPassword" required><br>
 				<input type = "checkbox" name = "AgeOK">Je certifie avoir plus de 18 ans.<br/>
-				<input type = "Submit" name = "SInscrire" value = "Inscription">
+				<input type = "submit" name = "SInscrire" value = "Inscription">
 			</form>
 		</div>
 	</div>
