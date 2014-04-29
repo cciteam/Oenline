@@ -6,7 +6,7 @@ CREATE TABLE COURS (
     urlCours VARCHAR(100),
 	PRIMARY KEY (idCours)
     );
-
+	
 INSERT INTO COURS VALUES ('','degustation','degustation','Cours/cours01.html');
 INSERT INTO COURS VALUES ('','cepage','cepage','Cours/cours02.html');
 INSERT INTO COURS VALUES ('','appellation','appellation','Cours/cours03.html');
