@@ -68,12 +68,11 @@ class MetierOenline
 		$nomVin = $vin->nomVin;
 		$millesime = $vin->millesime;
 		$descCourte = $vin->descCourte;
-		$descCourte = $vin->descCourte;
+		$descLongue = $vin->descLongue;
 
 		//teste si le vin a bien tous les bons paramètres
-		if($nomVin == "" or $millesime == "" or $descCourte == "" or $descCourte=="")
+		if($nomVin == "" or $millesime == "" or $descCourte == "" or $descLongue=="")
 			throw new Exception("<br>Il faut remplir le nomVin, millesime, descCourte, descLongue dans l'objet vin");
-		
 		//ajoute le vin à la bdd, et retourne le vin avec un idVin alloué grace au auto-incrément
 		return $this->modele->ajouterVin($vin, $domaine, $appellation, $typeVin, $cepages, $robes, $nezz, $bouches);
 	}

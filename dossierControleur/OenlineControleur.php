@@ -7,7 +7,7 @@ function AfficherSection($Section){
 	$err_connexion = "";
 	if (!(ISSET($_POST['SeConnecter'])) and !(ISSET($_POST['SInscrire'])) and !(ISSET($_SESSION['Membre']))){
 		if (ISSET($_COOKIE["connexionOenline"])){
-			$membre=$controleur->trouverMembreParPseudo($_COOKIE["connexionOenline"]);
+			$membre=$metier->trouverMembreParPseudo($_COOKIE["connexionOenline"]);
 			$_SESSION['Membre']=serialize($membre[0]);
 		}
 	}
@@ -53,17 +53,7 @@ function AfficherSection($Section){
 	}
 	else afficherErreur("Home", $err_connexion,$membre);
 }	
-/*
-function AfficherCours($typeCours){
-	$cours = trouverCours(); /* obtention d'un tableau d'objets *//*
-	for ($i = 0; $i < count($cours); $i ++){ 
-		if ($cours->titreCours == $typeCours)
-			return $cours[$i];
-	}
-	return null;
 
-}
-*/
 function hash_password($password){
 	// 256 bits random string
 	$salt = bin2hex(mcrypt_create_iv(32, MCRYPT_DEV_URANDOM));
@@ -90,7 +80,7 @@ function check_password($password, $dbhash){
 
 function SeConnecter($email, $mdp){
 	include ('dossierControleur/appelControleur.php');
-	$m = $controleur->trouverMembreParMail($email);
+	$m = $metier->trouverMembreParMail($email);
 	$m = $m[0];
 	if (!empty($m)){
 		if (check_password($mdp,$m->motDePasse)){
@@ -111,7 +101,7 @@ function test_input($data)
 fonction d'échappement des données html, évite des ajouts impromptus dans les scripts
 */
      $data = trim($data); /* supprime les espaces en début et fin de chaine de caractères*/
-     $data = stripslashes($data);	/*supprime les antislash d'une chaîne*/
+     $data = addslashes($data);	/*ajoute des antislash à une chaine de caractères*/
      $data = htmlspecialchars($data);	/*Convertit les caractères spéciaux en entités HTML*/
      return $data;
 }
@@ -123,28 +113,28 @@ Si le paramètre est bien dans la base de données on renvoie le parametre, sino
 	include ('dossierControleur/appelControleur.php');
 	$trouve = true;
 	if ($recherche == "appellation"){
-		$appellations = $controleur->trouverAppellations();
+		$appellations = $metier->trouverAppellations();
 		$trouve = false; 
 		foreach ($appellations as $app){
 			if ($app->nomAppellation==$parametre->nomAppellation){$trouve = true; break;}
 		}
 	}
 	if ($recherche == "cepage"){
-		$cepages = $controleur->trouverCepages();
+		$cepages = $metier->trouverCepages();
 		$trouve = false; 
 		foreach ($cepages as $cep){
 			if ($cep->nomCepage==$parametre->nomCepage){$trouve = true; break;}
 		}
 	}
 	if ($recherche == "couleur"){
-		$couleurs = $controleur->trouverTypesVins();
+		$couleurs = $metier->trouverTypesVins();
 		$trouve = false; 
 		foreach ($couleurs as $col){
 			if ($col->nomTypeVin==$parametre->nomTypeVin){$trouve = true; break;}
 		}
 	}
 	if ($recherche == "new_domaine"){
-		$domaines = $controleur->trouverDomaines();
+		$domaines = $metier->trouverDomaines();
 		$trouve = false; 
 		foreach ($domaines as $dom){
 			if ($dom->nomDomaine==$parametre->nomDomaine){$trouve = true; break;}
@@ -177,7 +167,7 @@ function checkUsername($pseudo){
 		$error .="Votre pseudo ne peut contenir que des caractères alphanumériques et les symboles - et _. <br>";}
 	else {
 		include ('dossierControleur/appelControleur.php');
-		$membre = $controleur->trouverMembreParPseudo($pseudo);
+		$membre = $metier->trouverMembreParPseudo($pseudo);
 		if (!empty($membre[0])){
 			$error .= "Ce pseudo est déjà enregistré <br>";}
 	}
@@ -196,25 +186,33 @@ function checkPassword($mdp, $valMdp){
 	return $error;
 }
 function checkEmail($mail){
+	/* Vérifie que le format de l'email est valide, sinon renvoie un message d'erreur
+	Cette adresse ne doit pas déjà exister dans la base.*/
 	$error = "";
 	if (empty($mail)){
 		$error .= "Votre adresse mail est requise <br>";}
 	else if (!preg_match("/^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA_Z0-9-]+)+$/",$mail)){
 		$error .= "L'adresse mail renseignée n'est pas une adresse mail valide. <br>";}
+	else {
+		include ('dossierControleur/appelControleur.php');
+		$membre = $metier->trouverMembreParMail($mail);
+		if (!empty($membre[0])){
+			$error .= "Cette adresse email est déjà enregistrée <br>";}
+	}
 	return $error;
 }
 function getAffichagePartie($parties){
 	include ('dossierControleur/appelControleur.php');
 	$affichagePartie = null;
 	foreach($parties as $p){
-		$vin = $controleur->trouverVinParIdVin($p->idVin);
-		$domaine = $controleur->trouverDomainesParVin($vin[0]);
-		$appellation = $controleur->trouverAppellationsParVin($vin[0]);
-		$cepages = $controleur->trouverCepagesParVin($vin[0]);
-		$typeVin = $controleur->trouverTypesVinsParVin($vin[0]);
-		$robes = $controleur ->trouverRobesParVin($vin[0]);
-		$nez = $controleur ->trouverNezParVin($vin[0]);
-		$bouches = $controleur ->trouverBouchesParVin($vin[0]);
+		$vin = $metier->trouverVinParIdVin($p->idVin);
+		$domaine = $metier->trouverDomainesParVin($vin[0]);
+		$appellation = $metier->trouverAppellationsParVin($vin[0]);
+		$cepages = $metier->trouverCepagesParVin($vin[0]);
+		$typeVin = $metier->trouverTypesVinsParVin($vin[0]);
+		$robes = $metier ->trouverRobesParVin($vin[0]);
+		$nez = $metier ->trouverNezParVin($vin[0]);
+		$bouches = $metier ->trouverBouchesParVin($vin[0]);
 		$affichagePartie[] = array(
 			'partie' => $p,
 			'vin' => $vin[0],
@@ -231,7 +229,7 @@ function getAffichagePartie($parties){
 function existe($param){
 	include ('dossierControleur/appelControleur.php');
 	if (get_class($param)== "Domaine"){
-		$domaines = $controleur->trouverDomaines();
+		$domaines = $metier->trouverDomaines();
 		foreach ($domaines as $d){
 			if (strcasecmp($d->nomDomaine ,$param->nomDomaine)==0){
 				return true;
@@ -240,7 +238,7 @@ function existe($param){
 		return false;
 	}
 	else if (get_class($param)== "Appellation"){
-		$appellations = $controleur->trouverAppellations();
+		$appellations = $metier->trouverAppellations();
 		foreach ($appellations as $a){
 			if (strcasecmp($a->nomAppellation ,$param->nomAppellation)==0){
 				return true;
@@ -249,7 +247,7 @@ function existe($param){
 		return false;
 	}
 	else if (get_class($param) == "Cepage"){
-		$cepages = $controleur->trouverCepages();
+		$cepages = $metier->trouverCepages();
 		foreach ($cepages as $c){
 			if (strcasecmp($c->nomCepage,$param->nomCepage)==0){
 				return true;
@@ -283,7 +281,7 @@ function afficherCours($Section, $err_connexion,$membre){
 	if (ISSET($_GET['typeCours'])){
 		$type_typeCours = test_input($_GET['typeCours']);
 		if (($type_typeCours == 'degustation') or ($type_typeCours == 'cepage') or ($type_typeCours == 'appellation')){
-			$Cours = $controleur -> trouverCoursParTitreCours($type_typeCours); // récupération d'un tableau d'objets de type Cours
+			$Cours = $metier -> trouverCoursParTitreCours($type_typeCours); // récupération d'un tableau d'objets de type Cours
 			ob_start();
 			require_once($Cours[0]->urlCours);
 			$contenu_section_cours=ob_get_clean();
@@ -298,9 +296,9 @@ function afficherVinsReferences($Section, $err_connexion, $membre){
 	include ('dossierControleur/appelControleur.php');
 	$nav_cours = $nav_jeu = $nav_espMembre = "inactif";
 	$nav_vinsRef = "actif";
-	$appellations = $controleur->trouverAppellations();
-	$cepages_tout = $controleur->trouverCepages();
-	$couleurs = $controleur->trouverTypesVins();	
+	$appellations = $metier->trouverAppellations();
+	$cepages_tout = $metier->trouverCepages();
+	$couleurs = $metier->trouverTypesVins();	
 	if (ISSET($_GET['parametre'])){
 		if (!empty($_GET['parametre'])){
 			$parametre = test_input($_GET['parametre']);
@@ -313,7 +311,7 @@ function afficherVinsReferences($Section, $err_connexion, $membre){
 				}
 				if ($parametre != ""){
 					$rech_param = $parametre->nomAppellation;
-					$vins = $controleur->trouverVinsParAppellation($parametre);
+					$vins = $metier->trouverVinsParAppellation($parametre);
 				}
 				else {header('location:home.php?Section=VinsReferences');}
 			}
@@ -326,7 +324,7 @@ function afficherVinsReferences($Section, $err_connexion, $membre){
 				}
 				if ($parametre !=""){
 					$rech_param = $parametre->nomCepage;
-					$vins = $controleur->trouverVinsParCepage($parametre);
+					$vins = $metier->trouverVinsParCepage($parametre);
 				}
 				else {header('location:home.php?Section=VinsReferences');}
 			}
@@ -339,7 +337,7 @@ function afficherVinsReferences($Section, $err_connexion, $membre){
 				}
 				if ($parametre !=""){
 					$rech_param = $parametre->nomTypeVin;
-					$vins = $controleur->trouverVinsParTypeVin($parametre);
+					$vins = $metier->trouverVinsParTypeVin($parametre);
 				}
 				else {
 					header('location:home.php?Section=VinsReferences');
@@ -349,12 +347,12 @@ function afficherVinsReferences($Section, $err_connexion, $membre){
 			else if (ISSET($_GET['Rechercher_par_nomDomaine'])){
 				$recherche = "domaine";
 				$rech_param = $parametre;
-				$vins= $controleur->trouverVinsParNomDeDomaine($parametre);
+				$vins= $metier->trouverVinsParNomDeDomaine($parametre);
 			}
 			else if (ISSET($_GET['Rechercher_par_nomVin'])){
 				$recherche = "nom";
 				$rech_param = $parametre;
-				$vins= $controleur->trouverVinsParNom($parametre);
+				$vins= $metier->trouverVinsParNom($parametre);
 			}
 			else {
 				header('location:home.php?Section=Erreur');
@@ -362,14 +360,14 @@ function afficherVinsReferences($Section, $err_connexion, $membre){
 			}
 		}
 		if (!empty($vins)){
-			$domaines = $controleur->trouverDomainesParVin($vins[0]);
+			$domaines = $metier->trouverDomainesParVin($vins[0]);
 			$affichage_vins[0]['domaine'] = $domaines[0];
 			$pos_domaine = 0;
 			for($i = 0; $i<count($vins); $i++){
-				$domaines = $controleur->trouverDomainesParVin($vins[$i]);
-				$cepages = $controleur->trouverCepagesParVin($vins[$i]);
-				$typeVin = $controleur->trouverTypesVinsParVin($vins[$i]);
-				$appellation = $controleur->trouverAppellationsParVin($vins[$i]);
+				$domaines = $metier->trouverDomainesParVin($vins[$i]);
+				$cepages = $metier->trouverCepagesParVin($vins[$i]);
+				$typeVin = $metier->trouverTypesVinsParVin($vins[$i]);
+				$appellation = $metier->trouverAppellationsParVin($vins[$i]);
 				if ($domaines[0]->nomDomaine != $affichage_vins[$pos_domaine]['domaine']->nomDomaine){
 					$pos_domaine++;
 					$affichage_vins[$pos_domaine]['domaine'] = $domaines[0];
@@ -409,17 +407,17 @@ function afficherJeu($Section, $err_connexion, $access_User, $membre){
 		} 
 		else if (ISSET($_GET['idVinJeu'])){
 			$idVinJeu = intval($_GET['idVinJeu']);
-			$vin = ($controleur->trouverVinParIdVin($idVinJeu));
+			$vin = ($metier->trouverVinParIdVin($idVinJeu));
 			if (!empty($vin)){
 				/* Si au moins un vin est retourné*/
 				$vin = $vin[0];
-				$domaine = $controleur->trouverDomainesParVin($vin);
-				$appellation = $controleur->trouverAppellationsParVin($vin);
-				$cepages = $controleur->trouverCepagesParVin($vin);
-				$couleur = $controleur->trouverTypesVinsParVin($vin);
-				$bouches = $controleur->trouverBouchesParTypeVin($couleur[0]);
-				$nez = $controleur->trouverNezParTypeVin($couleur[0]);
-				$robes = $controleur->trouverRobesParTypeVin($couleur[0]);
+				$domaine = $metier->trouverDomainesParVin($vin);
+				$appellation = $metier->trouverAppellationsParVin($vin);
+				$cepages = $metier->trouverCepagesParVin($vin);
+				$couleur = $metier->trouverTypesVinsParVin($vin);
+				$bouches = $metier->trouverBouchesParTypeVin($couleur[0]);
+				$nez = $metier->trouverNezParTypeVin($couleur[0]);
+				$robes = $metier->trouverRobesParTypeVin($couleur[0]);
 			}
 			/* Sinon, si aucun vin trouvé par la requète afficher une erreur.*/
 			else $error_trouver_vin_par_id = "<p>Aucun vin trouvé avec cet identifiant. <br/>Nous vous invitons à consulter la 
@@ -428,7 +426,8 @@ function afficherJeu($Section, $err_connexion, $access_User, $membre){
 		if (ISSET($_POST["ValiderDegust"])){
 			$vin = $_POST['vin'];
 			$vin = unserialize(base64_decode($vin));
-			$partie = new Partie(null, date('Y-m-d'),null, $_POST['AvisMembre'],$vin->idVin, $membre->idMembre);
+			$avis_membre = test_input($_POST['AvisMembre']);
+			$partie = new Partie(null, date('Y-m-d'),null, $avis_membre, $vin->idVin, $membre->idMembre);
 			$robess;
 			$nezz;
 			$bouchess;
@@ -452,11 +451,14 @@ function afficherJeu($Section, $err_connexion, $access_User, $membre){
 			}
 			else $error_jeu .= "Vous n'avez pas donné vos impressions sur la bouche de ce vin!<BR/>";
 			if ($error_jeu == ""){
-				$partie = $controleur->ajouterPartie($partie, $vin, $membre,$robess, $nezz, $bouchess);
-				$gouts = $controleur->trouverBouchesParVin($vin);
-				$odeurs = $controleur->trouverNezParVin($vin);
-				$aspects = $controleur->trouverRobesParVin($vin);
-				require ('dossierVue/jeu/JeuResultat.php');
+				try {
+					$partie = $metier->ajouterPartie($partie, $vin, $membre,$robess, $nezz, $bouchess);
+					$gouts = $metier->trouverBouchesParVin($vin);
+					$odeurs = $metier->trouverNezParVin($vin);
+					$aspects = $metier->trouverRobesParVin($vin);
+					require ('dossierVue/jeu/JeuResultat.php');
+				}
+				catch (Exception $exc){ header('location:home.php?Section=Erreur');}
 			}
 			else {require('dossierVue/jeu/JeuFormulaire.php');}
 		}
@@ -505,10 +507,11 @@ function afficherEspaceMembre($Section, $err_connexion, $access_User, $access_Ad
 				$password = hash_password($password);
 				$membre = new Membre(null, $pseudo, $nom, $password, $email, 2);
 				$groupe = new Groupe(2, "user");
-				$membre = $controleur->AjouterMembre($membre, $groupe);
+				$membre = $metier->AjouterMembre($membre, $groupe);
 				$_SESSION['Membre']=serialize($membre);
-				require ('dossierVue/espaceMembre/EspaceMembre_user.php');
 				$affichage = "";
+				require ('dossierVue/espaceMembre/EspaceMembre_user.php');
+
 			}
 			/*Si des erreurs sont reconnues dans l'inscription, réafficher le formulaire avec les erreurs*/
 			else require ('dossierVue/espaceMembre/homeEspaceMembre.php');
@@ -522,7 +525,7 @@ function afficherEspaceMembre($Section, $err_connexion, $access_User, $access_Ad
 		$affichage = "";
 		$parties = null;
 		if (!ISSET($groupe)){
-			$groupes = $controleur->trouverGroupes();
+			$groupes = $metier->trouverGroupes();
 			foreach ($groupes as $g){
 				if ($g->idGroupe == $membre->idGroupe){
 					$groupe = $g;
@@ -538,7 +541,7 @@ function afficherEspaceMembre($Section, $err_connexion, $access_User, $access_Ad
 			}
 		}
 		if ($affichage == 'MesParties'){
-			$parties = $controleur->trouverPartiesParMembre($membre);
+			$parties = $metier->trouverPartiesParMembre($membre);
 			/*Le tableau affichage partie comporte: 
 				- la partie
 				- le vin joué
@@ -565,10 +568,10 @@ function afficherEspaceMembre($Section, $err_connexion, $access_User, $access_Ad
 					/*préparation de l'affichage de la première page du formulaire*/
 					$nomVin = "";
 					$millesime = "";
-					$domaines = $controleur->trouverDomaines();
-					$appellations = $controleur->trouverAppellations();
-					$cepages = $controleur->trouverCepages();
-					$typesVins = $controleur->trouverTypesVins();
+					$domaines = $metier->trouverDomaines();
+					$appellations = $metier->trouverAppellations();
+					$cepages = $metier->trouverCepages();
+					$typesVins = $metier->trouverTypesVins();
 					$error_enregistrement_appellation = "";
 					$error_enregistrement_cepage = "";
 					$error_enregistrement_domaine = "";
@@ -597,8 +600,8 @@ function afficherEspaceMembre($Section, $err_connexion, $access_User, $access_Ad
 							else {
 								$domaine = new Domaine(null, $nomDomaine, $urlDomaine);
 								if (!existe($domaine)){
-									$controleur->ajouterDomaine($domaine);
-									$domaines = $controleur->trouverDomaines();
+									$metier->ajouterDomaine($domaine);
+									$domaines = $metier->trouverDomaines();
 								}
 								else{
 									$error_enregistrement_domaine .= "Une erreur est survenue pendant l'enregistrement du domaine. Il est possible que celui-ci existe déjà. Vérifiez qu'il n'est pas dans la liste avant de réessayer";
@@ -615,8 +618,8 @@ function afficherEspaceMembre($Section, $err_connexion, $access_User, $access_Ad
 							else {
 								$appellation = new Appellation(null, $nomAppellation);
 								if (!existe($appellation)){
-									$controleur->ajouterAppellation($appellation);
-									$appellations = $controleur->touverDomaines();
+									$metier->ajouterAppellation($appellation);
+									$appellations = $metier->touverDomaines();
 								}
 								else{
 									$error_enregistrement_appellation .= "Une erreur est survenue lors de l'enregistrement de l'appellation. Il est probable que celle-ci existe déjà. Veuillez vérifier qu'elle n'est pas dans la liste avant de réessayer.";
@@ -633,8 +636,8 @@ function afficherEspaceMembre($Section, $err_connexion, $access_User, $access_Ad
 							else {
 								$cepage = new Cepage (null, $nomCepage);
 								if (!existe($cepage)){
-									$controleur->ajouterCepage($cepage);
-									$cepages = $controleur->trouverCepages();
+									$metier->ajouterCepage($cepage);
+									$cepages = $metier->trouverCepages();
 								}
 								else{
 									$error_enregistrement_cepage .= "Une erreur est survenue lors de l'enregistrement du cépage. Veuillez vérifier que ce cépage n'est pas dans la liste avant de réessayer. ";
@@ -716,9 +719,9 @@ function afficherEspaceMembre($Section, $err_connexion, $access_User, $access_Ad
 				else if ($page == 2){
 					$tv = unserialize(base64_decode($_SESSION['typeVin']));
 					if ($tv){
-						$robes = $controleur->trouverRobesParTypeVin($tv);
-						$nez = $controleur->trouverNezParTypeVin($tv);
-						$bouches = $controleur->trouverBouchesParTypeVin($tv);
+						$robes = $metier->trouverRobesParTypeVin($tv);
+						$nez = $metier->trouverNezParTypeVin($tv);
+						$bouches = $metier->trouverBouchesParTypeVin($tv);
 						if (ISSET($_POST['Val_page2'])){
 							/*Cette page ne doit être validée que si des bouches, nez et robes ont été cochées*/
 							$error_enregistrement = "";
@@ -787,11 +790,11 @@ function afficherEspaceMembre($Section, $err_connexion, $access_User, $access_Ad
 						/* Si le formulaire de la page 3 est validé, vérifier que des textes ont été 
 						rentrés pour les descriptions courte et longue du vin*/
 						$error_enregistrement = "";
-						$descCourte = $_POST['descCourte'];
+						$descCourte = test_input($_POST['descCourte']);
 						if (empty($descCourte)){
 							$error_enregistrement .= "Vous devez renseigner un courte description du vin. <br/>";
 						}
-						$descLongue = $_POST['descLongue'];
+						$descLongue = test_input($_POST['descLongue']);
 						if (empty($descLongue)){
 							$error_enregistrement .= "Vous devez renseigner un description détaillée de votre dégustation. <br/>";
 						}
@@ -810,7 +813,7 @@ function afficherEspaceMembre($Section, $err_connexion, $access_User, $access_Ad
 								nécessaires à l'enregistrement du vin sont bien remplis.*/
 								$vin = new Vin (null, $_SESSION['nomVin'], $_SESSION['millesime'], $descCourte, $descLongue,$domaine->idDomaine, $appellation->idAppellation, $typeVin->idTypeVin);
 								try{
-									$controleur->ajouterVin($vin, $domaine, $appellation, $typeVin, $cepages, $robes, $nez, $bouches);
+									$metier->ajouterVin($vin, $domaine, $appellation, $typeVin, $cepages, $robes, $nez, $bouches);
 									$contenu_ajouterVin = "<h3>Votre vin a bien été ajouté. Merci de votre participation !</h3>";
 									$_SESSION['domaine'] = "";
 									$_SESSION['cepages'] = "";

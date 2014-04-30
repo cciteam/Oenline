@@ -55,7 +55,6 @@ class MySQLORM implements ORM
 			$vin->idDomaine=$domaine->idDomaine;
 			$vin->idAppellation=$appellation->idAppellation;
 			$vin->idTypeVin=$typeVin->idTypeVin;
-
 			$this->connexion->commencerTransaction();
 			$vin=$this->vinDAO->ajouter($vin);
 
